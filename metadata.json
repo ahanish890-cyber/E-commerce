@@ -1,0 +1,7 @@
+{
+  "name": "OmniFit SaaS - Enterprise Virtual Try-On",
+  "description": "A production-grade fashion e-commerce platform featuring an AI-powered real-time virtual try-on system, high-performance product discovery, and Amazon-style usability.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,48 @@
+
+OmniFit Enterprise SaaS Architecture
+====================================
+
+[ Client Layer ]
+- React 18 SPA (TypeScript)
+- Tailwind CSS UI Framework
+- MediaPipe WASM (Client-side Human Body Detection)
+- WebRTC Camera Streaming
+
+[ Edge / CDN Layer ]
+- Static Asset Hosting (Vercel/AWS S3)
+- Global Load Balancing
+- Cloudflare Workers (Latency optimization)
+
+[ AI Pipeline Layer ]
+- Gemini 3 API (Real-time Styling Intelligence)
+- Real-time Frame Processor (<200ms Target)
+- Pose Estimation Engine
+- Mesh Overlay Renderer (WebGL)
+
+[ Backend Layer (Microservices) ]
+- Product Catalog Service (Node.js/Go)
+- User & Auth Service (JWT/OIDC)
+- Cart & Transaction Orchestrator
+- Image Processor (Thumbnailing & AR asset optimization)
+
+[ Data Layer ]
+- PostgreSQL (Transactional: Orders, Users)
+- Redis (Session & Inventory Caching)
+- Pinecone (Vector Search: Visual Similarity)
+
+[ Security ]
+- TLS 1.3 Encryption
+- Camera Permission Sandboxing
+- PCI-DSS Compliance for Payments
+- GDPR/CCPA Privacy Safeguards
+
+Product Value Proposition:
+1. Increase Conversion: Reduce "fit hesitation" through 1:1 AR visualization.
+2. Reduce Returns: Customers select the right size/style more accurately.
+3. Market Differentiation: High-tech Amazon-like experience with exclusive AR tech.
+
+Development Roadmap:
+Q1: MVP Core E-commerce Engine & Amazon UI
+Q2: Integration of Gemini Stylist API & Client-side Pose Detection
+Q3: Vendor Portal (Sellers upload 3D/AR assets)
+Q4: Global Scalability & Mobile Native Apps

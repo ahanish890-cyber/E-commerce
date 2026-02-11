@@ -1,0 +1,87 @@
+<svg width="400" height="700" viewBox="0 0 400 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Trench Coat Shape -->
+  <defs>
+    <linearGradient id="coatGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(210,180,140);stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:rgb(180,150,110);stop-opacity:0.9" />
+    </linearGradient>
+    <filter id="coatShadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- Main coat body -->
+  <path d="M 70 100 
+           L 100 80 
+           L 130 80
+           C 140 80, 150 90, 150 100
+           L 150 120
+           L 200 120
+           L 250 120
+           L 250 100
+           C 250 90, 260 80, 270 80
+           L 300 80
+           L 330 100
+           L 350 160
+           L 340 200
+           L 340 600
+           L 320 650
+           L 280 650
+           L 260 600
+           L 260 200
+           L 200 200
+           L 140 200
+           L 140 600
+           L 120 650
+           L 80 650
+           L 60 600
+           L 60 200
+           L 50 160
+           Z" 
+        fill="url(#coatGradient)" 
+        stroke="rgba(100,80,60,0.5)" 
+        stroke-width="3"
+        filter="url(#coatShadow)"/>
+  
+  <!-- Lapels -->
+  <path d="M 150 120 L 180 200 L 200 180 L 200 120 Z" 
+        fill="rgba(180,150,110,0.8)" 
+        stroke="rgba(100,80,60,0.3)" 
+        stroke-width="2"/>
+  <path d="M 250 120 L 220 200 L 200 180 L 200 120 Z" 
+        fill="rgba(180,150,110,0.8)" 
+        stroke="rgba(100,80,60,0.3)" 
+        stroke-width="2"/>
+  
+  <!-- Buttons -->
+  <circle cx="200" cy="250" r="6" fill="rgba(80,60,40,0.8)" stroke="rgba(200,180,140,0.5)" stroke-width="1"/>
+  <circle cx="200" cy="320" r="6" fill="rgba(80,60,40,0.8)" stroke="rgba(200,180,140,0.5)" stroke-width="1"/>
+  <circle cx="200" cy="390" r="6" fill="rgba(80,60,40,0.8)" stroke="rgba(200,180,140,0.5)" stroke-width="1"/>
+  <circle cx="200" cy="460" r="6" fill="rgba(80,60,40,0.8)" stroke="rgba(200,180,140,0.5)" stroke-width="1"/>
+  
+  <!-- Belt -->
+  <rect x="80" y="380" width="240" height="20" rx="3" 
+        fill="rgba(100,80,60,0.7)" 
+        stroke="rgba(80,60,40,0.8)" 
+        stroke-width="2"/>
+  <rect x="180" y="375" width="40" height="30" rx="5" 
+        fill="rgba(150,130,100,0.8)" 
+        stroke="rgba(100,80,60,0.8)" 
+        stroke-width="2"/>
+  
+  <!-- Collar -->
+  <path d="M 150 100 C 150 90, 160 80, 170 80 L 200 80 L 230 80 C 240 80, 250 90, 250 100 L 250 120 L 200 140 L 150 120 Z" 
+        fill="rgba(200,180,140,0.6)" 
+        stroke="rgba(100,80,60,0.4)" 
+        stroke-width="2"/>
+  
+  <!-- Pockets -->
+  <rect x="100" y="280" width="50" height="60" rx="5" 
+        fill="none" 
+        stroke="rgba(100,80,60,0.5)" 
+        stroke-width="2"/>
+  <rect x="250" y="280" width="50" height="60" rx="5" 
+        fill="none" 
+        stroke="rgba(100,80,60,0.5)" 
+        stroke-width="2"/>
+</svg>
