@@ -1,0 +1,169 @@
+[
+  {
+    "id": "user-1",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "passwordHash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "role": "customer",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "name": "Jane Doe",
+        "street": "742 Evergreen Terrace",
+        "city": "Springfield",
+        "state": "OR",
+        "zipCode": "97477",
+        "country": "United States",
+        "phone": "+1 (555) 234-5678",
+        "isDefault": true
+      }
+    ],
+    "wishlist": [
+      "w-dress-2",
+      "a-bag-1"
+    ],
+    "createdAt": "2026-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "user-admin",
+    "name": "OmniFit Admin",
+    "email": "admin@omnifit.com",
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "admin",
+    "addresses": [
+      {
+        "id": "addr-admin",
+        "name": "OmniFit HQ",
+        "street": "410 Terry Ave N",
+        "city": "Seattle",
+        "state": "WA",
+        "zipCode": "98109",
+        "country": "United States",
+        "phone": "+1 (206) 555-0100",
+        "isDefault": true
+      }
+    ],
+    "wishlist": [],
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "user-1791822246775",
+    "name": "Automated Tester",
+    "email": "test_1791822246751@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:24:06.775Z"
+  },
+  {
+    "id": "user-1791822284030",
+    "name": "Automated Tester",
+    "email": "test_1791822284008@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:24:44.030Z"
+  },
+  {
+    "id": "user-1791822301669",
+    "name": "Automated Tester",
+    "email": "test_1791822301658@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:25:01.669Z"
+  },
+  {
+    "id": "user-1791823933791",
+    "name": "Automated Tester",
+    "email": "test_1791823933770@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:52:13.791Z"
+  },
+  {
+    "id": "user-1791824016926",
+    "name": "Automated Tester",
+    "email": "test_1791824016910@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:53:36.926Z"
+  },
+  {
+    "id": "user-1791824073904",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791824073893@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:54:33.904Z"
+  },
+  {
+    "id": "user-1791824106215",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791824106187@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:55:06.215Z"
+  },
+  {
+    "id": "user-1791824134785",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791824134772@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T16:55:34.785Z"
+  },
+  {
+    "id": "user-1791825480429",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791825480414@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T17:18:00.429Z"
+  },
+  {
+    "id": "user-1791825722326",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791825722310@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T17:22:02.326Z"
+  },
+  {
+    "id": "user-1791825753283",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791825753278@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T17:22:33.283Z"
+  },
+  {
+    "id": "user-1791825823496",
+    "name": "OmniFit Test Customer",
+    "email": "test_1791825823481@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-12T17:23:43.497Z"
+  }
+]

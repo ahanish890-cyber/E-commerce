@@ -1,0 +1,20 @@
+{
+  "51ed06ccb1b68cc5a1edd55fe325bab6496bb5c6dcca487f4ec84ef2ed13e9cb": {
+    "userId": "user-1",
+    "email": "jane@example.com",
+    "role": "customer",
+    "expiresAt": 1793207900519
+  },
+  "9160603e9ab54d57c2cbd64a793dc4d3a85a4867ca9a4af902ed35d5d1f78ea8": {
+    "userId": "user-1",
+    "email": "jane@example.com",
+    "role": "customer",
+    "expiresAt": 1793249268462
+  },
+  "9407ff3467a8967fd160fd0250a3cee9b15b57cf01e0922c04d8cb4edf5c7567": {
+    "userId": "user-1",
+    "email": "jane@example.com",
+    "role": "customer",
+    "expiresAt": 1793249285058
+  }
+}

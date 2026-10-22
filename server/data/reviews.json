@@ -1,0 +1,35 @@
+[
+  {
+    "id": "rev-1",
+    "productId": "w-dress-1",
+    "userId": "user-1",
+    "userName": "Jane D.",
+    "rating": 5,
+    "title": "Incredible tailoring and water resistance!",
+    "comment": "The fabric feels like a high-end designer trench costing three times as much. The AR try-on predicted the fit on my shoulders accurately.",
+    "verifiedPurchase": true,
+    "createdAt": "2026-10-04T12:00:00.000Z"
+  },
+  {
+    "id": "rev-2",
+    "productId": "w-dress-1",
+    "userId": "user-2",
+    "userName": "Sarah K.",
+    "rating": 5,
+    "title": "Classic silhouette, beautiful horn buttons",
+    "comment": "Wore it on a rainy commute and stayed completely dry. The beige tone is subtle and elegant.",
+    "verifiedPurchase": true,
+    "createdAt": "2026-09-28T09:30:00.000Z"
+  },
+  {
+    "id": "rev-3",
+    "productId": "m-shirt-1",
+    "userId": "user-3",
+    "userName": "Marcus L.",
+    "rating": 5,
+    "title": "The ideal Oxford shirt",
+    "comment": "Heavy duty cotton that doesn't crease easily. Collar roll is perfect under a blazer.",
+    "verifiedPurchase": true,
+    "createdAt": "2026-09-15T16:45:00.000Z"
+  }
+]

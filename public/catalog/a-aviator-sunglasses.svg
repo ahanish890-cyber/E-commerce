@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbf7" />
+      <stop offset="100%" stop-color="#f4ede4" />
+    </linearGradient>
+    <linearGradient id="lens" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="60%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="frame" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="50%" stop-color="#ca8a04" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg)" />
+  <g transform="translate(70, 260)" filter="url(#shadow)">
+    <!-- Bridge & Brow Bar -->
+    <path d="M180,60 L280,60" stroke="url(#frame)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M195,85 C220,70 240,70 265,85" fill="none" stroke="url(#frame)" stroke-width="7" stroke-linecap="round"/>
+
+    <!-- Left Lens -->
+    <path d="M70,80 C110,65 190,65 195,110 C200,180 180,240 130,240 C80,240 50,180 50,120 C50,90 60,80 70,80 Z" fill="url(#lens)" stroke="url(#frame)" stroke-width="9"/>
+    <!-- Left Lens Reflection -->
+    <path d="M80,95 C100,85 150,85 160,110" fill="none" stroke="#94a3b8" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+
+    <!-- Right Lens -->
+    <path d="M390,80 C350,65 270,65 265,110 C260,180 280,240 330,240 C380,240 410,180 410,120 C410,90 400,80 390,80 Z" fill="url(#lens)" stroke="url(#frame)" stroke-width="9"/>
+    <!-- Right Lens Reflection -->
+    <path d="M380,95 C360,85 310,85 300,110" fill="none" stroke="#94a3b8" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+
+    <!-- Temples / Arms -->
+    <path d="M50,105 L5,75" stroke="url(#frame)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M410,105 L455,75" stroke="url(#frame)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f5" />
+      <stop offset="100%" stop-color="#fed7d7" />
+    </linearGradient>
+    <linearGradient id="patent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48" />
+      <stop offset="50%" stop-color="#be123c" />
+      <stop offset="100%" stop-color="#881337" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#881337" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg)" />
+  <g transform="translate(100, 260)" filter="url(#shadow)">
+    <!-- High Heel Stiletto Spike -->
+    <path d="M120,220 L110,360 L125,360 L145,220 Z" fill="#4c0519"/>
+    <rect x="110" y="355" width="15" height="12" rx="2" fill="#111827"/>
+
+    <!-- Pump Silhouette -->
+    <path d="M110,220 C140,240 220,280 320,290 C380,295 430,300 460,320 C420,340 340,345 280,340 C200,335 150,280 110,220 Z" fill="url(#patent)"/>
+    
+    <!-- Sole & Insole -->
+    <path d="M130,220 C180,260 260,300 350,310 C330,315 240,310 170,260 Z" fill="#fecdd3" opacity="0.8"/>
+    <!-- Patent Gloss Highlight -->
+    <path d="M170,245 C230,280 300,300 360,305" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+  </g>
+</svg>

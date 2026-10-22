@@ -27,7 +27,7 @@ export const DiffusionTryOn: React.FC<DiffusionTryOnProps> = ({ product, onClose
   const [apiHealthy, setApiHealthy] = useState<boolean | null>(null);
 
   // Get API URL from environment variable
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3003';
+  const API_URL = ((import.meta as any).env?.VITE_API_URL) || 'http://localhost:3003';
 
   // Check API health on mount
   useEffect(() => {
@@ -630,7 +630,7 @@ export const DiffusionTryOn: React.FC<DiffusionTryOnProps> = ({ product, onClose
                           style={{ left: `${sliderPosition}%` }}
                           onMouseDown={(e) => {
                             const handleMouseMove = (e: MouseEvent) => {
-                              const rect = e.currentTarget?.parentElement?.getBoundingClientRect();
+                              const rect = (e.currentTarget as HTMLElement | null)?.parentElement?.getBoundingClientRect();
                               if (rect) {
                                 const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
                                 setSliderPosition((x / rect.width) * 100);

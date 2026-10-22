@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbf7" />
+      <stop offset="100%" stop-color="#f0ebe1" />
+    </linearGradient>
+    <linearGradient id="suede" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="50%" stop-color="#92400e" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+    <linearGradient id="rubber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#292524" />
+      <stop offset="100%" stop-color="#1c1917" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#78350f" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg)" />
+  <g transform="translate(100, 200)" filter="url(#shadow)">
+    <!-- Pull Tab -->
+    <path d="M170,90 L170,50 L190,50 L190,90 Z" fill="#451a03" />
+
+    <!-- Chelsea Boot Upper Silhouette -->
+    <path d="M160,90 L240,90 C250,150 250,200 320,240 C370,270 420,300 440,340 L120,340 C120,300 130,200 160,90 Z" fill="url(#suede)"/>
+
+    <!-- Elastic Side Gusset -->
+    <polygon points="180,105 220,105 230,210 170,210" fill="#292524" rx="4"/>
+    <line x1="190" y1="110" x2="185" y2="205" stroke="#44403c" stroke-width="2"/>
+    <line x1="200" y1="110" x2="200" y2="205" stroke="#44403c" stroke-width="2"/>
+    <line x1="210" y1="110" x2="215" y2="205" stroke="#44403c" stroke-width="2"/>
+
+    <!-- Chunky Lugged Rubber Sole & Heel -->
+    <path d="M110,340 L450,340 C450,360 440,370 420,370 L110,370 Z" fill="url(#rubber)"/>
+    <rect x="110" y="370" width="80" height="30" fill="url(#rubber)" rx="4"/>
+    <!-- Sole Lug Treads -->
+    <rect x="230" y="370" width="20" height="15" fill="#44403c" />
+    <rect x="270" y="370" width="20" height="15" fill="#44403c" />
+    <rect x="310" y="370" width="20" height="15" fill="#44403c" />
+    <rect x="350" y="370" width="20" height="15" fill="#44403c" />
+    <rect x="390" y="370" width="20" height="15" fill="#44403c" />
+  </g>
+</svg>

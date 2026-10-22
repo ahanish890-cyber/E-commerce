@@ -1,92 +1,1119 @@
-
 import { Product } from './types';
 
-export const DEFAULT_PRODUCT_IMAGE = '/Dress-1.png';
+export const DEFAULT_PRODUCT_IMAGE = '/fallback-product.svg';
 
-// Model-worn clothing images from /public folder
+export interface CategoryOption {
+  id: string;
+  label: string;
+  subcategory?: string;
+  category?: string;
+}
+
+export const GENDER_TABS = [
+  { id: 'all', label: 'All Departments' },
+  { id: 'women', label: "Women's Fashion" },
+  { id: 'men', label: "Men's Fashion" },
+  { id: 'kids', label: 'Kids & Baby' },
+  { id: 'footwear', label: 'Footwear' },
+  { id: 'accessories', label: 'Bags & Accessories' }
+];
+
+export const SUBCATEGORIES_BY_GENDER: Record<string, CategoryOption[]> = {
+  all: [
+    { id: 'all', label: 'All Items' },
+    { id: 'dresses', label: 'Dresses' },
+    { id: 'shirts', label: 'Shirts & Tops' },
+    { id: 'jeans', label: 'Jeans & Denim' },
+    { id: 'jackets', label: 'Jackets & Coats' },
+    { id: 'sneakers', label: 'Sneakers' },
+    { id: 'bags', label: 'Handbags & Totes' }
+  ],
+  women: [
+    { id: 'all', label: 'All Women' },
+    { id: 'dresses', label: 'Dresses' },
+    { id: 'tops', label: 'Tops & Blouses' },
+    { id: 'jeans', label: 'Jeans & Denim' },
+    { id: 'trousers', label: 'Pants & Trousers' },
+    { id: 'ethnic_wear', label: 'Ethnic & Kurtas' },
+    { id: 'blazers', label: 'Blazers & Suits' },
+    { id: 'jackets', label: 'Jackets & Coats' }
+  ],
+  men: [
+    { id: 'all', label: 'All Men' },
+    { id: 'shirts', label: 'Casual & Formal Shirts' },
+    { id: 'kurtas', label: 'Kurtas & Ethnic' },
+    { id: 'jackets', label: 'Jackets & Outerwear' }
+  ],
+  kids: [
+    { id: 'all', label: 'All Kids' },
+    { id: 'boys', label: 'Boys Clothing' },
+    { id: 'girls', label: 'Girls Clothing' },
+    { id: 'baby', label: 'Baby & Toddler' }
+  ],
+  footwear: [
+    { id: 'all', label: 'All Footwear' },
+    { id: 'sneakers', label: 'Sneakers' },
+    { id: 'formal_shoes', label: 'Formal Shoes & Oxfords' },
+    { id: 'boots', label: 'Boots & Chelsea' },
+    { id: 'heels', label: 'Heels & Pumps' }
+  ],
+  accessories: [
+    { id: 'all', label: 'All Accessories' },
+    { id: 'bags', label: 'Totes & Bags' },
+    { id: 'watches', label: 'Watches' },
+    { id: 'sunglasses', label: 'Sunglasses' },
+    { id: 'belts', label: 'Belts & Wallets' }
+  ]
+};
+
+// Available department-specific sizes for filter sidebar
+export const DEPARTMENT_SIZES: Record<string, string[]> = {
+  all: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34', 'US 7', 'US 8', 'US 9', 'US 10'],
+  women: ['XS', 'S', 'M', 'L', 'XL', '26', '28', '30', '32', 'US 6', 'US 7', 'US 8', 'US 9', 'One Size'],
+  men: ['S', 'M', 'L', 'XL', 'XXL', '32', '34', '36', '38', 'US 8', 'US 9', 'US 10', 'US 11', 'US 12'],
+  kids: ['0-3M', '3-6M', '6-12M', '3-4Y', '5-6Y', '7-8Y', '9-10Y'],
+  footwear: ['US 6', 'US 7', 'US 8', 'US 9', 'US 10', 'US 11', 'US 12'],
+  accessories: ['One Size', 'Standard', '42mm', '32', '34', '36', '38']
+};
+
+export const FILTER_SIZES = DEPARTMENT_SIZES.all;
+export const FILTER_COLORS = [
+  { name: 'Black', hex: '#000000' },
+  { name: 'White', hex: '#FFFFFF' },
+  { name: 'Blue', hex: '#2563EB' },
+  { name: 'Navy', hex: '#1E3A8A' },
+  { name: 'Beige', hex: '#F5F5DC' },
+  { name: 'Red', hex: '#DC2626' },
+  { name: 'Green', hex: '#16A34A' },
+  { name: 'Brown', hex: '#78350F' }
+];
+
 export const MOCK_PRODUCTS: Product[] = [
   {
-    id: '1',
-    name: 'Classic Urban Trench Coat',
-    brand: 'OmniLux',
-    price: 189.99,
-    rating: 4.8,
-    reviewCount: 1240,
-    image: '/Dress-1.png',
-    category: 'Outerwear',
-    description: 'A timeless silhouette engineered for the modern professional. Water-resistant and breathable.',
-    colors: ['Beige', 'Black', 'Navy'],
-    sizes: ['S', 'M', 'L', 'XL'],
-    hasTryOn: true
+    "id": "w-coat-1",
+    "name": "Classic Urban Trench Coat",
+    "brand": "OmniLux",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "jackets",
+    "price": 189.99,
+    "originalPrice": 229.99,
+    "discount": 17,
+    "image": "/catalog/w-trench-coat.jpg",
+    "images": [
+      "/catalog/w-trench-coat.jpg"
+    ],
+    "colors": [
+      "Beige",
+      "Black",
+      "Navy"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 8,
+      "M": 14,
+      "L": 6,
+      "XL": 4
+    },
+    "rating": 4.8,
+    "reviewCount": 1240,
+    "material": "98% Cotton Gabardine, 2% Elastane",
+    "fit": "Tailored Regular Fit",
+    "occasion": "Work, Travel, Outerwear",
+    "style": "Contemporary Classic",
+    "seller": "OmniLux Official",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "A timeless double-breasted trench silhouette engineered for the modern professional. Water-resistant cotton gabardine featuring storm flap, waist-cinching belt, and horn buttons."
   },
   {
-    id: '2',
-    name: 'Elegant Evening Dress',
-    brand: 'Elegance Elite',
-    price: 85.00,
-    rating: 4.5,
-    reviewCount: 890,
-    image: '/Dress-2.png',
-    category: 'Dresses',
-    description: 'Sophisticated evening wear with elegant draping and premium fabric.',
-    colors: ['Black', 'Navy', 'Burgundy'],
-    sizes: ['XS', 'S', 'M', 'L'],
-    hasTryOn: true
+    "id": "w-dress-1",
+    "name": "Elegant Midnight Evening Dress",
+    "brand": "Elegance Elite",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "dresses",
+    "price": 115,
+    "originalPrice": 145,
+    "discount": 21,
+    "image": "/catalog/w-dress-midnight.jpg",
+    "images": [
+      "/catalog/w-dress-midnight.jpg"
+    ],
+    "colors": [
+      "Midnight Blue",
+      "Black",
+      "Burgundy"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "XS": 4,
+      "S": 10,
+      "M": 8,
+      "L": 3
+    },
+    "rating": 4.9,
+    "reviewCount": 980,
+    "material": "95% Poly-Crepe, 5% Spandex",
+    "fit": "Slim Draped Fit",
+    "occasion": "Evening Gala, Cocktail",
+    "style": "Modern Glamour",
+    "seller": "Elegance Fashion House",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Sophisticated evening wear featuring cowl neckline, beaded waist detailing, and an A-line flared midi skirt for graceful gala entrances."
   },
   {
-    id: '3',
-    name: 'Designer Cocktail Dress',
-    brand: 'Velocity',
-    price: 134.50,
-    rating: 4.9,
-    reviewCount: 2300,
-    image: '/Dress-3.png',
-    category: 'Dresses',
-    description: 'Perfect for special occasions with stunning silhouette and premium materials.',
-    colors: ['Red', 'Black', 'Gold'],
-    sizes: ['S', 'M', 'L', 'XL'],
-    hasTryOn: true
+    "id": "w-dress-2",
+    "name": "Designer Velvet Cocktail Dress",
+    "brand": "Velocity",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "dresses",
+    "price": 134.5,
+    "originalPrice": 169,
+    "discount": 20,
+    "image": "/catalog/w-velvet-dress.jpg",
+    "images": [
+      "/catalog/w-velvet-dress.jpg"
+    ],
+    "colors": [
+      "Deep Red",
+      "Emerald",
+      "Black"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 5,
+      "M": 12,
+      "L": 8,
+      "XL": 3
+    },
+    "rating": 4.8,
+    "reviewCount": 2300,
+    "material": "Plush Stretch Velvet",
+    "fit": "Bodycon Hourglass",
+    "occasion": "Cocktail, Holiday Party",
+    "style": "Bold & Chic",
+    "seller": "Velocity Studio",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Exquisite crushed velvet party dress with cowl neckline, long sleeves, and side slit for striking party entrances."
   },
   {
-    id: '4',
-    name: 'Casual Summer Dress',
-    brand: 'Heritage',
-    price: 59.99,
-    rating: 4.4,
-    reviewCount: 110,
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&h=1200&fit=crop',
-    category: 'Casual',
-    description: 'Light and breezy summer dress perfect for warm weather.',
-    colors: ['White', 'Blue', 'Pink'],
-    sizes: ['XS', 'S', 'M', 'L'],
-    hasTryOn: true
+    "id": "w-dress-3",
+    "name": "Bohemian Tiered Floral Maxi Dress",
+    "brand": "Heritage",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "dresses",
+    "price": 64.99,
+    "originalPrice": 89.99,
+    "discount": 28,
+    "image": "/catalog/w-floral-maxi.jpg",
+    "images": [
+      "/catalog/w-floral-maxi.jpg"
+    ],
+    "colors": [
+      "Floral Print",
+      "Pastel Sage",
+      "Dusty Rose"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "XS": 6,
+      "S": 15,
+      "M": 12,
+      "L": 9,
+      "XL": 4
+    },
+    "rating": 4.7,
+    "reviewCount": 780,
+    "material": "100% Breathable Rayon",
+    "fit": "Relaxed Flowing",
+    "occasion": "Casual, Brunch, Vacation",
+    "style": "Boho Chic",
+    "seller": "Heritage Lifestyle",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Airy bohemian tiered maxi dress with smocked bodice, puff sleeves, and tiered ruffle skirt in botanical floral prints."
   },
   {
-    id: '5',
-    name: 'Professional Blazer Dress',
-    brand: 'EcoFit',
-    price: 120.00,
-    rating: 4.7,
-    reviewCount: 450,
-    image: 'https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=800&h=1200&fit=crop',
-    category: 'Professional',
-    description: 'Sophisticated blazer dress for the modern professional woman.',
-    colors: ['Black', 'Navy', 'Grey'],
-    sizes: ['S', 'M', 'L', 'XL'],
-    hasTryOn: true
+    "id": "w-top-1",
+    "name": "Pure Silk Button-Down Blouse",
+    "brand": "OmniLux",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "tops",
+    "price": 98,
+    "originalPrice": 130,
+    "discount": 25,
+    "image": "/catalog/w-silk-blouse.jpg",
+    "images": [
+      "/catalog/w-silk-blouse.jpg"
+    ],
+    "colors": [
+      "Ivory",
+      "Soft Blue",
+      "Emerald"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "XS": 4,
+      "S": 8,
+      "M": 10,
+      "L": 5
+    },
+    "rating": 4.7,
+    "reviewCount": 420,
+    "material": "100% Mulberry Silk (19mm)",
+    "fit": "Classic Relaxed",
+    "occasion": "Office, Business Casual, Dinner",
+    "style": "Sophisticated Luxury",
+    "seller": "OmniLux Official",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Lustrous pure mulberry silk shirt with Mother-of-Pearl buttons, French cuffs, and flattering drape for elevated office dressing."
   },
   {
-    id: '6',
-    name: 'Bohemian Maxi Dress',
-    brand: 'Coastal',
-    price: 75.00,
-    rating: 4.2,
-    reviewCount: 67,
-    image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&h=1200&fit=crop',
-    category: 'Casual',
-    description: 'Flowing maxi dress with bohemian prints and comfortable fit.',
-    colors: ['Floral', 'Paisley', 'Solid'],
-    sizes: ['S', 'M', 'L', 'XL'],
-    hasTryOn: true
+    "id": "w-top-2",
+    "name": "Ribbed Cotton Minimalist Crop Top",
+    "brand": "EcoFit",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "tops",
+    "price": 28.5,
+    "originalPrice": 35,
+    "discount": 19,
+    "image": "/catalog/w-ribbed-crop-top.jpg",
+    "images": [
+      "/catalog/w-ribbed-crop-top.jpg"
+    ],
+    "colors": [
+      "White",
+      "Charcoal",
+      "Sage"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "XS": 12,
+      "S": 20,
+      "M": 18,
+      "L": 8
+    },
+    "rating": 4.5,
+    "reviewCount": 310,
+    "material": "95% Organic Cotton, 5% Spandex",
+    "fit": "Fitted Crop",
+    "occasion": "Everyday, Lounge, Layering",
+    "style": "Minimalist Streetwear",
+    "seller": "EcoFit Basics",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Essential scoop-neck short sleeve top crafted from soft ribbed organic cotton with shape-retention stretch."
+  },
+  {
+    "id": "w-jean-1",
+    "name": "High-Rise Wide-Leg Vintage Denim",
+    "brand": "DenimCraft",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "jeans",
+    "price": 79.99,
+    "originalPrice": 99.99,
+    "discount": 20,
+    "image": "/catalog/w-wide-leg-jeans.jpg",
+    "images": [
+      "/catalog/w-wide-leg-jeans.jpg"
+    ],
+    "colors": [
+      "Light Indigo",
+      "Medium Blue Vintage",
+      "Washed Black"
+    ],
+    "sizes": [
+      "26",
+      "28",
+      "30",
+      "32"
+    ],
+    "stock": {
+      "26": 5,
+      "28": 12,
+      "30": 10,
+      "32": 4
+    },
+    "rating": 4.8,
+    "reviewCount": 1150,
+    "material": "99% Cotton, 1% Comfort Stretch",
+    "fit": "High-Rise Wide Leg",
+    "occasion": "Casual, Weekend",
+    "style": "Retro Denim",
+    "seller": "DenimCraft Co.",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Classic wide-leg jeans with an ultra-flattering 11.5-inch rise, zip fly, and authentic vintage washing."
+  },
+  {
+    "id": "w-trouser-1",
+    "name": "Pleated Tailored Ankle Trousers",
+    "brand": "OmniLux",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "trousers",
+    "price": 89,
+    "originalPrice": 115,
+    "discount": 23,
+    "image": "/catalog/w-tailored-trousers.jpg",
+    "images": [
+      "/catalog/w-tailored-trousers.jpg"
+    ],
+    "colors": [
+      "Charcoal Grey",
+      "Black",
+      "Camel"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 5,
+      "M": 8,
+      "L": 6,
+      "XL": 4
+    },
+    "rating": 4.6,
+    "reviewCount": 540,
+    "material": "Polyester-Viscose Suiting Blend",
+    "fit": "Tapered Ankle Fit",
+    "occasion": "Workplace, Smart Casual",
+    "style": "Tailored Minimalist",
+    "seller": "OmniLux Official",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Sharp double-pleat trousers with tapered ankle cuffs, slant pockets, and belt loops for formal and smart office wear."
+  },
+  {
+    "id": "w-ethnic-1",
+    "name": "Hand-Embroidered Anarkali Kurta Set",
+    "brand": "Sanskriti Luxe",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "ethnic_wear",
+    "price": 145,
+    "originalPrice": 195,
+    "discount": 26,
+    "image": "/catalog/w-ethnic-kurta.jpg",
+    "images": [
+      "/catalog/w-ethnic-kurta.jpg"
+    ],
+    "colors": [
+      "Royal Teal",
+      "Maroon",
+      "Mustard Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 4,
+      "M": 8,
+      "L": 6,
+      "XL": 2
+    },
+    "rating": 4.9,
+    "reviewCount": 920,
+    "material": "Chanderi Silk with Cotton Lining",
+    "fit": "Flared Anarkali Silhouette",
+    "occasion": "Weddings, Festivals, Celebrations",
+    "style": "Traditional Regal",
+    "seller": "Sanskriti Luxe",
+    "returnEligibility": "15-Day Free Returns",
+    "hasTryOn": true,
+    "description": "3-piece set comprising zari-embroidered flared anarkali kurta, tailored churidar pants, and organza dupatta with gota patti borders."
+  },
+  {
+    "id": "w-blazer-1",
+    "name": "Double-Breasted Hourglass Blazer",
+    "brand": "EcoFit",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "blazers",
+    "price": 120,
+    "originalPrice": 160,
+    "discount": 25,
+    "image": "/catalog/w-tailored-blazer.jpg",
+    "images": [
+      "/catalog/w-tailored-blazer.jpg"
+    ],
+    "colors": [
+      "Black",
+      "Cream",
+      "Navy"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 7,
+      "M": 11,
+      "L": 5,
+      "XL": 2
+    },
+    "rating": 4.7,
+    "reviewCount": 450,
+    "material": "Structured Wool Blend",
+    "fit": "Cinched Hourglass",
+    "occasion": "Executive Meetings, Seminars",
+    "style": "Power Suiting",
+    "seller": "EcoFit Professional",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Architectural double-breasted blazer featuring padded shoulders, peak lapels, and tailored waist darts creating a sculpted power silhouette."
+  },
+  {
+    "id": "w-heel-1",
+    "name": "Pointed-Toe Patent Stiletto Pumps",
+    "brand": "Elegance Elite",
+    "gender": "women",
+    "category": "footwear",
+    "subcategory": "heels",
+    "price": 95,
+    "originalPrice": 125,
+    "discount": 24,
+    "image": "/catalog/f-stiletto-pumps.svg",
+    "images": [
+      "/catalog/f-stiletto-pumps.svg"
+    ],
+    "colors": [
+      "Scarlet Red",
+      "Gloss Black",
+      "Nude Patent"
+    ],
+    "sizes": [
+      "US 6",
+      "US 7",
+      "US 8",
+      "US 9"
+    ],
+    "stock": {
+      "US 6": 5,
+      "US 7": 9,
+      "US 8": 8,
+      "US 9": 3
+    },
+    "rating": 4.6,
+    "reviewCount": 780,
+    "material": "Patent Leather with Memory Foam Insole",
+    "fit": "Sleek 85mm Heel",
+    "occasion": "Office, Evening, Wedding",
+    "style": "Timeless Feminine",
+    "seller": "Elegance Fashion House",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Iconic 85mm stiletto heel crafted with glossy patent leather, cushioned arch support, and non-slip rubber grip heel tip."
+  },
+  {
+    "id": "w-bag-1",
+    "name": "Structured Saffiano Leather Tote Bag",
+    "brand": "OmniLux",
+    "gender": "women",
+    "category": "accessories",
+    "subcategory": "bags",
+    "price": 165,
+    "originalPrice": 210,
+    "discount": 21,
+    "image": "/catalog/a-leather-tote.svg",
+    "images": [
+      "/catalog/a-leather-tote.svg"
+    ],
+    "colors": [
+      "Tan Caramel",
+      "Midnight Black",
+      "Burgundy"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "stock": {
+      "One Size": 18
+    },
+    "rating": 4.8,
+    "reviewCount": 1490,
+    "material": "Scratch-Resistant Saffiano Leather",
+    "fit": "Fits 15-inch Laptop",
+    "occasion": "Workplace, Travel, Daily",
+    "style": "Modern Executive",
+    "seller": "OmniLux Official",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Spacious work tote with padded 15-inch laptop sleeve, central zip compartment, polished gold-tone hardware, and reinforced shoulder straps."
+  },
+  {
+    "id": "m-shirt-1",
+    "name": "Men's Classic Plaid Flannel Shirt",
+    "brand": "Gentleman's Choice",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "shirts",
+    "price": 54.99,
+    "originalPrice": 69.99,
+    "discount": 21,
+    "image": "/catalog/m-silk-kurta.jpg",
+    "images": [
+      "/catalog/m-silk-kurta.jpg"
+    ],
+    "colors": [
+      "Green Plaid",
+      "Grey Plaid",
+      "Navy Plaid"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "S": 10,
+      "M": 22,
+      "L": 18,
+      "XL": 9,
+      "XXL": 4
+    },
+    "rating": 4.7,
+    "reviewCount": 1680,
+    "material": "100% Ring-Spun Brushed Cotton",
+    "fit": "Standard Regular Fit",
+    "occasion": "Casual, Weekend, Autumn Layering",
+    "style": "Heritage Workwear",
+    "seller": "Gentleman's Choice",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Substantial 100% brushed cotton flannel shirt featuring classic dark green and grey plaid pattern, dual button-flap chest pockets, and durable horn buttons."
+  },
+  {
+    "id": "m-shirt-2",
+    "name": "Men's Slim-Fit Linen Casual Button-Down",
+    "brand": "Riviera Wear",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "shirts",
+    "price": 68,
+    "originalPrice": 85,
+    "discount": 20,
+    "image": "/catalog/m-silk-kurta.jpg",
+    "images": [
+      "/catalog/m-silk-kurta.jpg"
+    ],
+    "colors": [
+      "Sand Khaki",
+      "White",
+      "Sky Blue"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "M": 14,
+      "L": 11,
+      "XL": 6
+    },
+    "rating": 4.6,
+    "reviewCount": 840,
+    "material": "100% European Flax Linen",
+    "fit": "Slim Fit",
+    "occasion": "Resort, Summer Casual, Beach Dinner",
+    "style": "Mediterranean Casual",
+    "seller": "Riviera Wear",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Lightweight pure linen shirt pre-washed for extra softness. Band collar, curved hem, and breathable weave to keep cool in high heat."
+  },
+  {
+    "id": "m-jacket-1",
+    "name": "Men's Brown Suede Field Jacket",
+    "brand": "UrbanForm",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "jackets",
+    "price": 189.99,
+    "originalPrice": 240,
+    "discount": 21,
+    "image": "/catalog/w-tailored-blazer.jpg",
+    "images": [
+      "/catalog/w-tailored-blazer.jpg"
+    ],
+    "colors": [
+      "Rich Cognac",
+      "Espresso Brown",
+      "Tan"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 5,
+      "M": 12,
+      "L": 8,
+      "XL": 3
+    },
+    "rating": 4.9,
+    "reviewCount": 1820,
+    "material": "Supple Suede Leather",
+    "fit": "Regular Fit Overshirt",
+    "occasion": "Smart Casual, Night Out, Travel",
+    "style": "Rugged Sophistication",
+    "seller": "UrbanForm Official",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Premium brown suede overshirt jacket with front button closure, flap chest pockets, and comfortable satin lining for effortless layering."
+  },
+  {
+    "id": "m-kurta-1",
+    "name": "Pure Silk Mandarin Collar Festive Kurta",
+    "brand": "Sanskriti Luxe",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "kurtas",
+    "price": 89,
+    "originalPrice": 120,
+    "discount": 26,
+    "image": "/catalog/m-silk-kurta.jpg",
+    "images": [
+      "/catalog/m-silk-kurta.jpg"
+    ],
+    "colors": [
+      "Cream Gold",
+      "Midnight Navy",
+      "Ruby Red"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "M": 7,
+      "L": 10,
+      "XL": 8,
+      "XXL": 3
+    },
+    "rating": 4.8,
+    "reviewCount": 510,
+    "material": "Tussar Silk Blend",
+    "fit": "Comfort Straight",
+    "occasion": "Festivals, Diwali, Wedding Receptions",
+    "style": "Regal Festive",
+    "seller": "Sanskriti Luxe",
+    "returnEligibility": "15-Day Free Returns",
+    "hasTryOn": true,
+    "description": "Straight-cut knee-length festive kurta with embroidered mandarin collar, concealed button placket, and side slits."
+  },
+  {
+    "id": "m-formal-1",
+    "name": "Hand-Burnished Leather Oxford Dress Shoes",
+    "brand": "Gentleman's Choice",
+    "gender": "men",
+    "category": "footwear",
+    "subcategory": "formal_shoes",
+    "price": 149,
+    "originalPrice": 190,
+    "discount": 22,
+    "image": "/catalog/f-leather-oxfords.jpg",
+    "images": [
+      "/catalog/f-leather-oxfords.jpg"
+    ],
+    "colors": [
+      "Chestnut Brown",
+      "Onyx Black"
+    ],
+    "sizes": [
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11",
+      "US 12"
+    ],
+    "stock": {
+      "US 8": 5,
+      "US 9": 11,
+      "US 10": 13,
+      "US 11": 7,
+      "US 12": 2
+    },
+    "rating": 4.9,
+    "reviewCount": 890,
+    "material": "Goodyear Welted Calfskin Leather",
+    "fit": "Classic Dress Last",
+    "occasion": "Black Tie, Weddings, Boardroom",
+    "style": "Sartorial Elegance",
+    "seller": "Gentleman's Choice",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Classic cap-toe closed-lacing dress Oxfords with Goodyear welted construction, hand-painted leather sole, and breathable leather lining."
+  },
+  {
+    "id": "m-boot-1",
+    "name": "Waterproof Suede Chelsea Boots",
+    "brand": "SoleCraft",
+    "gender": "men",
+    "category": "footwear",
+    "subcategory": "boots",
+    "price": 135,
+    "originalPrice": 170,
+    "discount": 21,
+    "image": "/catalog/f-chelsea-boots.svg",
+    "images": [
+      "/catalog/f-chelsea-boots.svg"
+    ],
+    "colors": [
+      "Tan Suede",
+      "Dark Chocolate",
+      "Black Suede"
+    ],
+    "sizes": [
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11"
+    ],
+    "stock": {
+      "US 8": 6,
+      "US 9": 10,
+      "US 10": 8,
+      "US 11": 4
+    },
+    "rating": 4.7,
+    "reviewCount": 1120,
+    "material": "Hydrophobic Treated Suede Leather",
+    "fit": "Ankle Slip-On",
+    "occasion": "Autumn/Winter Casual, Commute",
+    "style": "Urban Rugged",
+    "seller": "SoleCraft Studio",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Pull-on Chelsea boots with elasticated side gussets, pull tabs, water-repellent suede upper, and grippy lugged rubber soles."
+  },
+  {
+    "id": "m-belt-1",
+    "name": "Reversible Full-Grain Leather Dress Belt",
+    "brand": "Gentleman's Choice",
+    "gender": "men",
+    "category": "accessories",
+    "subcategory": "belts",
+    "price": 38,
+    "originalPrice": 48,
+    "discount": 21,
+    "image": "/catalog/a-leather-belt.svg",
+    "images": [
+      "/catalog/a-leather-belt.svg"
+    ],
+    "colors": [
+      "Black / Brown Reversible"
+    ],
+    "sizes": [
+      "32",
+      "34",
+      "36",
+      "38"
+    ],
+    "stock": {
+      "32": 8,
+      "34": 14,
+      "36": 12,
+      "38": 7
+    },
+    "rating": 4.6,
+    "reviewCount": 610,
+    "material": "100% Italian Full-Grain Cowhide Leather",
+    "fit": "Reversible 34mm Width",
+    "occasion": "Business Formal, Smart Casual",
+    "style": "Functional Classic",
+    "seller": "Gentleman's Choice",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Two belts in one. Twistable brushed gunmetal buckle easily flips between smooth formal black leather and rich textured cognac brown."
+  },
+  {
+    "id": "k-boy-1",
+    "name": "Boys 2-Piece Striped Polo & Chino Shorts Set",
+    "brand": "MiniOmni",
+    "gender": "kids",
+    "category": "clothing",
+    "subcategory": "boys",
+    "price": 34.99,
+    "originalPrice": 45,
+    "discount": 22,
+    "image": "/catalog/k-boys-polo-shorts.jpg",
+    "images": [
+      "/catalog/k-boys-polo-shorts.jpg"
+    ],
+    "colors": [
+      "Navy/Beige",
+      "White/Olive"
+    ],
+    "sizes": [
+      "3-4Y",
+      "5-6Y",
+      "7-8Y",
+      "9-10Y"
+    ],
+    "stock": {
+      "3-4Y": 8,
+      "5-6Y": 12,
+      "7-8Y": 10,
+      "9-10Y": 6
+    },
+    "rating": 4.7,
+    "reviewCount": 380,
+    "material": "100% Breathable Combed Cotton",
+    "fit": "Kids Regular Active Fit",
+    "occasion": "Parties, Family Outings",
+    "style": "Cute Smart Casual",
+    "seller": "MiniOmni Kids",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Charming two-piece coordinated set with striped pique polo shirt and adjustable-waist stretch cotton chino shorts."
+  },
+  {
+    "id": "k-girl-1",
+    "name": "Girls Floral Embroidered Tulle Party Dress",
+    "brand": "MiniOmni",
+    "gender": "kids",
+    "category": "clothing",
+    "subcategory": "girls",
+    "price": 38.5,
+    "originalPrice": 49.99,
+    "discount": 23,
+    "image": "/catalog/k-girls-floral-dress.jpg",
+    "images": [
+      "/catalog/k-girls-floral-dress.jpg"
+    ],
+    "colors": [
+      "Blush Pink",
+      "Buttercup Yellow"
+    ],
+    "sizes": [
+      "3-4Y",
+      "5-6Y",
+      "7-8Y",
+      "9-10Y"
+    ],
+    "stock": {
+      "3-4Y": 6,
+      "5-6Y": 11,
+      "7-8Y": 8,
+      "9-10Y": 4
+    },
+    "rating": 4.8,
+    "reviewCount": 420,
+    "material": "Soft Tulle with 100% Cotton Lining",
+    "fit": "A-Line Flared",
+    "occasion": "Birthday Parties, Weddings",
+    "style": "Princess Celebration",
+    "seller": "MiniOmni Kids",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Delicate pastel party dress with flutter cap sleeves, flower embroidery, back sash tie, and skin-friendly cotton inner lining."
+  },
+  {
+    "id": "k-baby-1",
+    "name": "Infant Organic Cotton Romper Set",
+    "brand": "MiniOmni",
+    "gender": "kids",
+    "category": "clothing",
+    "subcategory": "baby",
+    "price": 27.99,
+    "originalPrice": 35,
+    "discount": 20,
+    "image": "/catalog/k-organic-romper.svg",
+    "images": [
+      "/catalog/k-organic-romper.svg"
+    ],
+    "colors": [
+      "Sky Blue",
+      "Neutral Earth"
+    ],
+    "sizes": [
+      "0-3M",
+      "3-6M",
+      "6-12M"
+    ],
+    "stock": {
+      "0-3M": 14,
+      "3-6M": 18,
+      "6-12M": 15
+    },
+    "rating": 4.9,
+    "reviewCount": 670,
+    "material": "100% GOTS Certified Organic Cotton",
+    "fit": "Comfort Snap Fit",
+    "occasion": "Daily Sleep & Play",
+    "style": "Gentle Essentials",
+    "seller": "MiniOmni Kids",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Ultra-soft hypoallergenic rompers featuring expandable lap shoulder necklines and nickel-free bottom snaps for easy diaper changes."
+  },
+  {
+    "id": "u-sneaker-1",
+    "name": "Court Classic Heritage White Leather Sneakers",
+    "brand": "SoleCraft",
+    "gender": "unisex",
+    "category": "footwear",
+    "subcategory": "sneakers",
+    "price": 89.99,
+    "originalPrice": 115,
+    "discount": 22,
+    "image": "/catalog/f-white-sneakers.jpg",
+    "images": [
+      "/catalog/f-white-sneakers.jpg"
+    ],
+    "colors": [
+      "Triple White",
+      "White / Navy"
+    ],
+    "sizes": [
+      "US 7",
+      "US 8",
+      "US 9",
+      "US 10",
+      "US 11"
+    ],
+    "stock": {
+      "US 7": 6,
+      "US 8": 14,
+      "US 9": 20,
+      "US 10": 16,
+      "US 11": 8
+    },
+    "rating": 4.8,
+    "reviewCount": 2450,
+    "material": "Full-Grain Leather with OrthoLite Insole",
+    "fit": "True to Size",
+    "occasion": "Everyday Casual, Commute",
+    "style": "Timeless Minimalist",
+    "seller": "SoleCraft Studio",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Clean silhouette retro tennis sneakers with calfskin leather upper, cushioned moisture-wicking footbed, and durable stitched rubber cupsole."
+  },
+  {
+    "id": "u-watch-1",
+    "name": "Chronograph Stainless Steel Watch",
+    "brand": "Velocity",
+    "gender": "unisex",
+    "category": "accessories",
+    "subcategory": "watches",
+    "price": 195,
+    "originalPrice": 250,
+    "discount": 22,
+    "image": "/catalog/a-chronograph-watch.svg",
+    "images": [
+      "/catalog/a-chronograph-watch.svg"
+    ],
+    "colors": [
+      "Silver / Blue Dial",
+      "All Black Matte"
+    ],
+    "sizes": [
+      "42mm"
+    ],
+    "stock": {
+      "42mm": 15
+    },
+    "rating": 4.9,
+    "reviewCount": 1830,
+    "material": "316L Surgical Stainless Steel, Sapphire Crystal",
+    "fit": "Adjustable Link Bracelet",
+    "occasion": "Formal, Daily",
+    "style": "Precision Luxury",
+    "seller": "Velocity Studio",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Japanese quartz movement chronograph watch featuring 5 ATM water resistance, scratch-proof sapphire crystal glass, date window, and 2-year warranty."
+  },
+  {
+    "id": "u-sunglass-1",
+    "name": "Polarized Acetate Aviator Sunglasses",
+    "brand": "Riviera Wear",
+    "gender": "unisex",
+    "category": "accessories",
+    "subcategory": "sunglasses",
+    "price": 75,
+    "originalPrice": 98,
+    "discount": 23,
+    "image": "/catalog/a-aviator-sunglasses.svg",
+    "images": [
+      "/catalog/a-aviator-sunglasses.svg"
+    ],
+    "colors": [
+      "Tortoise Shell / Gold",
+      "Gloss Black / Grey"
+    ],
+    "sizes": [
+      "Standard"
+    ],
+    "stock": {
+      "Standard": 25
+    },
+    "rating": 4.7,
+    "reviewCount": 940,
+    "material": "Handcrafted Italian Acetate, UV400 Polarized Lenses",
+    "fit": "Universal Fit",
+    "occasion": "Driving, Summer Vacation",
+    "style": "Riviera Glamour",
+    "seller": "Riviera Wear",
+    "returnEligibility": "30-Day Free Returns",
+    "hasTryOn": false,
+    "description": "Premium handcrafted acetate frames with 100% UV400 polarized glare-reducing lenses and reinforced 5-barrel hinges."
   }
 ];

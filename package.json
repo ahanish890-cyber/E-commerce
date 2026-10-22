@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "vite",
-    "server": "node server/api.js",
+    "server": "node --watch --watch-path=server/api.js server/api.js",
     "dev:all": "npm run dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node server/test_suite.js"
   },
   "dependencies": {
     "@google/genai": "^1.40.0",

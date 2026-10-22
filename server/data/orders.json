@@ -1,0 +1,799 @@
+[
+  {
+    "id": "ORD-2026-9041",
+    "userId": "user-1",
+    "customerName": "Jane Doe",
+    "customerEmail": "jane@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "OR",
+      "zipCode": "97477",
+      "country": "United States"
+    },
+    "deliveryMethod": "prime_express",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniLux",
+        "image": "/Dress-1.png",
+        "price": 189.99,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 189.99,
+    "tax": 15.2,
+    "total": 205.19,
+    "paymentMethod": "Demo Credit Card (ending 4242)",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Delivered",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-01T14:20:00.000Z",
+        "note": "Order verified"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-01T14:35:00.000Z",
+        "note": "Payment confirmed"
+      },
+      {
+        "status": "Packed",
+        "timestamp": "2026-10-02T08:00:00.000Z",
+        "note": "Packed in OmniFit Seattle Center"
+      },
+      {
+        "status": "Shipped",
+        "timestamp": "2026-10-02T13:45:00.000Z",
+        "note": "In transit via Omni Logistics #TRK-8812"
+      },
+      {
+        "status": "Delivered",
+        "timestamp": "2026-10-03T11:15:00.000Z",
+        "note": "Delivered at front door"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-01T14:20:00.000Z"
+  },
+  {
+    "id": "ORD-2026-4204",
+    "userId": "user-1791822246775",
+    "customerName": "test_1791822246751",
+    "customerEmail": "test_1791822246751@example.com",
+    "shippingAddress": {
+      "name": "Tester",
+      "street": "123 Test Ave",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniLux",
+        "image": "/Dress-1.png",
+        "price": 189.99,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 189.99,
+    "tax": 15.2,
+    "total": 205.19,
+    "paymentMethod": "Demo Visa",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:24:06.827Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:24:06.827Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:24:06.851Z",
+        "note": "Automated test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:24:06.827Z"
+  },
+  {
+    "id": "ORD-2026-6560",
+    "userId": "user-1791822284030",
+    "customerName": "test_1791822284008",
+    "customerEmail": "test_1791822284008@example.com",
+    "shippingAddress": {
+      "name": "Tester",
+      "street": "123 Test Ave",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniLux",
+        "image": "/Dress-1.png",
+        "price": 189.99,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 189.99,
+    "tax": 15.2,
+    "total": 205.19,
+    "paymentMethod": "Demo Visa",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:24:44.095Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:24:44.095Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:24:44.140Z",
+        "note": "Automated test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:24:44.095Z"
+  },
+  {
+    "id": "ORD-2026-9389",
+    "userId": "user-1791822301669",
+    "customerName": "test_1791822301658",
+    "customerEmail": "test_1791822301658@example.com",
+    "shippingAddress": {
+      "name": "Tester",
+      "street": "123 Test Ave",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniLux",
+        "image": "/Dress-1.png",
+        "price": 189.99,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 189.99,
+    "tax": 15.2,
+    "total": 205.19,
+    "paymentMethod": "Demo Visa",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:25:01.747Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:25:01.747Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:25:01.777Z",
+        "note": "Automated test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:25:01.747Z"
+  },
+  {
+    "id": "ORD-2026-6514",
+    "userId": "user-1791823933791",
+    "customerName": "test_1791823933770",
+    "customerEmail": "test_1791823933770@example.com",
+    "shippingAddress": {
+      "name": "Tester",
+      "street": "123 Test Ave",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "Demo Visa",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:52:13.865Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:52:13.865Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:52:13.915Z",
+        "note": "Automated test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:52:13.865Z"
+  },
+  {
+    "id": "ORD-2026-2757",
+    "userId": "user-1791824016926",
+    "customerName": "test_1791824016910",
+    "customerEmail": "test_1791824016910@example.com",
+    "shippingAddress": {
+      "name": "Tester",
+      "street": "123 Test Ave",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "Demo Visa",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:53:37.003Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:53:37.003Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:53:37.034Z",
+        "note": "Automated test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:53:37.003Z"
+  },
+  {
+    "id": "ORD-2026-8547",
+    "userId": "user-1791824073904",
+    "customerName": "test_1791824073893",
+    "customerEmail": "test_1791824073893@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:54:33.919Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:54:33.919Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:54:33.950Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:54:33.919Z"
+  },
+  {
+    "id": "ORD-2026-4967",
+    "userId": "user-1791824106215",
+    "customerName": "test_1791824106187",
+    "customerEmail": "test_1791824106187@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:55:06.235Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:55:06.235Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:55:06.265Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:55:06.235Z"
+  },
+  {
+    "id": "ORD-2026-8451",
+    "userId": "user-1791824134785",
+    "customerName": "test_1791824134772",
+    "customerEmail": "test_1791824134772@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T16:55:34.799Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T16:55:34.799Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T16:55:34.830Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T16:55:34.799Z"
+  },
+  {
+    "id": "ORD-2026-8713",
+    "userId": "user-1791825480429",
+    "customerName": "test_1791825480414",
+    "customerEmail": "test_1791825480414@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T17:18:00.436Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T17:18:00.436Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T17:18:00.486Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T17:18:00.436Z"
+  },
+  {
+    "id": "ORD-2026-9659",
+    "userId": "user-1791825722326",
+    "customerName": "test_1791825722310",
+    "customerEmail": "test_1791825722310@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T17:22:02.341Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T17:22:02.341Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T17:22:02.372Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T17:22:02.341Z"
+  },
+  {
+    "id": "ORD-2026-5655",
+    "userId": "user-1791825753283",
+    "customerName": "test_1791825753278",
+    "customerEmail": "test_1791825753278@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T17:22:33.293Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T17:22:33.293Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T17:22:33.324Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T17:22:33.293Z"
+  },
+  {
+    "id": "ORD-2026-8780",
+    "userId": "user-1791825823496",
+    "customerName": "test_1791825823481",
+    "customerEmail": "test_1791825823481@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "US"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-12T17:23:43.511Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-12T17:23:43.511Z",
+        "note": "Payment verified via OmniFit Pay"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-12T17:23:43.558Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-12T17:23:43.511Z"
+  },
+  {
+    "id": "ORD-2026-9811",
+    "userId": "guest-1791957657851",
+    "customerName": "Jane Doe",
+    "customerEmail": "customer@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "OR",
+      "zipCode": "97477",
+      "country": "United States",
+      "phone": "+1 (555) 234-5678"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "Elegance Elite",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 115,
+        "quantity": 1,
+        "selectedSize": "XS",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 115,
+    "tax": 9.2,
+    "total": 124.2,
+    "paymentMethod": "Demo Credit Card (ending 4242)",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-14T06:00:57.852Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-14T06:00:57.852Z",
+        "note": "Payment verified via OmniFit Pay"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-14T06:00:57.852Z"
+  },
+  {
+    "id": "ORD-2026-5236",
+    "userId": "guest-1792643091967",
+    "customerName": "Jane Doe",
+    "customerEmail": "customer@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "OR",
+      "zipCode": "97477",
+      "country": "United States",
+      "phone": "+1 (555) 234-5678"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniLux",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 189.99,
+        "quantity": 1,
+        "selectedSize": "S",
+        "selectedColor": "Beige"
+      }
+    ],
+    "subtotal": 189.99,
+    "tax": 15.2,
+    "total": 205.19,
+    "paymentMethod": "Demo Credit Card (ending 4242)",
+    "paymentStatus": "Paid (Demo Verified)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-22T04:24:51.967Z",
+        "note": "Order placed successfully"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-22T04:24:51.967Z",
+        "note": "Payment verified via OmniFit Pay"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-22T04:24:51.967Z"
+  }
+]
