@@ -225,7 +225,8 @@
     "addresses": [],
     "wishlist": [
       "w-top-2",
-      "w-jean-1"
+      "m-polo-1",
+      "m-tshirt-1"
     ],
     "createdAt": "2026-10-29T13:03:23.320Z"
   },
@@ -258,5 +259,15 @@
     "addresses": [],
     "wishlist": [],
     "createdAt": "2026-10-29T14:56:45.849Z"
+  },
+  {
+    "id": "user-1793298955265",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793298955248@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T18:35:55.265Z"
   }
 ]

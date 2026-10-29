@@ -94,5 +94,23 @@
     "email": "admin@omnifit.com",
     "role": "admin",
     "expiresAt": 1793890605862
+  },
+  "ec7db4d9fbd95b76f0fa46373b5c6c28071c6c5701abe73a7b3ebc93494e5d54": {
+    "userId": "user-1793298955265",
+    "email": "test_inr_1793298955248@omnifit.in",
+    "role": "customer",
+    "expiresAt": 1793903755268
+  },
+  "2f3c8808dbeb4ce5ffe9f47497762ca99c61b0ea3c1efd91adaf35f1e0595a61": {
+    "userId": "user-admin",
+    "email": "admin@omnifit.com",
+    "role": "admin",
+    "expiresAt": 1793903755304
+  },
+  "50ca2f0a777833000de56eef25bf5990b6b302a201749ef6f4f6187f83324c8f": {
+    "userId": "user-admin",
+    "email": "admin@omnifit.com",
+    "role": "admin",
+    "expiresAt": 1793903866902
   }
 }

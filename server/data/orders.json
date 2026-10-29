@@ -1333,5 +1333,172 @@
     ],
     "returnEligible": true,
     "createdAt": "2026-10-29T14:56:45.854Z"
+  },
+  {
+    "id": "ORD-2026-2833",
+    "userId": "user-1793279003320",
+    "customerName": "HANISH",
+    "customerEmail": "hanish1506@gmail.com",
+    "shippingAddress": {
+      "name": "HANISH",
+      "street": "Flat 402, Prestige Palms, 12th Main Road, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "m-polo-1",
+        "name": "Piqué Cotton Athletic Fit Polo T-Shirt",
+        "brand": "OmniFit Classic",
+        "image": "/catalog/m-pique-polo.jpg",
+        "price": 1499,
+        "quantity": 2,
+        "selectedSize": "M",
+        "selectedColor": "Navy"
+      },
+      {
+        "productId": "m-tshirt-1",
+        "name": "Heavyweight Supima Cotton Crewneck T-Shirt",
+        "brand": "OmniFit Basics",
+        "image": "/catalog/m-cotton-tshirt.jpg",
+        "price": 899,
+        "quantity": 1,
+        "selectedSize": "S",
+        "selectedColor": "White"
+      }
+    ],
+    "subtotal": 3897,
+    "tax": 195,
+    "total": 4092,
+    "paymentMethod": "UPI / NetBanking / Cards (Demo Sandbox)",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T18:11:56.459Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T18:11:56.459Z",
+        "note": "Order verified in demo sandbox environment"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T18:11:56.459Z"
+  },
+  {
+    "id": "ORD-2026-7078",
+    "userId": "user-1793279003320",
+    "customerName": "HANISH",
+    "customerEmail": "hanish1506@gmail.com",
+    "shippingAddress": {
+      "name": "HANISH",
+      "street": "Flat 402, Prestige Palms, 12th Main Road, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "m-polo-1",
+        "name": "Piqué Cotton Athletic Fit Polo T-Shirt",
+        "brand": "OmniFit Classic",
+        "image": "/catalog/m-pique-polo.jpg",
+        "price": 1499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Navy"
+      }
+    ],
+    "subtotal": 1499,
+    "tax": 75,
+    "total": 1574,
+    "paymentMethod": "UPI / NetBanking / Cards (Demo Sandbox)",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T18:12:08.727Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T18:12:08.727Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-29T18:12:13.999Z",
+        "note": "Customer requested cancellation via portal"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T18:12:08.727Z"
+  },
+  {
+    "id": "ORD-2026-6435",
+    "userId": "user-1793298955265",
+    "customerName": "test_inr_1793298955248",
+    "customerEmail": "test_inr_1793298955248@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T18:35:55.285Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T18:35:55.285Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T18:35:55.323Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T18:35:55.285Z"
   }
 ]
