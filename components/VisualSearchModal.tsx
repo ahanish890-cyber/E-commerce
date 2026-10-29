@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Camera, Upload, Sparkles, Search, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
+import { formatINR } from '../utils/currency';
 
 interface VisualSearchModalProps {
   isOpen: boolean;
@@ -21,10 +22,10 @@ export const VisualSearchModal: React.FC<VisualSearchModalProps> = ({
   if (!isOpen) return null;
 
   const sampleLooks = [
-    { label: 'Navy Trench & Outerwear', color: 'Navy', style: 'Classic' },
-    { label: 'Black Velvet Evening Dress', color: 'Black', style: 'Glamour' },
-    { label: 'Oxford Cotton Shirt', color: 'Blue', style: 'Smart' },
-    { label: 'White Heritage Sneakers', color: 'White', style: 'Sneakers' }
+    { label: 'Formal Oxford Cotton Shirt', color: 'Blue', style: 'Smart' },
+    { label: 'Embroidered Chikankari Kurta', color: 'White', style: 'Ethnic' },
+    { label: 'Pleated Satin Maxi Dress', color: 'Black', style: 'Glamour' },
+    { label: 'Casual Fleece Hoodie', color: 'Grey', style: 'Casual' }
   ];
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +152,7 @@ export const VisualSearchModal: React.FC<VisualSearchModalProps> = ({
                     <p className="text-xs font-bold text-gray-900 line-clamp-1">{prod.name}</p>
                     <p className="text-[11px] text-gray-500">{prod.brand}</p>
                     <div className="mt-auto pt-1 flex items-center justify-between">
-                      <span className="font-bold text-sm text-gray-900">${prod.price.toFixed(2)}</span>
+                      <span className="font-bold text-sm text-gray-900">{formatINR(prod.price)}</span>
                       <span className="text-[10px] text-[#007185] font-bold flex items-center">
                         View <ChevronRight size={12} />
                       </span>

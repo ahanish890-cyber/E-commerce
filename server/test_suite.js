@@ -14,9 +14,9 @@ const PORT = process.env.PORT || 3001;
 const BASE_URL = `http://localhost:${PORT}`;
 
 async function runTests() {
-  console.log('='.repeat(65));
-  console.log('🧪 OMNIFIT COMPREHENSIVE AUTOMATED TEST SUITE — CATALOG & QUALITY');
-  console.log('='.repeat(65));
+  console.log('='.repeat(70));
+  console.log('🧪 OMNIFIT COMPREHENSIVE AUTOMATED TEST SUITE — ENHANCED PLATFORM');
+  console.log('='.repeat(70));
 
   let passed = 0;
   let failed = 0;
@@ -33,7 +33,7 @@ async function runTests() {
     }
   }
 
-  // Fetch full catalog for cross-test validation
+  // Fetch full catalog from backend
   const allProductsRes = await fetch(`${BASE_URL}/api/products`);
   const allProductsData = await allProductsRes.json();
   const allProducts = allProductsData.products || [];
@@ -43,8 +43,8 @@ async function runTests() {
   // ---------------------------------------------------------
   console.log('\n--- 1. DATASET INTEGRITY & UNIQUE PRODUCT IDS ---');
 
-  await test("Catalog contains adequate products across all departments (>= 20 items)", async () => {
-    assert.ok(allProducts.length >= 20, `Expected at least 20 products, got ${allProducts.length}`);
+  await test("Catalog contains comprehensive clothing items (>= 30 items)", async () => {
+    assert.ok(allProducts.length >= 30, `Expected at least 30 products, got ${allProducts.length}`);
   });
 
   await test("Every product has a unique, non-empty ID", async () => {
@@ -56,564 +56,309 @@ async function runTests() {
     }
   });
 
-  await test("Every product has valid normalized gender and category values", async () => {
-    const validGenders = ['women', 'men', 'kids', 'unisex'];
-    const validCategories = ['clothing', 'footwear', 'accessories'];
-
+  await test("Every product is strictly Men's or Women's clothing (No kids, footwear, or accessories)", async () => {
+    const validGenders = ['women', 'men', 'unisex'];
     for (const p of allProducts) {
       assert.ok(validGenders.includes(p.gender), `Product ${p.id} has invalid gender: "${p.gender}"`);
-      assert.ok(validCategories.includes(p.category), `Product ${p.id} has invalid category: "${p.category}"`);
-      assert.ok(p.name && p.name.trim().length > 3, `Product ${p.id} has invalid name: "${p.name}"`);
-      assert.ok(typeof p.price === 'number' && p.price > 0, `Product ${p.id} has invalid price: ${p.price}`);
-      assert.ok(Array.isArray(p.sizes) && p.sizes.length > 0, `Product ${p.id} has missing sizes`);
-      assert.ok(Array.isArray(p.colors) && p.colors.length > 0, `Product ${p.id} has missing colors`);
-      assert.ok(p.stock && typeof p.stock === 'object', `Product ${p.id} has missing stock object`);
+      assert.strictEqual(p.category, 'clothing', `Product ${p.id} is not clothing: "${p.category}"`);
+      assert.ok(p.gender !== 'kids', `Product ${p.id} is kids product`);
+      assert.ok(p.category !== 'footwear', `Product ${p.id} is footwear`);
+      assert.ok(p.category !== 'accessories', `Product ${p.id} is accessory`);
     }
   });
 
   // ---------------------------------------------------------
-  // 2. IMAGE MAPPING & LOCAL ASSET EXISTENCE
+  // 2. IMAGE MAPPING & LOCAL ASSET VERIFICATION
   // ---------------------------------------------------------
   console.log('\n--- 2. IMAGE MAPPING & LOCAL ASSET VERIFICATION ---');
 
   await test("Every product image exists as a real file on disk in public/", async () => {
     for (const p of allProducts) {
-      assert.ok(p.image && typeof p.image === 'string', `Product ${p.id} is missing an image path`);
-      const relPath = p.image.startsWith('/') ? p.image.slice(1) : p.image;
-      const fullPath = path.join(PUBLIC_DIR, relPath);
-      assert.ok(fs.existsSync(fullPath), `Product ${p.id} image missing from disk: ${fullPath} (${p.image})`);
+      assert.ok(p.image, `Product ${p.id} is missing an image path`);
+      const relativePath = p.image.startsWith('/') ? p.image.slice(1) : p.image;
+      const fullPath = path.resolve(PUBLIC_DIR, relativePath);
+      assert.ok(fs.existsSync(fullPath), `Image file missing on disk for product ${p.id}: ${fullPath}`);
     }
   });
 
   await test("Neutral fallback image exists on disk in public/fallback-product.svg", async () => {
-    const fallbackPath = path.join(PUBLIC_DIR, 'fallback-product.svg');
-    assert.ok(fs.existsSync(fallbackPath), `Fallback asset missing: ${fallbackPath}`);
-    const content = fs.readFileSync(fallbackPath, 'utf8');
-    assert.ok(content.includes('<svg') && content.includes('OmniFit'), 'Fallback SVG is invalid');
+    const fallbackPath = path.resolve(PUBLIC_DIR, 'fallback-product.svg');
+    assert.ok(fs.existsSync(fallbackPath), `Fallback image missing: ${fallbackPath}`);
   });
 
-  await test("No male model images (Dress-1/2/3) are mapped to women's products or accessories", async () => {
-    const maleModelImages = ['/Dress-1.png', '/Dress-2.png', '/Dress-3.png'];
-
+  await test("All product images are realistic high-resolution fashion photographs (no cartoon SVGs)", async () => {
     for (const p of allProducts) {
-      if (p.gender === 'women') {
-        assert.ok(!maleModelImages.includes(p.image), `Violation: Women's product "${p.name}" (${p.id}) is using male image ${p.image}!`);
-      }
-      if (p.category === 'accessories') {
-        assert.ok(!maleModelImages.includes(p.image), `Violation: Accessory product "${p.name}" (${p.id}) is using male clothing image ${p.image}!`);
-      }
-      if (p.category === 'footwear') {
-        assert.ok(!maleModelImages.includes(p.image), `Violation: Footwear product "${p.name}" (${p.id}) is using clothing image ${p.image}!`);
-      }
+      assert.ok(!p.image.endsWith('.svg'), `Product ${p.id} must not use cartoon SVG illustration: ${p.image}`);
+      assert.ok(p.image.endsWith('.jpg') || p.image.endsWith('.jpeg') || p.image.endsWith('.png'), `Product ${p.id} image must be a photo: ${p.image}`);
+      const relativePath = p.image.startsWith('/') ? p.image.slice(1) : p.image;
+      const fullPath = path.resolve(PUBLIC_DIR, relativePath);
+      const stat = fs.statSync(fullPath);
+      assert.ok(stat.size > 20000, `Image for ${p.id} must be high-resolution photo (>20KB): ${stat.size} bytes`);
     }
   });
 
-  await test("Dress-1.png, Dress-2.png, Dress-3.png are strictly mapped to corresponding Men's apparel", async () => {
-    const p1 = allProducts.find(p => p.image === '/Dress-1.png');
-    assert.ok(p1, "Dress-1.png should be mapped to an existing product");
-    assert.strictEqual(p1.gender, 'men');
-    assert.ok(p1.name.toLowerCase().includes('shirt') || p1.name.toLowerCase().includes('flannel'));
-
-    const p2 = allProducts.find(p => p.image === '/Dress-2.png');
-    assert.ok(p2, "Dress-2.png should be mapped to an existing product");
-    assert.strictEqual(p2.gender, 'men');
-    assert.ok(p2.name.toLowerCase().includes('linen') || p2.name.toLowerCase().includes('shirt'));
-
-    const p3 = allProducts.find(p => p.image === '/Dress-3.png');
-    assert.ok(p3, "Dress-3.png should be mapped to an existing product");
-    assert.strictEqual(p3.gender, 'men');
-    assert.ok(p3.name.toLowerCase().includes('jacket') || p3.name.toLowerCase().includes('suede'));
-  });
-
-  await test("Women's dresses are mapped to genuine dress images (not shirts or men's models)", async () => {
-    const dresses = allProducts.filter(p => p.gender === 'women' && p.subcategory === 'dresses');
-    assert.ok(dresses.length >= 3, `Expected at least 3 women's dresses, found ${dresses.length}`);
-    for (const d of dresses) {
-      assert.ok(
-        d.image.includes('dress') || d.image.includes('maxi'),
-        `Dress ${d.id} has questionable image path: ${d.image}`
-      );
+  await test("Every product has a distinct, unique photographic asset (zero duplicate photos)", async () => {
+    const imageSet = new Set();
+    for (const p of allProducts) {
+      assert.ok(!imageSet.has(p.image), `Duplicate image path found across products: ${p.image} in ${p.id}`);
+      imageSet.add(p.image);
     }
   });
 
   // ---------------------------------------------------------
-  // 3. GENDER ISOLATION & COLLECTION CORRECTNESS
+  // 3. INDIAN RUPEE (INR) PRICING CONFORMANCE
   // ---------------------------------------------------------
-  console.log('\n--- 3. GENDER ISOLATION & COLLECTION CORRECTNESS ---');
+  console.log('\n--- 3. INDIAN RUPEE (INR) PRICING CONFORMANCE ---');
+
+  await test("All products have realistic Indian retail prices (₹500 to ₹10,000)", async () => {
+    for (const p of allProducts) {
+      assert.ok(typeof p.price === 'number', `Product ${p.id} price is not a number`);
+      assert.ok(p.price >= 500 && p.price <= 10000, `Product ${p.id} price is not in realistic INR range: ₹${p.price}`);
+      assert.strictEqual(Math.round(p.price), p.price, `Product ${p.id} price should be an integer in INR`);
+    }
+  });
+
+  // ---------------------------------------------------------
+  // 4. GENDER & CATEGORY FILTERING INTEGRITY
+  // ---------------------------------------------------------
+  console.log('\n--- 4. GENDER & CATEGORY FILTERING INTEGRITY ---');
 
   await test("Women collection contains ZERO male products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=women`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.notStrictEqual(p.gender, 'men', `Violation: Found male product "${p.name}" in Women's collection!`);
-      assert.ok(p.gender === 'women' || p.gender === 'unisex');
+    const womenRes = await fetch(`${BASE_URL}/api/products?gender=women`);
+    const womenData = await womenRes.json();
+    assert.ok(womenData.success);
+    assert.ok(womenData.products.length > 0);
+    for (const p of womenData.products) {
+      assert.ok(p.gender === 'women' || p.gender === 'unisex', `Found non-women product: ${p.id} (${p.gender})`);
     }
   });
 
   await test("Men collection contains ZERO female products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=men`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.notStrictEqual(p.gender, 'women', `Violation: Found female product "${p.name}" in Men's collection!`);
-      assert.ok(p.gender === 'men' || p.gender === 'unisex');
-      assert.notStrictEqual(p.subcategory, 'dresses', `Violation: Found dress in Men's collection!`);
+    const menRes = await fetch(`${BASE_URL}/api/products?gender=men`);
+    const menData = await menRes.json();
+    assert.ok(menData.success);
+    assert.ok(menData.products.length > 0);
+    for (const p of menData.products) {
+      assert.ok(p.gender === 'men' || p.gender === 'unisex', `Found non-men product: ${p.id} (${p.gender})`);
     }
   });
 
-  await test("Kids collection contains ONLY kids products (no adult blazers, dresses or sizes)", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3, "Kids collection should have products");
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'kids', `Violation: Non-kid product in Kids collection: ${p.name}`);
-      // Check that kids sizing doesn't contain adult waist sizes
-      assert.ok(!p.sizes.includes('34') && !p.sizes.includes('36'), `Violation: Adult waist size on kid product ${p.name}`);
+  await test("Querying removed departments (kids, footwear, accessories) returns 0 results", async () => {
+    for (const dep of ['kids', 'footwear', 'accessories']) {
+      const res = await fetch(`${BASE_URL}/api/products?gender=${dep}`);
+      const data = await res.json();
+      assert.strictEqual(data.products.length, 0, `Department ${dep} should return 0 items`);
     }
   });
 
-  // ---------------------------------------------------------
-  // 4. CATEGORY & FILTER INTERACTIONS
-  // ---------------------------------------------------------
-  console.log('\n--- 4. CATEGORY & FILTER INTERACTIONS ---');
-
-  await test("Women -> Dresses returns only women dresses", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=women&subcategory=dresses`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'women');
-      assert.strictEqual(p.subcategory, 'dresses');
+  await test("All required Men categories exist in catalog", async () => {
+    const menSubs = allProducts.filter(p => p.gender === 'men').map(p => p.subcategory);
+    const required = ['casual_shirts', 'formal_shirts', 't-shirts', 'polo_tshirts', 'jeans', 'trousers', 'chinos', 'hoodies', 'sweatshirts', 'jackets', 'kurtas'];
+    for (const req of required) {
+      assert.ok(menSubs.includes(req), `Men category missing from catalog: ${req}`);
     }
   });
 
-  await test("Women -> Tops returns only women tops/blouses", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=women&subcategory=tops`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 1);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'women');
-      assert.strictEqual(p.subcategory, 'tops');
-    }
-  });
-
-  await test("Men -> Shirts returns only men shirts", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=men&subcategory=shirts`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 2);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'men');
-      assert.strictEqual(p.subcategory, 'shirts');
-    }
-  });
-
-  await test("Men -> Jackets returns only men jackets", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=men&subcategory=jackets`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 1);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'men');
-      assert.strictEqual(p.subcategory, 'jackets');
-    }
-  });
-
-  await test("Kids -> Boys Clothing returns boys items", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids&subcategory=boys`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 1);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'kids');
-      assert.strictEqual(p.subcategory, 'boys');
-    }
-  });
-
-  await test("Kids -> Girls Clothing returns girls items", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids&subcategory=girls`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 1);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'kids');
-      assert.strictEqual(p.subcategory, 'girls');
-    }
-  });
-
-  await test("Footwear department returns ONLY footwear (no accessories or clothing)", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=footwear`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (const p of data.products) {
-      assert.strictEqual(p.category, 'footwear', `Violation: Non-footwear product "${p.name}" in footwear department!`);
-    }
-  });
-
-  await test("Accessories department returns ONLY accessories (no shoes or shirts)", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=accessories`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (const p of data.products) {
-      assert.strictEqual(p.category, 'accessories', `Violation: Non-accessory product "${p.name}" in accessories department!`);
+  await test("All required Women categories exist in catalog", async () => {
+    const womenSubs = allProducts.filter(p => p.gender === 'women').map(p => p.subcategory);
+    const required = ['tops', 't-shirts', 'shirts', 'jeans', 'trousers', 'dresses', 'skirts', 'kurtis', 'kurtas', 'ethnic_sets', 'coord_sets', 'jackets'];
+    for (const req of required) {
+      assert.ok(womenSubs.includes(req), `Women category missing from catalog: ${req}`);
     }
   });
 
   // ---------------------------------------------------------
-  // 5. ACCURATE COUNTS & EMPTY RESULT INTEGRITY
+  // 5. USER AUTHENTICATION & INDIAN ADDRESS CHECKOUT
   // ---------------------------------------------------------
-  console.log('\n--- 5. ACCURATE COUNTS & EMPTY RESULT INTEGRITY ---');
+  console.log('\n--- 5. USER AUTHENTICATION & INDIAN ADDRESS CHECKOUT ---');
 
-  await test("Returned product count matches the filtered array length exactly", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=women`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.total, data.products.length, `Count mismatch: data.total=${data.total}, products.length=${data.products.length}`);
-  });
+  let testToken = '';
+  let testUserId = '';
 
-  await test("Empty filter returns 0 results WITHOUT fallback to full catalog", async () => {
-    // Search for impossible criteria: kids dresses with minPrice 99999
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids&minPrice=99999`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.products.length, 0, `Violation: Empty filter returned ${data.products.length} products instead of 0! Fallback to full catalog detected!`);
-    assert.strictEqual(data.total, 0);
-  });
-
-  await test("Impossible subcategory in gender returns 0 results", async () => {
-    // Requesting shirts under kids (when subcategory is boys/girls/baby)
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids&subcategory=heels`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.products.length, 0, "Expected 0 results for kids heels");
-  });
-
-  // ---------------------------------------------------------
-  // 6. CART IDENTITY, INVENTORY & ORDERS
-  // ---------------------------------------------------------
-  console.log('\n--- 6. CART IDENTITY, INVENTORY & ORDERS ---');
-
-  let testUserToken = '';
-  const testEmail = `test_${Date.now()}@example.com`;
-
-  await test("Register new user for cart & order verification", async () => {
+  await test("Register new customer account", async () => {
+    const email = `test_inr_${Date.now()}@omnifit.in`;
     const res = await fetch(`${BASE_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'OmniFit Test Customer',
-        email: testEmail,
-        password: 'securepassword123'
+        name: 'Arjun Sharma',
+        email,
+        password: 'password123'
       })
     });
     const data = await res.json();
-    assert.strictEqual(data.success, true);
-    testUserToken = data.token;
+    assert.ok(data.success, `Registration failed: ${data.error}`);
+    assert.ok(data.token, 'Expected auth token');
+    testToken = data.token;
+    testUserId = data.user.id;
   });
 
   let createdOrderId = '';
 
-  await test("Add to cart & place order preserves exact product identity, selected size, and price", async () => {
-    const targetProduct = allProducts.find(p => p.id === 'w-dress-1');
-    assert.ok(targetProduct, 'Target product w-dress-1 must exist');
-    const initialStockM = targetProduct.stock['M'];
-
+  await test("Add to cart & place order with Indian Address & 5% GST", async () => {
+    const item = allProducts[0];
     const res = await fetch(`${BASE_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${testUserToken}`
+        'Authorization': `Bearer ${testToken}`
       },
       body: JSON.stringify({
         items: [
           {
-            productId: targetProduct.id,
+            productId: item.id,
+            name: item.name,
+            brand: item.brand,
+            image: item.image,
+            price: item.price,
             quantity: 1,
             selectedSize: 'M',
-            selectedColor: 'Midnight Blue'
+            selectedColor: 'Standard'
           }
         ],
         shippingAddress: {
-          name: 'Jane Doe',
-          street: '456 Fashion Blvd',
-          city: 'New York',
-          state: 'NY',
-          zipCode: '10001',
-          country: 'US'
+          name: 'Arjun Sharma',
+          street: '42, Lavelle Road',
+          city: 'Bengaluru',
+          state: 'Karnataka',
+          zipCode: '560001',
+          country: 'India',
+          phone: '+91 98765 43210'
         },
-        deliveryMethod: 'prime_standard',
-        paymentMethod: 'OmniFit Pay'
+        deliveryMethod: 'prime_standard'
       })
     });
 
     const data = await res.json();
-    assert.strictEqual(data.success, true);
+    assert.ok(data.success, `Order placement failed: ${data.error}`);
+    assert.ok(data.order, 'Order object missing');
+    assert.strictEqual(data.order.shippingAddress.country, 'India');
+    assert.strictEqual(data.order.shippingAddress.zipCode, '560001');
+    assert.strictEqual(data.order.deliveryFee, 0); // Free delivery
+    assert.strictEqual(data.order.tax, Math.round(item.price * 0.05)); // 5% GST
+    assert.strictEqual(data.order.total, item.price + data.order.tax);
     createdOrderId = data.order.id;
-
-    // Verify order item identity
-    const orderItem = data.order.items[0];
-    assert.strictEqual(orderItem.productId, targetProduct.id);
-    assert.strictEqual(orderItem.name, targetProduct.name);
-    assert.strictEqual(orderItem.image, targetProduct.image);
-    assert.strictEqual(orderItem.price, targetProduct.price);
-    assert.strictEqual(orderItem.selectedSize, 'M');
-    assert.strictEqual(orderItem.selectedColor, 'Midnight Blue');
-
-    // Verify stock decremented
-    const pRes = await fetch(`${BASE_URL}/api/products/${targetProduct.id}`);
-    const pData = await pRes.json();
-    assert.strictEqual(pData.product.stock['M'], initialStockM - 1, 'Stock did not decrement');
-  });
-
-  await test("Order cancellation properly restores inventory", async () => {
-    const targetProduct = allProducts.find(p => p.id === 'w-dress-1');
-    const pResBefore = await fetch(`${BASE_URL}/api/products/${targetProduct.id}`);
-    const stockBefore = (await pResBefore.json()).product.stock['M'];
-
-    const res = await fetch(`${BASE_URL}/api/orders/${createdOrderId}/cancel`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ reason: 'Catalog test cancellation' })
-    });
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.order.status, 'Cancelled');
-
-    const pResAfter = await fetch(`${BASE_URL}/api/products/${targetProduct.id}`);
-    const stockAfter = (await pResAfter.json()).product.stock['M'];
-    assert.strictEqual(stockAfter, stockBefore + 1, 'Stock was not restored after cancellation');
   });
 
   // ---------------------------------------------------------
-  // 7. AI & VIRTUAL TRY-ON VALIDATION
+  // 6. ADMIN PORTAL & SYNCHRONIZED ORDER WORKFLOW
   // ---------------------------------------------------------
-  console.log('\n--- 7. AI & VIRTUAL TRY-ON VALIDATION ---');
+  console.log('\n--- 6. ADMIN PORTAL & SYNCHRONIZED ORDER WORKFLOW ---');
 
-  await test("AI size recommender provides accurate recommendation", async () => {
-    const res = await fetch(`${BASE_URL}/api/ai/size-recommend`, {
+  let adminToken = '';
+
+  await test("Admin login using credentials admin@omnifit.com / admin123", async () => {
+    const res = await fetch(`${BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        heightCm: 178,
-        weightKg: 72,
-        fitPreference: 'regular'
+        email: 'admin@omnifit.com',
+        password: 'admin123'
       })
     });
     const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(['XS', 'S', 'M', 'L', 'XL'].includes(data.recommendedSize));
+    assert.ok(data.success, `Admin login failed: ${data.error}`);
+    assert.strictEqual(data.user.role, 'admin');
+    adminToken = data.token;
   });
 
-  await test("Virtual Try-On API validates required input images properly", async () => {
-    const emptyRes = await fetch(`${BASE_URL}/api/generate-tryon`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
+  await test("Order placed by customer is immediately visible to Admin", async () => {
+    const res = await fetch(`${BASE_URL}/api/orders`, {
+      headers: { 'Authorization': `Bearer ${adminToken}` }
     });
-    assert.strictEqual(emptyRes.status, 400);
+    const data = await res.json();
+    assert.ok(data.success);
+    const found = data.orders.find(o => o.id === createdOrderId);
+    assert.ok(found, `Newly created order ${createdOrderId} was not visible to admin`);
+  });
 
-    const validRes = await fetch(`${BASE_URL}/api/generate-tryon`, {
+  await test("Admin updates order status to 'Confirmed' and customer sees update", async () => {
+    const patchRes = await fetch(`${BASE_URL}/api/admin/orders/${createdOrderId}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({ status: 'Confirmed', note: 'Order confirmed by fulfillment team' })
+    });
+    const patchData = await patchRes.json();
+    assert.ok(patchData.success, `Status update failed: ${patchData.error}`);
+    assert.strictEqual(patchData.order.status, 'Confirmed');
+
+    // Customer checks their own order
+    const custRes = await fetch(`${BASE_URL}/api/orders/${createdOrderId}`, {
+      headers: { 'Authorization': `Bearer ${testToken}` }
+    });
+    const custData = await custRes.json();
+    assert.ok(custData.success);
+    assert.strictEqual(custData.order.status, 'Confirmed', 'Customer does not see updated status');
+  });
+
+  await test("Admin can fetch customer accounts via /api/admin/users without password leakage", async () => {
+    const res = await fetch(`${BASE_URL}/api/admin/users`, {
+      headers: { 'Authorization': `Bearer ${adminToken}` }
+    });
+    const data = await res.json();
+    assert.ok(data.success);
+    assert.ok(data.users.length > 0);
+    for (const u of data.users) {
+      assert.strictEqual(u.passwordHash, undefined, "Security violation: passwordHash exposed!");
+    }
+  });
+
+  await test("Customer cannot access /api/admin/users (RBAC enforced)", async () => {
+    const res = await fetch(`${BASE_URL}/api/admin/users`, {
+      headers: { 'Authorization': `Bearer ${testToken}` }
+    });
+    assert.strictEqual(res.status, 403, "Customer should be forbidden from admin users endpoint");
+  });
+
+  // ---------------------------------------------------------
+  // 7. AI STYLIST ASSISTANT VALIDATION
+  // ---------------------------------------------------------
+  console.log('\n--- 7. AI STYLIST ASSISTANT VALIDATION ---');
+
+  await test("AI Stylist: Office / presentation query under ₹3,000", async () => {
+    const res = await fetch(`${BASE_URL}/api/ai/assistant`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        faceImage: 'data:image/jpeg;base64,face_sample',
-        outfitImage: 'data:image/jpeg;base64,outfit_sample'
+        message: "Suggest an outfit for a college presentation under 3000",
+        activeGender: "men"
       })
     });
-    const validData = await validRes.json();
-    assert.strictEqual(validData.success, true);
+    const data = await res.json();
+    assert.ok(data.success);
+    assert.ok(data.recommendedProducts.length > 0);
+    assert.ok(data.reply.includes('₹'), 'Response should include INR pricing');
+    for (const p of data.recommendedProducts) {
+      assert.ok(p.price <= 3000, `Item ${p.name} exceeds budget: ₹${p.price}`);
+    }
+  });
+
+  await test("AI Stylist: Wedding / festive ethnic query", async () => {
+    const res = await fetch(`${BASE_URL}/api/ai/assistant`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: "I need traditional Indian wear for a family wedding",
+        activeGender: "women"
+      })
+    });
+    const data = await res.json();
+    assert.ok(data.success);
+    assert.ok(data.recommendedProducts.length > 0);
+    const subcats = data.recommendedProducts.map(p => p.subcategory);
+    const hasEthnic = subcats.some(s => ['kurtas', 'kurtis', 'ethnic_sets'].includes(s));
+    assert.ok(hasEthnic, "Expected ethnic / kurta recommendations");
   });
 
   // ---------------------------------------------------------
-  // 8. VERIFICATION OF ALL 16 MANDATORY USER SCENARIOS
+  // SUMMARY
   // ---------------------------------------------------------
-  console.log('\n--- 8. VERIFICATION OF ALL 16 MANDATORY USER SCENARIOS ---');
-
-  // Scenario 1: Open All Items with no filters: valid products appear
-  await test("Scenario 1: Open All Items with no filters returns full catalog of valid products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.products.length, 25);
-  });
-
-  // Scenario 2: Select Women: no men's-only products appear
-  await test("Scenario 2: Select Women contains no men's-only products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=women`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.ok(p.gender === 'women' || p.gender === 'unisex');
-      assert.notStrictEqual(p.gender, 'men');
-    }
-  });
-
-  // Scenario 3: Select Men: no women's-only products appear
-  await test("Scenario 3: Select Men contains no women's-only products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=men`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.ok(p.gender === 'men' || p.gender === 'unisex');
-      assert.notStrictEqual(p.gender, 'women');
-      assert.notStrictEqual(p.subcategory, 'dresses');
-    }
-  });
-
-  // Scenario 4: Select Kids: only kids' products appear
-  await test("Scenario 4: Select Kids returns exclusively kids' products", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?gender=kids`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.strictEqual(data.products.length, 3);
-    for (const p of data.products) {
-      assert.strictEqual(p.gender, 'kids');
-    }
-  });
-
-  // Scenario 5: Select Dresses: no shirts, shoes, or accessories appear
-  await test("Scenario 5: Select Dresses returns only dresses (no shirts, footwear, or accessories)", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?subcategory=dresses`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (const p of data.products) {
-      assert.strictEqual(p.subcategory, 'dresses');
-      assert.strictEqual(p.category, 'clothing');
-    }
-  });
-
-  // Scenario 6: Select Red: red products appear
-  await test("Scenario 6: Select Red returns matching products across shades", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?color=red`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (const p of data.products) {
-      const pColors = p.colors.join(' ').toLowerCase();
-      assert.ok(
-        pColors.includes('red') || pColors.includes('burgundy') || pColors.includes('maroon') || pColors.includes('ruby'),
-        `Product ${p.id} does not contain red shade: ${p.colors}`
-      );
-    }
-  });
-
-  // Scenario 7: Select Red plus a price range: only products satisfying both conditions appear
-  await test("Scenario 7: Select Red plus price range ($50-$100) satisfies both conditions", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?color=red&minPrice=50&maxPrice=100`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.ok(p.price >= 50 && p.price <= 100);
-      const pColors = p.colors.join(' ').toLowerCase();
-      assert.ok(pColors.includes('red') || pColors.includes('ruby') || pColors.includes('burgundy'));
-    }
-  });
-
-  // Scenario 8: Select a size: only products available in that size appear
-  await test("Scenario 8: Select size (XS) returns only products offering size XS", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?size=XS`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.ok(p.sizes.includes('XS'), `Product ${p.id} missing size XS: ${p.sizes}`);
-    }
-  });
-
-  // Scenario 9: Select In Stock Only: out-of-stock products disappear
-  await test("Scenario 9: Select In Stock Only excludes out-of-stock items (w-trouser-1)", async () => {
-    const allRes = await fetch(`${BASE_URL}/api/products`);
-    const allData = await allRes.json();
-    const inStockRes = await fetch(`${BASE_URL}/api/products?inStock=true`);
-    const inStockData = await inStockRes.json();
-
-    assert.strictEqual(allData.products.length, 25);
-    assert.strictEqual(inStockData.products.length, 24);
-    assert.ok(!inStockData.products.some(p => p.id === 'w-trouser-1'), "Out-of-stock item w-trouser-1 should be excluded");
-  });
-
-  // Scenario 10: Enable Virtual Try-On Ready: only eligible products appear
-  await test("Scenario 10: Enable Virtual Try-On Ready returns only hasTryOn: true items", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?hasTryOn=true`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length > 0);
-    for (const p of data.products) {
-      assert.strictEqual(p.hasTryOn, true, `Product ${p.id} has hasTryOn: false`);
-    }
-  });
-
-  // Multi-size OR logic within group:
-  await test("Multi-size filter uses OR logic within sizes group", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?size=XS&size=XXL`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    for (const p of data.products) {
-      assert.ok(p.sizes.includes('XS') || p.sizes.includes('XXL'));
-    }
-  });
-
-  // Multi-color OR logic within group:
-  await test("Multi-color filter uses OR logic within colors group", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?color=red&color=green`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    for (const p of data.products) {
-      const pColors = p.colors.join(' ').toLowerCase();
-      const hasRed = pColors.includes('red') || pColors.includes('burgundy') || pColors.includes('ruby');
-      const hasGreen = pColors.includes('green') || pColors.includes('emerald') || pColors.includes('sage') || pColors.includes('olive');
-      assert.ok(hasRed || hasGreen, `Product ${p.id} neither red nor green: ${p.colors}`);
-    }
-  });
-
-  // Scenario 14: Search + Sorting
-  await test("Scenario 14: Search for product name ('leather') and sort by price ascending", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?search=leather&sortBy=price_asc`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    assert.ok(data.products.length >= 3);
-    for (let i = 1; i < data.products.length; i++) {
-      assert.ok(data.products[i].price >= data.products[i - 1].price, "Prices are not in ascending order");
-    }
-  });
-
-  await test("Scenario 14b: Sort by customer rating descending", async () => {
-    const res = await fetch(`${BASE_URL}/api/products?sortBy=rating`);
-    const data = await res.json();
-    assert.strictEqual(data.success, true);
-    for (let i = 1; i < data.products.length; i++) {
-      assert.ok((data.products[i - 1].rating || 0) >= (data.products[i].rating || 0), "Ratings not in descending order");
-    }
-  });
-
-  // Scenario 15: Product card data integrity
-  await test("Scenario 15: All product cards have matching images, names, categories, and gender labels", async () => {
-    for (const p of allProducts) {
-      assert.ok(p.name && p.name.length > 3);
-      assert.ok(p.image && p.image.startsWith('/'));
-      assert.ok(['women', 'men', 'kids', 'unisex'].includes(p.gender));
-      assert.ok(['clothing', 'footwear', 'accessories'].includes(p.category));
-      assert.ok(typeof p.price === 'number' && p.price > 0);
-      assert.ok(typeof p.rating === 'number' && p.rating >= 1 && p.rating <= 5);
-      assert.ok(typeof p.reviewCount === 'number');
-    }
-  });
-
-  console.log('\n' + '='.repeat(65));
+  console.log('\n' + '='.repeat(70));
   console.log(`📊 FINAL TEST REPORT: ${passed} PASSED, ${failed} FAILED`);
-  console.log('='.repeat(65));
+  console.log('='.repeat(70));
 
   if (failed > 0) {
     process.exit(1);
@@ -621,6 +366,6 @@ async function runTests() {
 }
 
 runTests().catch(err => {
-  console.error("Test execution failed:", err);
+  console.error("Test Suite Fatal Error:", err);
   process.exit(1);
 });

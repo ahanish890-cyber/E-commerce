@@ -99,7 +99,7 @@ export const Layout: React.FC<LayoutProps> = ({
           className="flex items-center cursor-pointer p-2 border border-transparent hover:border-white rounded select-none shrink-0"
           onClick={onGoHome}
         >
-          <span className="text-2xl font-black tracking-tight text-white">OmniFit<span className="text-[#febd69]">.com</span></span>
+          <span className="text-2xl font-black tracking-tight text-white">OmniFit<span className="text-[#febd69]">.in</span></span>
         </div>
 
         {/* Deliver To */}
@@ -111,7 +111,7 @@ export const Layout: React.FC<LayoutProps> = ({
           <span className="text-gray-400">Deliver to {currentUser ? currentUser.name.split(' ')[0] : 'Guest'}</span>
           <div className="flex items-center gap-1 font-bold text-white">
             <MapPin size={14} className="text-[#febd69]" /> 
-            <span>{deliveryLocation ? `${deliveryLocation.city} ${deliveryLocation.zipCode}` : 'New York 10001'}</span>
+            <span>{deliveryLocation ? `${deliveryLocation.city} ${deliveryLocation.zipCode}` : 'Bengaluru 560001'}</span>
           </div>
         </div>
 
@@ -123,12 +123,9 @@ export const Layout: React.FC<LayoutProps> = ({
               onChange={(e) => setSearchDepartment(e.target.value)}
               className="bg-gray-100 text-gray-700 text-xs px-2 md:px-3 rounded-l border-r border-gray-300 focus:outline-none hover:bg-gray-200 cursor-pointer hidden sm:block shrink-0"
             >
-              <option value="all">All Departments</option>
+              <option value="all">All Clothing</option>
               <option value="women">Women's Fashion</option>
               <option value="men">Men's Fashion</option>
-              <option value="kids">Kids & Baby</option>
-              <option value="footwear">Footwear</option>
-              <option value="accessories">Accessories</option>
             </select>
             <input 
               type="text" 
@@ -242,6 +239,20 @@ export const Layout: React.FC<LayoutProps> = ({
             </div>
           )}
         </div>
+
+        {/* Admin Dashboard Quick Link */}
+        {currentUser?.role === 'admin' && (
+          <div
+            onClick={onViewAdmin}
+            className="flex flex-col p-2 border border-purple-400 bg-purple-900/40 hover:bg-purple-900/70 rounded cursor-pointer text-xs shrink-0 transition-colors"
+            title="Open OmniFit Admin Operations Console"
+          >
+            <span className="text-purple-300 font-bold flex items-center gap-1">
+              <Shield size={12} className="text-purple-300" /> Admin
+            </span>
+            <span className="font-bold text-white text-[11px]">Dashboard</span>
+          </div>
+        )}
 
         {/* Returns & Orders */}
         <div 
@@ -397,7 +408,7 @@ export const Layout: React.FC<LayoutProps> = ({
             <span onClick={() => setFooterModal('legal')} className="hover:underline cursor-pointer">Privacy Notice</span>
             <span onClick={() => setFooterModal('legal')} className="hover:underline cursor-pointer">Sandbox Simulation Policies</span>
           </div>
-          <p className="text-gray-400">© 2026 OmniFit.com, Inc. or its affiliates. All rights reserved.</p>
+          <p className="text-gray-400">© 2026 OmniFit.in, Inc. or its affiliates. All rights reserved.</p>
         </div>
 
         {/* Footer Informational Modals */}
@@ -471,8 +482,8 @@ export const Layout: React.FC<LayoutProps> = ({
                         <h4 className="font-bold text-gray-900 flex items-center gap-1.5 mb-1">
                           <Truck size={14} className="text-[#007185]" /> Shipping Methods
                         </h4>
-                        <p>• Prime One-Day & Standard: FREE on all orders over $35.</p>
-                        <p>• Express Expedited Delivery: Flat $9.99 with real-time tracking.</p>
+                        <p>• Standard Express: FREE on all orders over ₹999.</p>
+                        <p>• Express Priority Delivery: Flat ₹149 with real-time tracking across India.</p>
                       </div>
                       <div className="p-3 bg-neutral-50 rounded-xl border border-gray-100">
                         <h4 className="font-bold text-gray-900 flex items-center gap-1.5 mb-1">

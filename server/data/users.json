@@ -9,19 +9,16 @@
       {
         "id": "addr-1",
         "name": "Jane Doe",
-        "street": "742 Evergreen Terrace",
-        "city": "Springfield",
-        "state": "OR",
-        "zipCode": "97477",
-        "country": "United States",
-        "phone": "+1 (555) 234-5678",
+        "street": "Flat 402, Prestige Palms, 12th Main Road, Indiranagar",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "zipCode": "560038",
+        "country": "India",
+        "phone": "+91 98765 43210",
         "isDefault": true
       }
     ],
-    "wishlist": [
-      "w-dress-2",
-      "a-bag-1"
-    ],
+    "wishlist": [],
     "createdAt": "2026-01-15T10:00:00.000Z"
   },
   {
@@ -33,13 +30,13 @@
     "addresses": [
       {
         "id": "addr-admin",
-        "name": "OmniFit HQ",
-        "street": "410 Terry Ave N",
-        "city": "Seattle",
-        "state": "WA",
-        "zipCode": "98109",
-        "country": "United States",
-        "phone": "+1 (206) 555-0100",
+        "name": "OmniFit India HQ",
+        "street": "Level 14, Maker Maxity, Bandra Kurla Complex",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "zipCode": "400051",
+        "country": "India",
+        "phone": "+91 98200 12345",
         "isDefault": true
       }
     ],
@@ -165,5 +162,101 @@
     "addresses": [],
     "wishlist": [],
     "createdAt": "2026-10-12T17:23:43.497Z"
+  },
+  {
+    "id": "user-1793273644068",
+    "name": "Baranika",
+    "email": "b@gmail.com",
+    "passwordHash": "48f6d7f7c695b18020bb189fb0f01668ac5ab44bb3e6ebca1903fc7b281d1559",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [
+      "w-top-2",
+      "w-jean-1"
+    ],
+    "createdAt": "2026-10-29T11:34:04.068Z"
+  },
+  {
+    "id": "user-1793274430212",
+    "name": "OmniFit Test Customer",
+    "email": "test_1793274430205@example.com",
+    "passwordHash": "dda69783f28fdf6f1c5a83e8400f2472e9300887d1dffffe12a07b92a3d0aa25",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T11:47:10.212Z"
+  },
+  {
+    "id": "user-1793275750507",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793275750466@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T12:09:10.507Z"
+  },
+  {
+    "id": "user-1793278218588",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793278218583@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T12:50:18.588Z"
+  },
+  {
+    "id": "user-1793278737371",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793278737349@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T12:58:57.372Z"
+  },
+  {
+    "id": "user-1793279003320",
+    "name": "HANISH",
+    "email": "hanish1506@gmail.com",
+    "passwordHash": "b6bcc6387d2d31d45d8b5cc5ed3f8657a4880b603751b745d23d8fe8b55bd567",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [
+      "w-top-2",
+      "w-jean-1"
+    ],
+    "createdAt": "2026-10-29T13:03:23.320Z"
+  },
+  {
+    "id": "user-1793283627991",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793283627977@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T14:20:27.992Z"
+  },
+  {
+    "id": "user-1793283804866",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793283804849@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T14:23:24.867Z"
+  },
+  {
+    "id": "user-1793285805849",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793285805845@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-29T14:56:45.849Z"
   }
 ]

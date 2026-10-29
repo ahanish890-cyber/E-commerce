@@ -8,6 +8,7 @@ import {
   DEPARTMENT_SIZES 
 } from './constants';
 import { filterAndSortCatalog } from './utils/catalogFilter';
+import { formatINR } from './utils/currency';
 import { 
   Product, 
   CartItem, 
@@ -65,13 +66,16 @@ const ProductImage: React.FC<ProductImageProps> = ({
   ...props 
 }) => {
   const [currentSrc, setCurrentSrc] = useState(src || fallback);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     setCurrentSrc(src || fallback);
+    setHasError(false);
   }, [src, fallback]);
 
   const handleError = () => {
-    if (currentSrc !== fallback) {
+    if (!hasError && currentSrc !== fallback) {
+      setHasError(true);
       setCurrentSrc(fallback);
     }
   };
@@ -79,9 +83,11 @@ const ProductImage: React.FC<ProductImageProps> = ({
   return (
     <img 
       src={currentSrc} 
-      alt={alt} 
+      alt={alt || "OmniFit Garment"} 
       className={className} 
       onError={handleError}
+      loading="lazy"
+      decoding="async"
       {...props} 
     />
   );
@@ -111,9 +117,9 @@ const App: React.FC = () => {
   const [deliveryLocation, setDeliveryLocation] = useState<{ city: string; zipCode: string }>(() => {
     try {
       const saved = localStorage.getItem('omnifit_delivery_location');
-      return saved ? JSON.parse(saved) : { city: 'New York', zipCode: '10001' };
+      return saved ? JSON.parse(saved) : { city: 'Bengaluru', zipCode: '560001' };
     } catch {
-      return { city: 'New York', zipCode: '10001' };
+      return { city: 'Bengaluru', zipCode: '560001' };
     }
   });
 
@@ -239,25 +245,8 @@ const App: React.FC = () => {
     try {
       const params = new URLSearchParams();
       if (filters.gender !== 'all') params.append('gender', filters.gender);
-      if (filters.category && filters.category !== 'all') params.append('category', filters.category);
       if (filters.subcategory !== 'all') params.append('subcategory', filters.subcategory);
       if (filters.search) params.append('search', filters.search);
-      if (filters.minPrice !== undefined) params.append('minPrice', filters.minPrice.toString());
-      if (filters.maxPrice !== undefined) params.append('maxPrice', filters.maxPrice.toString());
-
-      const targetSizes = filters.sizes && filters.sizes.length > 0
-        ? filters.sizes
-        : (filters.size ? filters.size.split(',').map(s => s.trim()) : []);
-      targetSizes.forEach(s => params.append('size', s));
-
-      const targetColors = filters.colors && filters.colors.length > 0
-        ? filters.colors
-        : (filters.color ? filters.color.split(',').map(c => c.trim()) : []);
-      targetColors.forEach(c => params.append('color', c));
-
-      if (filters.minRating !== undefined) params.append('rating', filters.minRating.toString());
-      if (filters.hasTryOn) params.append('hasTryOn', 'true');
-      if (filters.inStock) params.append('inStock', 'true');
       if (filters.sortBy) params.append('sortBy', filters.sortBy);
 
       const res = await fetch(`/api/products?${params.toString()}`);
@@ -282,22 +271,13 @@ const App: React.FC = () => {
     fetchProducts();
   }, [filters]);
 
-  // Comprehensive reset for filters
+  // Clean reset for filters
   const resetFilters = (preserveDepartment = false) => {
     setFilters({
       gender: preserveDepartment ? filters.gender : 'all',
       category: 'all',
       subcategory: 'all',
       search: '',
-      minPrice: undefined,
-      maxPrice: undefined,
-      size: undefined,
-      color: undefined,
-      sizes: [],
-      colors: [],
-      minRating: undefined,
-      hasTryOn: undefined,
-      inStock: undefined,
       sortBy: 'featured'
     });
   };
@@ -537,23 +517,9 @@ const App: React.FC = () => {
         </div>
 
         {/* Active Filters Chips Bar */}
+        {/* Active Filter Chips */}
         {(() => {
-          const activeSizes = filters.sizes && filters.sizes.length > 0
-            ? filters.sizes
-            : (filters.size ? filters.size.split(',').map(s => s.trim()) : []);
-
-          const activeColors = filters.colors && filters.colors.length > 0
-            ? filters.colors
-            : (filters.color ? filters.color.split(',').map(c => c.trim()) : []);
-
-          const hasActiveFilters = 
-            filters.minPrice !== undefined || 
-            activeSizes.length > 0 || 
-            activeColors.length > 0 || 
-            filters.minRating !== undefined || 
-            Boolean(filters.hasTryOn) || 
-            Boolean(filters.inStock) || 
-            Boolean(filters.search);
+          const hasActiveFilters = Boolean(filters.search) || (filters.subcategory && filters.subcategory !== 'all');
 
           if (!hasActiveFilters) return null;
 
@@ -566,62 +532,10 @@ const App: React.FC = () => {
                   <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, search: '' }))} />
                 </span>
               )}
-              {filters.minPrice !== undefined && (
-                <span className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium">
-                  Price: ${filters.minPrice} - ${filters.maxPrice}
-                  <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, minPrice: undefined, maxPrice: undefined }))} />
-                </span>
-              )}
-              {activeSizes.map(s => (
-                <span key={`size-chip-${s}`} className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium">
-                  Size: {s}
-                  <X 
-                    size={12} 
-                    className="cursor-pointer text-gray-500 hover:text-black" 
-                    onClick={() => {
-                      const next = activeSizes.filter(x => x !== s);
-                      setFilters(prev => ({ 
-                        ...prev, 
-                        sizes: next, 
-                        size: next.length === 1 ? next[0] : (next.length === 0 ? undefined : next.join(',')) 
-                      }));
-                    }} 
-                  />
-                </span>
-              ))}
-              {activeColors.map(c => (
-                <span key={`color-chip-${c}`} className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium">
-                  Color: {c}
-                  <X 
-                    size={12} 
-                    className="cursor-pointer text-gray-500 hover:text-black" 
-                    onClick={() => {
-                      const next = activeColors.filter(x => x.toLowerCase() !== c.toLowerCase());
-                      setFilters(prev => ({ 
-                        ...prev, 
-                        colors: next, 
-                        color: next.length === 1 ? next[0] : (next.length === 0 ? undefined : next.join(',')) 
-                      }));
-                    }} 
-                  />
-                </span>
-              ))}
-              {filters.minRating && (
-                <span className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium">
-                  Rating: {filters.minRating}★ & Up
-                  <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, minRating: undefined }))} />
-                </span>
-              )}
-              {filters.hasTryOn && (
-                <span className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium text-indigo-700">
-                  Virtual Try-On
-                  <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, hasTryOn: undefined }))} />
-                </span>
-              )}
-              {filters.inStock && (
-                <span className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium text-green-700">
-                  In Stock Only
-                  <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, inStock: undefined }))} />
+              {filters.subcategory && filters.subcategory !== 'all' && (
+                <span className="bg-white px-2.5 py-1 rounded-full border border-gray-300 flex items-center gap-1 font-medium capitalize">
+                  Category: {filters.subcategory.replace('-', ' ')}
+                  <X size={12} className="cursor-pointer text-gray-500 hover:text-black" onClick={() => setFilters(prev => ({ ...prev, subcategory: 'all' }))} />
                 </span>
               )}
               <button
@@ -650,7 +564,7 @@ const App: React.FC = () => {
             <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-xs flex flex-wrap items-center justify-between gap-4">
               <div>
                 <h2 className="text-lg md:text-xl font-bold text-gray-900">
-                  {filters.gender === 'all' ? 'All Fashion Arrivals' : filters.gender === 'women' ? "Women's Collection" : filters.gender === 'men' ? "Men's Collection" : filters.gender === 'kids' ? "Kids & Baby Collection" : `${filters.gender.toUpperCase()} Department`}
+                  {filters.gender === 'all' ? 'All Fashion Arrivals' : filters.gender === 'women' ? "Women's Collection" : "Men's Collection"}
                   <span className="text-sm font-normal text-gray-500 ml-2">({catalog.length} results)</span>
                 </h2>
               </div>
@@ -750,15 +664,11 @@ const App: React.FC = () => {
 
                       {/* Price Section */}
                       <div className="mt-auto pt-2">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-xs font-bold self-start mt-0.5">$</span>
-                          <span className="text-xl md:text-2xl font-bold text-gray-900">{Math.floor(product.price)}</span>
-                          <span className="text-xs font-bold self-start mt-0.5">
-                            {((product.price % 1) * 100).toFixed(0).padStart(2, '0')}
-                          </span>
-                          {product.originalPrice && (
-                            <span className="text-xs text-gray-400 line-through ml-1.5">
-                              ${product.originalPrice.toFixed(2)}
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-xl md:text-2xl font-black text-gray-900">{formatINR(product.price)}</span>
+                          {product.originalPrice && product.originalPrice > product.price && (
+                            <span className="text-xs text-gray-400 line-through">
+                              {formatINR(product.originalPrice)}
                             </span>
                           )}
                         </div>
@@ -868,7 +778,8 @@ const App: React.FC = () => {
               <div className="flex-1 bg-neutral-50 rounded-xl overflow-hidden border border-gray-100 flex items-center justify-center p-6 min-h-[420px]">
                 <ProductImage 
                   src={activeGalleryImage || selectedProduct.image} 
-                  className="max-h-[550px] object-contain transition-all duration-300"
+                  alt={selectedProduct.name}
+                  className="max-h-[550px] object-contain transition-all duration-300 rounded-lg"
                 />
               </div>
             </div>
@@ -932,16 +843,12 @@ const App: React.FC = () => {
                   <span className="text-3xl font-light">-{selectedProduct.discount}%</span>
                 )}
                 <div className="flex items-baseline text-gray-900">
-                  <span className="text-sm font-bold self-start mt-1">$</span>
-                  <span className="text-4xl font-black">{Math.floor(selectedProduct.price)}</span>
-                  <span className="text-base font-bold mt-1">
-                    {((selectedProduct.price % 1) * 100).toFixed(0).padStart(2, '0')}
-                  </span>
+                  <span className="text-3xl md:text-4xl font-black">{formatINR(selectedProduct.price)}</span>
                 </div>
               </div>
-              {selectedProduct.originalPrice && (
+              {selectedProduct.originalPrice && selectedProduct.originalPrice > selectedProduct.price && (
                 <p className="text-xs text-gray-500 mt-1">
-                  Typical price: <span className="line-through">${selectedProduct.originalPrice.toFixed(2)}</span>
+                  Typical price: <span className="line-through">{formatINR(selectedProduct.originalPrice)}</span>
                 </p>
               )}
               <div className="flex items-center gap-2 mt-3 text-xs font-bold text-gray-700">
@@ -1100,8 +1007,7 @@ const App: React.FC = () => {
           {/* Right Column: Checkout Sticky Card */}
           <div className="w-full lg:w-[350px] border border-gray-200 rounded-2xl p-6 space-y-5 h-fit sticky top-[100px] bg-white shadow-xl">
             <div className="flex items-baseline gap-1 text-gray-900">
-              <span className="text-sm font-bold self-start mt-1">$</span>
-              <span className="text-3xl font-black">{selectedProduct.price.toFixed(2)}</span>
+              <span className="text-3xl font-black">{formatINR(selectedProduct.price)}</span>
             </div>
 
             <div className="space-y-1 text-xs">
@@ -1242,7 +1148,7 @@ const App: React.FC = () => {
                   </div>
                   <h4 className="text-xs font-semibold text-gray-900 line-clamp-1 group-hover:text-[#007185] transition-colors">{relProduct.name}</h4>
                   <p className="text-[11px] text-gray-400 uppercase font-bold">{relProduct.brand}</p>
-                  <p className="text-xs font-bold text-gray-900 mt-1">${relProduct.price.toFixed(2)}</p>
+                  <p className="text-xs font-bold text-gray-900 mt-1">{formatINR(relProduct.price)}</p>
                 </div>
               ))}
           </div>
@@ -1313,7 +1219,7 @@ const App: React.FC = () => {
   // -------------------------------------------------------------
   const renderCart = () => {
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const qualifyingThreshold = 50;
+    const qualifyingThreshold = 999;
     const qualifiedForFreeShipping = subtotal >= qualifyingThreshold;
 
     return (
@@ -1325,7 +1231,7 @@ const App: React.FC = () => {
             <ShoppingBag size={48} className="mx-auto text-gray-300" />
             <p className="text-xl font-bold text-gray-700">Your OmniFit cart is empty.</p>
             <p className="text-xs text-gray-500 max-w-sm mx-auto">
-              Your shopping cart lives to serve. Give it purpose — fill it with dresses, shirts, footwear, and accessories!
+              Your shopping cart lives to serve. Give it purpose — fill it with shirts, kurtas, jackets, and stylish Indian & western apparel!
             </p>
             <button 
               onClick={() => setCurrentView(ViewMode.Home)}
@@ -1358,7 +1264,7 @@ const App: React.FC = () => {
                       >
                         {item.name}
                       </h3>
-                      <span className="text-xl font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
+                      <span className="text-xl font-bold text-gray-900">{formatINR(item.price * item.quantity)}</span>
                     </div>
 
                     <p className="text-xs text-gray-500">Brand: <strong className="text-gray-700">{item.brand}</strong></p>
@@ -1437,7 +1343,7 @@ const App: React.FC = () => {
                           >
                             {savedItem.name}
                           </p>
-                          <p className="font-bold text-gray-900 mt-1">${savedItem.price.toFixed(2)}</p>
+                          <p className="font-bold text-gray-900 mt-1">{formatINR(savedItem.price)}</p>
                           <button
                             onClick={() => handleMoveToCart(savedItem, sIdx)}
                             className="mt-2 text-xs text-[#007185] font-bold hover:underline cursor-pointer"
@@ -1458,14 +1364,14 @@ const App: React.FC = () => {
                 <CheckCircle size={16} className="text-green-600 shrink-0" />
                 <span>
                   {qualifiedForFreeShipping 
-                    ? "Your order qualifies for FREE Prime Shipping." 
-                    : `Add $${(qualifyingThreshold - subtotal).toFixed(2)} more for FREE Shipping.`}
+                    ? "Your order qualifies for FREE Express Delivery across India." 
+                    : `Add ${formatINR(qualifyingThreshold - subtotal)} more for FREE Delivery.`}
                 </span>
               </div>
 
               <div className="text-lg text-gray-900">
                 Subtotal ({cartCount} {cartCount === 1 ? 'item' : 'items'}):{' '}
-                <span className="font-black text-2xl text-gray-950">${subtotal.toFixed(2)}</span>
+                <span className="font-black text-2xl text-gray-950">{formatINR(subtotal)}</span>
               </div>
 
               <button 
@@ -1524,7 +1430,7 @@ const App: React.FC = () => {
                   <ProductImage src={p.image} alt={p.name} className="w-full h-full object-cover" />
                 </div>
                 <h4 className="font-bold text-xs line-clamp-1">{p.name}</h4>
-                <p className="font-black text-sm text-gray-900 mt-1">${p.price.toFixed(2)}</p>
+                <p className="font-black text-sm text-gray-900 mt-1">{formatINR(p.price)}</p>
                 <div className="mt-auto pt-3 space-y-1.5">
                   <button
                     onClick={() => {
@@ -1699,6 +1605,7 @@ const App: React.FC = () => {
           onClose={() => setIsAIAssistantOpen(false)}
           activeGender={filters.gender}
           onSelectProduct={(p) => handleProductClick(p)}
+          onAddToCart={(p) => addToCart(p, p.sizes?.[0] || 'M', p.colors?.[0] || 'Standard', 1)}
         />
       )}
     </Layout>

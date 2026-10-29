@@ -10,73 +10,72 @@ export interface CategoryOption {
 }
 
 export const GENDER_TABS = [
-  { id: 'all', label: 'All Departments' },
+  { id: 'all', label: 'All Clothing' },
   { id: 'women', label: "Women's Fashion" },
-  { id: 'men', label: "Men's Fashion" },
-  { id: 'kids', label: 'Kids & Baby' },
-  { id: 'footwear', label: 'Footwear' },
-  { id: 'accessories', label: 'Bags & Accessories' }
+  { id: 'men', label: "Men's Fashion" }
 ];
 
 export const SUBCATEGORIES_BY_GENDER: Record<string, CategoryOption[]> = {
   all: [
     { id: 'all', label: 'All Items' },
+    { id: 'casual_shirts', label: 'Casual Shirts' },
+    { id: 'formal_shirts', label: 'Formal Shirts' },
+    { id: 't-shirts', label: 'T-Shirts' },
+    { id: 'polo_tshirts', label: 'Polo T-Shirts' },
+    { id: 'jeans', label: 'Jeans' },
+    { id: 'trousers', label: 'Trousers' },
+    { id: 'chinos', label: 'Chinos' },
+    { id: 'hoodies', label: 'Hoodies' },
+    { id: 'sweatshirts', label: 'Sweatshirts' },
+    { id: 'tops', label: 'Casual Tops' },
+    { id: 'shirts', label: 'Shirts & Blouses' },
     { id: 'dresses', label: 'Dresses' },
-    { id: 'shirts', label: 'Shirts & Tops' },
-    { id: 'jeans', label: 'Jeans & Denim' },
-    { id: 'jackets', label: 'Jackets & Coats' },
-    { id: 'sneakers', label: 'Sneakers' },
-    { id: 'bags', label: 'Handbags & Totes' }
+    { id: 'skirts', label: 'Skirts' },
+    { id: 'kurtis', label: 'Kurtis' },
+    { id: 'kurtas', label: 'Kurtas & Traditional' },
+    { id: 'ethnic_sets', label: 'Ethnic Sets' },
+    { id: 'coord_sets', label: 'Co-ord Sets' },
+    { id: 'jackets', label: 'Jackets & Blazers' }
   ],
   women: [
     { id: 'all', label: 'All Women' },
     { id: 'dresses', label: 'Dresses' },
-    { id: 'tops', label: 'Tops & Blouses' },
-    { id: 'jeans', label: 'Jeans & Denim' },
-    { id: 'trousers', label: 'Pants & Trousers' },
-    { id: 'ethnic_wear', label: 'Ethnic & Kurtas' },
-    { id: 'blazers', label: 'Blazers & Suits' },
-    { id: 'jackets', label: 'Jackets & Coats' }
+    { id: 'tops', label: 'Casual Tops' },
+    { id: 't-shirts', label: 'T-Shirts' },
+    { id: 'shirts', label: 'Shirts' },
+    { id: 'jeans', label: 'Jeans' },
+    { id: 'trousers', label: 'Trousers' },
+    { id: 'skirts', label: 'Skirts' },
+    { id: 'kurtis', label: 'Kurtis' },
+    { id: 'kurtas', label: 'Kurtas' },
+    { id: 'ethnic_sets', label: 'Ethnic Sets' },
+    { id: 'coord_sets', label: 'Co-ord Sets' },
+    { id: 'jackets', label: 'Jackets & Blazers' }
   ],
   men: [
     { id: 'all', label: 'All Men' },
-    { id: 'shirts', label: 'Casual & Formal Shirts' },
-    { id: 'kurtas', label: 'Kurtas & Ethnic' },
-    { id: 'jackets', label: 'Jackets & Outerwear' }
-  ],
-  kids: [
-    { id: 'all', label: 'All Kids' },
-    { id: 'boys', label: 'Boys Clothing' },
-    { id: 'girls', label: 'Girls Clothing' },
-    { id: 'baby', label: 'Baby & Toddler' }
-  ],
-  footwear: [
-    { id: 'all', label: 'All Footwear' },
-    { id: 'sneakers', label: 'Sneakers' },
-    { id: 'formal_shoes', label: 'Formal Shoes & Oxfords' },
-    { id: 'boots', label: 'Boots & Chelsea' },
-    { id: 'heels', label: 'Heels & Pumps' }
-  ],
-  accessories: [
-    { id: 'all', label: 'All Accessories' },
-    { id: 'bags', label: 'Totes & Bags' },
-    { id: 'watches', label: 'Watches' },
-    { id: 'sunglasses', label: 'Sunglasses' },
-    { id: 'belts', label: 'Belts & Wallets' }
+    { id: 'casual_shirts', label: 'Casual Shirts' },
+    { id: 'formal_shirts', label: 'Formal Shirts' },
+    { id: 't-shirts', label: 'T-Shirts' },
+    { id: 'polo_tshirts', label: 'Polo T-Shirts' },
+    { id: 'jeans', label: 'Jeans' },
+    { id: 'trousers', label: 'Trousers' },
+    { id: 'chinos', label: 'Chinos' },
+    { id: 'hoodies', label: 'Hoodies' },
+    { id: 'sweatshirts', label: 'Sweatshirts' },
+    { id: 'jackets', label: 'Jackets' },
+    { id: 'kurtas', label: 'Kurtas & Traditional' }
   ]
 };
 
-// Available department-specific sizes for filter sidebar
 export const DEPARTMENT_SIZES: Record<string, string[]> = {
-  all: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34', 'US 7', 'US 8', 'US 9', 'US 10'],
-  women: ['XS', 'S', 'M', 'L', 'XL', '26', '28', '30', '32', 'US 6', 'US 7', 'US 8', 'US 9', 'One Size'],
-  men: ['S', 'M', 'L', 'XL', 'XXL', '32', '34', '36', '38', 'US 8', 'US 9', 'US 10', 'US 11', 'US 12'],
-  kids: ['0-3M', '3-6M', '6-12M', '3-4Y', '5-6Y', '7-8Y', '9-10Y'],
-  footwear: ['US 6', 'US 7', 'US 8', 'US 9', 'US 10', 'US 11', 'US 12'],
-  accessories: ['One Size', 'Standard', '42mm', '32', '34', '36', '38']
+  all: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44'],
+  women: ['XS', 'S', 'M', 'L', 'XL', 'XXL', '26', '28', '30', '32'],
+  men: ['S', 'M', 'L', 'XL', 'XXL', '30', '32', '34', '36', '38', '40', '42', '44']
 };
 
 export const FILTER_SIZES = DEPARTMENT_SIZES.all;
+
 export const FILTER_COLORS = [
   { name: 'Black', hex: '#000000' },
   { name: 'White', hex: '#FFFFFF' },
@@ -92,63 +91,107 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     "id": "w-coat-1",
     "name": "Classic Urban Trench Coat",
-    "brand": "OmniLux",
+    "brand": "OmniFit Studio",
     "gender": "women",
     "category": "clothing",
     "subcategory": "jackets",
-    "price": 189.99,
-    "originalPrice": 229.99,
-    "discount": 17,
+    "price": 5499,
+    "originalPrice": 6499,
+    "discount": 15,
     "image": "/catalog/w-trench-coat.jpg",
     "images": [
       "/catalog/w-trench-coat.jpg"
     ],
+    "description": "Iconic double-breasted trench coat with storm flap, belted waist, and water-repellent gabardine cotton finish. Perfect for transitional outerwear.",
     "colors": [
       "Beige",
-      "Black",
-      "Navy"
+      "Camel"
     ],
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
       "XL"
     ],
     "stock": {
-      "S": 8,
-      "M": 14,
-      "L": 6,
-      "XL": 4
+      "XS": 8,
+      "S": 15,
+      "M": 20,
+      "L": 14,
+      "XL": 6
     },
     "rating": 4.8,
-    "reviewCount": 1240,
-    "material": "98% Cotton Gabardine, 2% Elastane",
-    "fit": "Tailored Regular Fit",
-    "occasion": "Work, Travel, Outerwear",
-    "style": "Contemporary Classic",
-    "seller": "OmniLux Official",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "A timeless double-breasted trench silhouette engineered for the modern professional. Water-resistant cotton gabardine featuring storm flap, waist-cinching belt, and horn buttons."
+    "reviewCount": 42,
+    "material": "100% Water-Resistant Gabardine Cotton",
+    "fit": "Regular Tailored",
+    "occasion": "Office, Travel, Casual Outings",
+    "style": "Smart Casual",
+    "seller": "OmniFit Flagship Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
     "id": "w-dress-1",
     "name": "Elegant Midnight Evening Dress",
-    "brand": "Elegance Elite",
+    "brand": "OmniFit Luxe",
     "gender": "women",
     "category": "clothing",
     "subcategory": "dresses",
-    "price": 115,
-    "originalPrice": 145,
-    "discount": 21,
+    "price": 3999,
+    "originalPrice": 4999,
+    "discount": 20,
     "image": "/catalog/w-dress-midnight.jpg",
     "images": [
       "/catalog/w-dress-midnight.jpg"
     ],
+    "description": "Floor-sweeping midnight blue evening gown featuring a draped cowl neck, subtle side slit, and delicate cross-back spaghetti straps.",
     "colors": [
-      "Midnight Blue",
+      "Navy",
+      "Midnight Blue"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "XS": 5,
+      "S": 12,
+      "M": 18,
+      "L": 10,
+      "XL": 4
+    },
+    "rating": 4.9,
+    "reviewCount": 38,
+    "material": "Satin Crepe",
+    "fit": "Body-Skimming Flowy",
+    "occasion": "Parties, Cocktails, Formal Dinners",
+    "style": "Evening Glamour",
+    "seller": "OmniFit Luxe Delhi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-dress-2",
+    "name": "Designer Velvet Cocktail Dress",
+    "brand": "OmniFit Luxe",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "dresses",
+    "price": 4499,
+    "originalPrice": 5499,
+    "discount": 18,
+    "image": "/catalog/w-velvet-dress.jpg",
+    "images": [
+      "/catalog/w-velvet-dress.jpg"
+    ],
+    "description": "Plush velvet bodycon midi dress featuring an asymmetrical neckline, shirred side seams, and rich lustrous texture.",
+    "colors": [
       "Black",
-      "Burgundy"
+      "Charcoal"
     ],
     "sizes": [
       "XS",
@@ -157,40 +200,40 @@ export const MOCK_PRODUCTS: Product[] = [
       "L"
     ],
     "stock": {
-      "XS": 4,
-      "S": 10,
-      "M": 8,
-      "L": 3
+      "XS": 6,
+      "S": 14,
+      "M": 16,
+      "L": 8
     },
-    "rating": 4.9,
-    "reviewCount": 980,
-    "material": "95% Poly-Crepe, 5% Spandex",
-    "fit": "Slim Draped Fit",
-    "occasion": "Evening Gala, Cocktail",
-    "style": "Modern Glamour",
-    "seller": "Elegance Fashion House",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Sophisticated evening wear featuring cowl neckline, beaded waist detailing, and an A-line flared midi skirt for graceful gala entrances."
+    "rating": 4.7,
+    "reviewCount": 29,
+    "material": "Stretch Micro-Velvet",
+    "fit": "Fitted Silhouette",
+    "occasion": "Parties, Receptions, Date Nights",
+    "style": "Evening Wear",
+    "seller": "OmniFit Luxe Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "w-dress-2",
-    "name": "Designer Velvet Cocktail Dress",
-    "brand": "Velocity",
+    "id": "w-dress-3",
+    "name": "Bohemian Tiered Floral Maxi Dress",
+    "brand": "OmniFit Studio",
     "gender": "women",
     "category": "clothing",
     "subcategory": "dresses",
-    "price": 134.5,
-    "originalPrice": 169,
-    "discount": 20,
-    "image": "/catalog/w-velvet-dress.jpg",
+    "price": 2699,
+    "originalPrice": 3299,
+    "discount": 18,
+    "image": "/catalog/w-floral-maxi.jpg",
     "images": [
-      "/catalog/w-velvet-dress.jpg"
+      "/catalog/w-floral-maxi.jpg"
     ],
+    "description": "Airy georgette tiered maxi dress with all-over botanical floral print, flutter cap sleeves, and a flattering cinch waistline.",
     "colors": [
-      "Deep Red",
-      "Emerald",
-      "Black"
+      "Multicolor",
+      "Beige",
+      "Green"
     ],
     "sizes": [
       "S",
@@ -199,40 +242,162 @@ export const MOCK_PRODUCTS: Product[] = [
       "XL"
     ],
     "stock": {
-      "S": 5,
-      "M": 12,
-      "L": 8,
-      "XL": 3
+      "S": 12,
+      "M": 22,
+      "L": 18,
+      "XL": 9
     },
-    "rating": 4.8,
-    "reviewCount": 2300,
-    "material": "Plush Stretch Velvet",
-    "fit": "Bodycon Hourglass",
-    "occasion": "Cocktail, Holiday Party",
-    "style": "Bold & Chic",
-    "seller": "Velocity Studio",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Exquisite crushed velvet party dress with cowl neckline, long sleeves, and side slit for striking party entrances."
+    "rating": 4.6,
+    "reviewCount": 51,
+    "material": "Breathable Printed Georgette",
+    "fit": "Relaxed Bohemian",
+    "occasion": "Brunch, Vacations, Casual Outings",
+    "style": "Boho Chic",
+    "seller": "OmniFit Flagship Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "w-dress-3",
-    "name": "Bohemian Tiered Floral Maxi Dress",
-    "brand": "Heritage",
+    "id": "w-top-1",
+    "name": "Pure Silk Button-Down Blouse",
+    "brand": "OmniFit Studio",
     "gender": "women",
     "category": "clothing",
-    "subcategory": "dresses",
-    "price": 64.99,
-    "originalPrice": 89.99,
-    "discount": 28,
-    "image": "/catalog/w-floral-maxi.jpg",
+    "subcategory": "shirts",
+    "price": 2999,
+    "originalPrice": 3599,
+    "discount": 16,
+    "image": "/catalog/w-silk-blouse.jpg",
     "images": [
-      "/catalog/w-floral-maxi.jpg"
+      "/catalog/w-silk-blouse.jpg"
     ],
+    "description": "Lustrous pure mulberry silk button-down shirt with French seams, concealed mother-of-pearl buttons, and structured collar.",
     "colors": [
-      "Floral Print",
-      "Pastel Sage",
-      "Dusty Rose"
+      "Ivory",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "XS": 9,
+      "S": 18,
+      "M": 20,
+      "L": 12
+    },
+    "rating": 4.8,
+    "reviewCount": 34,
+    "material": "100% Mulberry Silk",
+    "fit": "Tailored Regular",
+    "occasion": "Office, Presentations, Formal Meetings",
+    "style": "Classic Workwear",
+    "seller": "OmniFit Studio Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-top-2",
+    "name": "Ribbed Cotton Minimalist Crop Top",
+    "brand": "OmniFit Basics",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "tops",
+    "price": 899,
+    "originalPrice": 1299,
+    "discount": 30,
+    "image": "/catalog/w-ribbed-crop-top.jpg",
+    "images": [
+      "/catalog/w-ribbed-crop-top.jpg"
+    ],
+    "description": "Everyday luxury stretch ribbed cotton crop top with clean crew neck and bound armholes. Breathable for all-day layering.",
+    "colors": [
+      "Black",
+      "White"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "XS": 15,
+      "S": 30,
+      "M": 25,
+      "L": 18
+    },
+    "rating": 4.5,
+    "reviewCount": 76,
+    "material": "95% Combed Cotton, 5% Spandex",
+    "fit": "Slim Fit",
+    "occasion": "Casual Outings, College, Everyday Wear",
+    "style": "Minimalist Casual",
+    "seller": "OmniFit Flagship Pune",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-top-3",
+    "name": "Boho Embroidered Smocked Peplum Top",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "tops",
+    "price": 1299,
+    "originalPrice": 1799,
+    "discount": 27,
+    "image": "/catalog/w-peplum-top.jpg",
+    "images": [
+      "/catalog/w-peplum-top.jpg"
+    ],
+    "description": "Earth-toned rayon peplum blouse with delicate smocked bodice, sweetheart neckline, and gathered flared hem.",
+    "colors": [
+      "Rust",
+      "Brown"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 10,
+      "M": 16,
+      "L": 14,
+      "XL": 8
+    },
+    "rating": 4.6,
+    "reviewCount": 22,
+    "material": "100% Breathable Rayon",
+    "fit": "Fitted Bodice with Flared Hem",
+    "occasion": "Casual Outings, College, Weekend Brunches",
+    "style": "Boho Chic",
+    "seller": "OmniFit Studio Jaipur",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-tshirt-1",
+    "name": "Relaxed Fit Organic Cotton Graphic T-Shirt",
+    "brand": "OmniFit Basics",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "t-shirts",
+    "price": 799,
+    "originalPrice": 1099,
+    "discount": 27,
+    "image": "/catalog/w-graphic-tshirt.jpg",
+    "images": [
+      "/catalog/w-graphic-tshirt.jpg"
+    ],
+    "description": "Soft bio-washed combed organic cotton tee with minimal studio typography print, drop shoulders, and relaxed drape.",
+    "colors": [
+      "Lilac",
+      "Purple"
     ],
     "sizes": [
       "XS",
@@ -242,40 +407,201 @@ export const MOCK_PRODUCTS: Product[] = [
       "XL"
     ],
     "stock": {
-      "XS": 6,
-      "S": 15,
-      "M": 12,
-      "L": 9,
-      "XL": 4
+      "XS": 12,
+      "S": 25,
+      "M": 28,
+      "L": 20,
+      "XL": 10
     },
     "rating": 4.7,
-    "reviewCount": 780,
-    "material": "100% Breathable Rayon",
-    "fit": "Relaxed Flowing",
-    "occasion": "Casual, Brunch, Vacation",
-    "style": "Boho Chic",
-    "seller": "Heritage Lifestyle",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Airy bohemian tiered maxi dress with smocked bodice, puff sleeves, and tiered ruffle skirt in botanical floral prints."
+    "reviewCount": 63,
+    "material": "100% Organic Cotton (180 GSM)",
+    "fit": "Relaxed Oversized",
+    "occasion": "College, Casual, Loungewear",
+    "style": "Streetwear Casual",
+    "seller": "OmniFit Flagship Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "w-top-1",
-    "name": "Pure Silk Button-Down Blouse",
-    "brand": "OmniLux",
+    "id": "w-shirt-1",
+    "name": "Oversized Crisp Cotton Poplin Shirt",
+    "brand": "OmniFit Studio",
     "gender": "women",
     "category": "clothing",
-    "subcategory": "tops",
-    "price": 98,
-    "originalPrice": 130,
-    "discount": 25,
-    "image": "/catalog/w-silk-blouse.jpg",
+    "subcategory": "shirts",
+    "price": 1899,
+    "originalPrice": 2399,
+    "discount": 20,
+    "image": "/catalog/w-poplin-shirt.jpg",
     "images": [
-      "/catalog/w-silk-blouse.jpg"
+      "/catalog/w-poplin-shirt.jpg"
     ],
+    "description": "Architectural boyfriend-fit poplin shirt featuring pointed collar, elongated cuffs, and curved high-low shirttail hem.",
     "colors": [
-      "Ivory",
-      "Soft Blue",
+      "White",
+      "Ivory"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 14,
+      "M": 22,
+      "L": 19,
+      "XL": 11
+    },
+    "rating": 4.8,
+    "reviewCount": 45,
+    "material": "100% Crisp Long-Staple Poplin",
+    "fit": "Oversized Boyfriend Fit",
+    "occasion": "Office, Presentations, Weekend Smart",
+    "style": "Smart Contemporary",
+    "seller": "OmniFit Studio Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-jean-1",
+    "name": "High-Rise Wide-Leg Vintage Denim",
+    "brand": "OmniFit Denim",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "jeans",
+    "price": 2499,
+    "originalPrice": 3199,
+    "discount": 21,
+    "image": "/catalog/w-wide-leg-jeans.jpg",
+    "images": [
+      "/catalog/w-wide-leg-jeans.jpg"
+    ],
+    "description": "Vintage-inspired 70s cut wide-leg denim jeans with ultra-high 11.5-inch rise, structured waistband, and clean finished hem.",
+    "colors": [
+      "Blue",
+      "Light Blue"
+    ],
+    "sizes": [
+      "26",
+      "28",
+      "30",
+      "32"
+    ],
+    "stock": {
+      "26": 10,
+      "28": 24,
+      "30": 20,
+      "32": 12
+    },
+    "rating": 4.7,
+    "reviewCount": 88,
+    "material": "99% Cotton, 1% Comfort Stretch",
+    "fit": "High-Rise Wide-Leg",
+    "occasion": "Everyday, College, Casual Outings",
+    "style": "Retro Chic",
+    "seller": "OmniFit Denim Hub Ahmedabad",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-trouser-1",
+    "name": "Pleated Tailored Ankle Trousers",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "trousers",
+    "price": 2799,
+    "originalPrice": 3499,
+    "discount": 20,
+    "image": "/catalog/w-tailored-trousers.jpg",
+    "images": [
+      "/catalog/w-tailored-trousers.jpg"
+    ],
+    "description": "Sharply pressed front pleat trousers cut in a tapered ankle silhouette. Includes functional slant pockets and belt loops.",
+    "colors": [
+      "Beige",
+      "Tan"
+    ],
+    "sizes": [
+      "26",
+      "28",
+      "30",
+      "32"
+    ],
+    "stock": {
+      "26": 8,
+      "28": 16,
+      "30": 18,
+      "32": 10
+    },
+    "rating": 4.6,
+    "reviewCount": 37,
+    "material": "Poly-Viscose Crepe Blend",
+    "fit": "High-Rise Tapered Ankle",
+    "occasion": "Office, Business Meetings, Presentations",
+    "style": "Smart Workwear",
+    "seller": "OmniFit Flagship Delhi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-trouser-2",
+    "name": "High-Waisted Relaxed Fit Suit Trousers",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "trousers",
+    "price": 2999,
+    "originalPrice": 3699,
+    "discount": 18,
+    "image": "/catalog/w-suit-trousers.jpg",
+    "images": [
+      "/catalog/w-suit-trousers.jpg"
+    ],
+    "description": "Flowing wide-leg suit trousers crafted in matte twill with deep front darts and invisible side zip closure.",
+    "colors": [
+      "Black",
+      "Charcoal"
+    ],
+    "sizes": [
+      "28",
+      "30",
+      "32"
+    ],
+    "stock": {
+      "28": 12,
+      "30": 15,
+      "32": 9
+    },
+    "rating": 4.8,
+    "reviewCount": 29,
+    "material": "Premium Suiting Twill",
+    "fit": "High-Waisted Relaxed Wide Leg",
+    "occasion": "Office, Conferences, Formal Dinners",
+    "style": "Elevated Tailoring",
+    "seller": "OmniFit Flagship Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-skirt-1",
+    "name": "Pleated A-Line Satin Midi Skirt",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "skirts",
+    "price": 1999,
+    "originalPrice": 2599,
+    "discount": 23,
+    "image": "/catalog/w-satin-skirt.jpg",
+    "images": [
+      "/catalog/w-satin-skirt.jpg"
+    ],
+    "description": "High-shine emerald green satin midi skirt with knife pleats and an ultra-comfortable concealed elasticated waistband.",
+    "colors": [
+      "Green",
       "Emerald"
     ],
     "sizes": [
@@ -285,40 +611,203 @@ export const MOCK_PRODUCTS: Product[] = [
       "L"
     ],
     "stock": {
-      "XS": 4,
-      "S": 8,
-      "M": 10,
-      "L": 5
+      "XS": 7,
+      "S": 15,
+      "M": 18,
+      "L": 9
     },
     "rating": 4.7,
-    "reviewCount": 420,
-    "material": "100% Mulberry Silk (19mm)",
-    "fit": "Classic Relaxed",
-    "occasion": "Office, Business Casual, Dinner",
-    "style": "Sophisticated Luxury",
-    "seller": "OmniLux Official",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Lustrous pure mulberry silk shirt with Mother-of-Pearl buttons, French cuffs, and flattering drape for elevated office dressing."
+    "reviewCount": 31,
+    "material": "Heavy Weight Poly-Satin",
+    "fit": "A-Line Midi Length",
+    "occasion": "Festivals, Parties, Evening Outings",
+    "style": "Glamour Casual",
+    "seller": "OmniFit Studio Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "w-top-2",
-    "name": "Ribbed Cotton Minimalist Crop Top",
-    "brand": "EcoFit",
+    "id": "w-kurti-1",
+    "name": "Hand-Block Printed Straight Kurti",
+    "brand": "OmniFit Ethnic",
     "gender": "women",
     "category": "clothing",
-    "subcategory": "tops",
-    "price": 28.5,
-    "originalPrice": 35,
-    "discount": 19,
-    "image": "/catalog/w-ribbed-crop-top.jpg",
+    "subcategory": "kurtis",
+    "price": 1399,
+    "originalPrice": 1899,
+    "discount": 26,
+    "image": "/catalog/w-printed-kurti.jpg",
     "images": [
-      "/catalog/w-ribbed-crop-top.jpg"
+      "/catalog/w-printed-kurti.jpg"
     ],
+    "description": "Traditional Jaipuri indigo block-print straight kurti with keyhole neckline, three-quarter sleeves, and clean side slits.",
     "colors": [
-      "White",
-      "Charcoal",
-      "Sage"
+      "Blue",
+      "Indigo"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "S": 14,
+      "M": 25,
+      "L": 22,
+      "XL": 16,
+      "XXL": 8
+    },
+    "rating": 4.8,
+    "reviewCount": 54,
+    "material": "100% Pure Jaipur Cotton",
+    "fit": "Straight Comfort Fit",
+    "occasion": "College, Office, Everyday Ethnic",
+    "style": "Traditional Ethnic",
+    "seller": "OmniFit Ethnic Jaipur",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-ethnic-1",
+    "name": "Hand-Embroidered Anarkali Kurta Set",
+    "brand": "OmniFit Ethnic",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "kurtas",
+    "price": 4299,
+    "originalPrice": 5299,
+    "discount": 18,
+    "image": "/catalog/w-ethnic-kurta.jpg",
+    "images": [
+      "/catalog/w-ethnic-kurta.jpg"
+    ],
+    "description": "Regal flared Anarkali silhouette with intricate zardozi and thread embroidery, paired with churidar pants and sheer net dupatta.",
+    "colors": [
+      "Teal",
+      "Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 8,
+      "M": 14,
+      "L": 12,
+      "XL": 6
+    },
+    "rating": 4.9,
+    "reviewCount": 62,
+    "material": "Georgette with Shantoon Lining",
+    "fit": "Flared Anarkali Cut",
+    "occasion": "Weddings, Festivals, Sangeet Celebrations",
+    "style": "Royal Ethnic",
+    "seller": "OmniFit Heritage Delhi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-ethnic-2",
+    "name": "Chanderi Silk Kurta & Palazzos with Dupatta",
+    "brand": "OmniFit Ethnic",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "ethnic_sets",
+    "price": 3699,
+    "originalPrice": 4699,
+    "discount": 21,
+    "image": "/catalog/w-silk-ethnic-set.jpg",
+    "images": [
+      "/catalog/w-silk-ethnic-set.jpg"
+    ],
+    "description": "Rich crimson Chanderi silk straight kurta adorned with zari woven yoke, wide-leg golden palazzos, and floral organza dupatta.",
+    "colors": [
+      "Red",
+      "Gold"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "M": 12,
+      "L": 18,
+      "XL": 14,
+      "XXL": 6
+    },
+    "rating": 4.8,
+    "reviewCount": 41,
+    "material": "Pure Chanderi Silk with Cotton Silk Lining",
+    "fit": "Straight Kurta with Flared Palazzo",
+    "occasion": "Diwali, Puja, Festive Gatherings",
+    "style": "Festive Ethnic",
+    "seller": "OmniFit Heritage Varanasi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-coord-1",
+    "name": "Tailored Linen Blazer & Trouser Co-ord Set",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "coord_sets",
+    "price": 3899,
+    "originalPrice": 4899,
+    "discount": 20,
+    "image": "/catalog/w-linen-coord.jpg",
+    "images": [
+      "/catalog/w-linen-coord.jpg"
+    ],
+    "description": "Two-piece coordinated power set featuring a notch-lapel single-breasted blazer and matching high-waisted pleated wide trousers.",
+    "colors": [
+      "Sage Green",
+      "Green"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": {
+      "S": 9,
+      "M": 16,
+      "L": 11
+    },
+    "rating": 4.9,
+    "reviewCount": 26,
+    "material": "Premium European Linen-Cotton Blend",
+    "fit": "Tailored Blazer, Wide-Leg Pants",
+    "occasion": "Conferences, Seminars, Semi-Formal Events",
+    "style": "Contemporary Co-ord",
+    "seller": "OmniFit Flagship Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "w-blazer-1",
+    "name": "Double-Breasted Hourglass Blazer",
+    "brand": "OmniFit Studio",
+    "gender": "women",
+    "category": "clothing",
+    "subcategory": "jackets",
+    "price": 4799,
+    "originalPrice": 5999,
+    "discount": 20,
+    "image": "/catalog/w-tailored-blazer.jpg",
+    "images": [
+      "/catalog/w-tailored-blazer.jpg"
+    ],
+    "description": "Sharp peak-lapel double-breasted blazer engineered with subtle shoulder pads and a sculpted waist silhouette.",
+    "colors": [
+      "Black",
+      "Onyx"
     ],
     "sizes": [
       "XS",
@@ -327,370 +816,80 @@ export const MOCK_PRODUCTS: Product[] = [
       "L"
     ],
     "stock": {
-      "XS": 12,
-      "S": 20,
+      "XS": 6,
+      "S": 14,
       "M": 18,
-      "L": 8
-    },
-    "rating": 4.5,
-    "reviewCount": 310,
-    "material": "95% Organic Cotton, 5% Spandex",
-    "fit": "Fitted Crop",
-    "occasion": "Everyday, Lounge, Layering",
-    "style": "Minimalist Streetwear",
-    "seller": "EcoFit Basics",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Essential scoop-neck short sleeve top crafted from soft ribbed organic cotton with shape-retention stretch."
-  },
-  {
-    "id": "w-jean-1",
-    "name": "High-Rise Wide-Leg Vintage Denim",
-    "brand": "DenimCraft",
-    "gender": "women",
-    "category": "clothing",
-    "subcategory": "jeans",
-    "price": 79.99,
-    "originalPrice": 99.99,
-    "discount": 20,
-    "image": "/catalog/w-wide-leg-jeans.jpg",
-    "images": [
-      "/catalog/w-wide-leg-jeans.jpg"
-    ],
-    "colors": [
-      "Light Indigo",
-      "Medium Blue Vintage",
-      "Washed Black"
-    ],
-    "sizes": [
-      "26",
-      "28",
-      "30",
-      "32"
-    ],
-    "stock": {
-      "26": 5,
-      "28": 12,
-      "30": 10,
-      "32": 4
-    },
-    "rating": 4.8,
-    "reviewCount": 1150,
-    "material": "99% Cotton, 1% Comfort Stretch",
-    "fit": "High-Rise Wide Leg",
-    "occasion": "Casual, Weekend",
-    "style": "Retro Denim",
-    "seller": "DenimCraft Co.",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Classic wide-leg jeans with an ultra-flattering 11.5-inch rise, zip fly, and authentic vintage washing."
-  },
-  {
-    "id": "w-trouser-1",
-    "name": "Pleated Tailored Ankle Trousers",
-    "brand": "OmniLux",
-    "gender": "women",
-    "category": "clothing",
-    "subcategory": "trousers",
-    "price": 89,
-    "originalPrice": 115,
-    "discount": 23,
-    "image": "/catalog/w-tailored-trousers.jpg",
-    "images": [
-      "/catalog/w-tailored-trousers.jpg"
-    ],
-    "colors": [
-      "Charcoal Grey",
-      "Black",
-      "Camel"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "stock": {
-      "S": 5,
-      "M": 8,
-      "L": 6,
-      "XL": 4
-    },
-    "rating": 4.6,
-    "reviewCount": 540,
-    "material": "Polyester-Viscose Suiting Blend",
-    "fit": "Tapered Ankle Fit",
-    "occasion": "Workplace, Smart Casual",
-    "style": "Tailored Minimalist",
-    "seller": "OmniLux Official",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Sharp double-pleat trousers with tapered ankle cuffs, slant pockets, and belt loops for formal and smart office wear."
-  },
-  {
-    "id": "w-ethnic-1",
-    "name": "Hand-Embroidered Anarkali Kurta Set",
-    "brand": "Sanskriti Luxe",
-    "gender": "women",
-    "category": "clothing",
-    "subcategory": "ethnic_wear",
-    "price": 145,
-    "originalPrice": 195,
-    "discount": 26,
-    "image": "/catalog/w-ethnic-kurta.jpg",
-    "images": [
-      "/catalog/w-ethnic-kurta.jpg"
-    ],
-    "colors": [
-      "Royal Teal",
-      "Maroon",
-      "Mustard Gold"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "stock": {
-      "S": 4,
-      "M": 8,
-      "L": 6,
-      "XL": 2
+      "L": 9
     },
     "rating": 4.9,
-    "reviewCount": 920,
-    "material": "Chanderi Silk with Cotton Lining",
-    "fit": "Flared Anarkali Silhouette",
-    "occasion": "Weddings, Festivals, Celebrations",
-    "style": "Traditional Regal",
-    "seller": "Sanskriti Luxe",
-    "returnEligibility": "15-Day Free Returns",
-    "hasTryOn": true,
-    "description": "3-piece set comprising zari-embroidered flared anarkali kurta, tailored churidar pants, and organza dupatta with gota patti borders."
-  },
-  {
-    "id": "w-blazer-1",
-    "name": "Double-Breasted Hourglass Blazer",
-    "brand": "EcoFit",
-    "gender": "women",
-    "category": "clothing",
-    "subcategory": "blazers",
-    "price": 120,
-    "originalPrice": 160,
-    "discount": 25,
-    "image": "/catalog/w-tailored-blazer.jpg",
-    "images": [
-      "/catalog/w-tailored-blazer.jpg"
-    ],
-    "colors": [
-      "Black",
-      "Cream",
-      "Navy"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "stock": {
-      "S": 7,
-      "M": 11,
-      "L": 5,
-      "XL": 2
-    },
-    "rating": 4.7,
-    "reviewCount": 450,
-    "material": "Structured Wool Blend",
-    "fit": "Cinched Hourglass",
-    "occasion": "Executive Meetings, Seminars",
-    "style": "Power Suiting",
-    "seller": "EcoFit Professional",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Architectural double-breasted blazer featuring padded shoulders, peak lapels, and tailored waist darts creating a sculpted power silhouette."
-  },
-  {
-    "id": "w-heel-1",
-    "name": "Pointed-Toe Patent Stiletto Pumps",
-    "brand": "Elegance Elite",
-    "gender": "women",
-    "category": "footwear",
-    "subcategory": "heels",
-    "price": 95,
-    "originalPrice": 125,
-    "discount": 24,
-    "image": "/catalog/f-stiletto-pumps.svg",
-    "images": [
-      "/catalog/f-stiletto-pumps.svg"
-    ],
-    "colors": [
-      "Scarlet Red",
-      "Gloss Black",
-      "Nude Patent"
-    ],
-    "sizes": [
-      "US 6",
-      "US 7",
-      "US 8",
-      "US 9"
-    ],
-    "stock": {
-      "US 6": 5,
-      "US 7": 9,
-      "US 8": 8,
-      "US 9": 3
-    },
-    "rating": 4.6,
-    "reviewCount": 780,
-    "material": "Patent Leather with Memory Foam Insole",
-    "fit": "Sleek 85mm Heel",
-    "occasion": "Office, Evening, Wedding",
-    "style": "Timeless Feminine",
-    "seller": "Elegance Fashion House",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Iconic 85mm stiletto heel crafted with glossy patent leather, cushioned arch support, and non-slip rubber grip heel tip."
-  },
-  {
-    "id": "w-bag-1",
-    "name": "Structured Saffiano Leather Tote Bag",
-    "brand": "OmniLux",
-    "gender": "women",
-    "category": "accessories",
-    "subcategory": "bags",
-    "price": 165,
-    "originalPrice": 210,
-    "discount": 21,
-    "image": "/catalog/a-leather-tote.svg",
-    "images": [
-      "/catalog/a-leather-tote.svg"
-    ],
-    "colors": [
-      "Tan Caramel",
-      "Midnight Black",
-      "Burgundy"
-    ],
-    "sizes": [
-      "One Size"
-    ],
-    "stock": {
-      "One Size": 18
-    },
-    "rating": 4.8,
-    "reviewCount": 1490,
-    "material": "Scratch-Resistant Saffiano Leather",
-    "fit": "Fits 15-inch Laptop",
-    "occasion": "Workplace, Travel, Daily",
-    "style": "Modern Executive",
-    "seller": "OmniLux Official",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Spacious work tote with padded 15-inch laptop sleeve, central zip compartment, polished gold-tone hardware, and reinforced shoulder straps."
+    "reviewCount": 48,
+    "material": "Tropical Suiting Wool Blend",
+    "fit": "Structured Hourglass",
+    "occasion": "Office, Presentations, Boardroom",
+    "style": "Executive Tailoring",
+    "seller": "OmniFit Studio Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
     "id": "m-shirt-1",
-    "name": "Men's Classic Plaid Flannel Shirt",
-    "brand": "Gentleman's Choice",
+    "name": "Men's Classic Plaid Flannel Casual Shirt",
+    "brand": "OmniFit Classic",
     "gender": "men",
     "category": "clothing",
-    "subcategory": "shirts",
-    "price": 54.99,
-    "originalPrice": 69.99,
-    "discount": 21,
-    "image": "/catalog/m-silk-kurta.jpg",
+    "subcategory": "casual_shirts",
+    "price": 1899,
+    "originalPrice": 2399,
+    "discount": 20,
+    "image": "/catalog/m-flannel-shirt.jpg",
     "images": [
-      "/catalog/m-silk-kurta.jpg"
+      "/catalog/m-flannel-shirt.jpg"
     ],
+    "description": "Super-soft brushed cotton flannel in hunter green and slate check. Features twin flap chest pockets and adjustable buttoned cuffs.",
     "colors": [
-      "Green Plaid",
-      "Grey Plaid",
-      "Navy Plaid"
+      "Green",
+      "Charcoal"
     ],
     "sizes": [
-      "S",
       "M",
       "L",
       "XL",
       "XXL"
     ],
     "stock": {
-      "S": 10,
-      "M": 22,
-      "L": 18,
-      "XL": 9,
-      "XXL": 4
+      "M": 16,
+      "L": 24,
+      "XL": 20,
+      "XXL": 10
     },
     "rating": 4.7,
-    "reviewCount": 1680,
-    "material": "100% Ring-Spun Brushed Cotton",
-    "fit": "Standard Regular Fit",
-    "occasion": "Casual, Weekend, Autumn Layering",
-    "style": "Heritage Workwear",
-    "seller": "Gentleman's Choice",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Substantial 100% brushed cotton flannel shirt featuring classic dark green and grey plaid pattern, dual button-flap chest pockets, and durable horn buttons."
+    "reviewCount": 52,
+    "material": "100% Brushed Cotton Flannel",
+    "fit": "Regular Relaxed",
+    "occasion": "Casual Outings, College, Weekend Roadtrips",
+    "style": "Rugged Casual",
+    "seller": "OmniFit Flagship Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
     "id": "m-shirt-2",
     "name": "Men's Slim-Fit Linen Casual Button-Down",
-    "brand": "Riviera Wear",
+    "brand": "OmniFit Classic",
     "gender": "men",
     "category": "clothing",
-    "subcategory": "shirts",
-    "price": 68,
-    "originalPrice": 85,
+    "subcategory": "casual_shirts",
+    "price": 2299,
+    "originalPrice": 2899,
     "discount": 20,
-    "image": "/catalog/m-silk-kurta.jpg",
+    "image": "/catalog/m-linen-shirt.jpg",
     "images": [
-      "/catalog/m-silk-kurta.jpg"
+      "/catalog/m-linen-shirt.jpg"
     ],
+    "description": "Breathable airy pure flax linen button-down shirt in versatile sand beige. Perfect for summer office days and outdoor gatherings.",
     "colors": [
-      "Sand Khaki",
-      "White",
-      "Sky Blue"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL"
-    ],
-    "stock": {
-      "M": 14,
-      "L": 11,
-      "XL": 6
-    },
-    "rating": 4.6,
-    "reviewCount": 840,
-    "material": "100% European Flax Linen",
-    "fit": "Slim Fit",
-    "occasion": "Resort, Summer Casual, Beach Dinner",
-    "style": "Mediterranean Casual",
-    "seller": "Riviera Wear",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Lightweight pure linen shirt pre-washed for extra softness. Band collar, curved hem, and breathable weave to keep cool in high heat."
-  },
-  {
-    "id": "m-jacket-1",
-    "name": "Men's Brown Suede Field Jacket",
-    "brand": "UrbanForm",
-    "gender": "men",
-    "category": "clothing",
-    "subcategory": "jackets",
-    "price": 189.99,
-    "originalPrice": 240,
-    "discount": 21,
-    "image": "/catalog/w-tailored-blazer.jpg",
-    "images": [
-      "/catalog/w-tailored-blazer.jpg"
-    ],
-    "colors": [
-      "Rich Cognac",
-      "Espresso Brown",
-      "Tan"
+      "Beige",
+      "Sand"
     ],
     "sizes": [
       "S",
@@ -699,40 +898,122 @@ export const MOCK_PRODUCTS: Product[] = [
       "XL"
     ],
     "stock": {
-      "S": 5,
-      "M": 12,
-      "L": 8,
-      "XL": 3
+      "S": 10,
+      "M": 20,
+      "L": 22,
+      "XL": 14
     },
-    "rating": 4.9,
-    "reviewCount": 1820,
-    "material": "Supple Suede Leather",
-    "fit": "Regular Fit Overshirt",
-    "occasion": "Smart Casual, Night Out, Travel",
-    "style": "Rugged Sophistication",
-    "seller": "UrbanForm Official",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Premium brown suede overshirt jacket with front button closure, flap chest pockets, and comfortable satin lining for effortless layering."
+    "rating": 4.8,
+    "reviewCount": 46,
+    "material": "100% Pure Normandy Linen",
+    "fit": "Slim Fit",
+    "occasion": "Casual Friday, Vacations, Semi-Formal",
+    "style": "Smart Casual",
+    "seller": "OmniFit Flagship Kochi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "m-kurta-1",
-    "name": "Pure Silk Mandarin Collar Festive Kurta",
-    "brand": "Sanskriti Luxe",
+    "id": "m-formal-1",
+    "name": "Royal Oxford Classic Formal Shirt",
+    "brand": "OmniFit Classic",
     "gender": "men",
     "category": "clothing",
-    "subcategory": "kurtas",
-    "price": 89,
-    "originalPrice": 120,
-    "discount": 26,
-    "image": "/catalog/m-silk-kurta.jpg",
+    "subcategory": "formal_shirts",
+    "price": 1999,
+    "originalPrice": 2599,
+    "discount": 23,
+    "image": "/catalog/m-formal-oxford.jpg",
     "images": [
-      "/catalog/m-silk-kurta.jpg"
+      "/catalog/m-formal-oxford.jpg"
     ],
+    "description": "Crisp two-ply 100% Egyptian Giza cotton formal shirt featuring spread collar, clean French placket, and single pocket.",
     "colors": [
-      "Cream Gold",
-      "Midnight Navy",
-      "Ruby Red"
+      "Sky Blue",
+      "Blue"
+    ],
+    "sizes": [
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "stock": {
+      "38": 12,
+      "40": 26,
+      "42": 24,
+      "44": 15
+    },
+    "rating": 4.9,
+    "reviewCount": 68,
+    "material": "100% Two-Ply Giza Cotton",
+    "fit": "Classic Tailored Fit",
+    "occasion": "Office, Client Presentations, Formal Dinners",
+    "style": "Executive Formal",
+    "seller": "OmniFit Classic Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-tshirt-1",
+    "name": "Heavyweight Supima Cotton Crewneck T-Shirt",
+    "brand": "OmniFit Basics",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "t-shirts",
+    "price": 899,
+    "originalPrice": 1299,
+    "discount": 30,
+    "image": "/catalog/m-cotton-tshirt.jpg",
+    "images": [
+      "/catalog/m-cotton-tshirt.jpg"
+    ],
+    "description": "Substantial 220 GSM extra-long staple Supima cotton tee with double-needle ribbed collar and fade-resistant optical white finish.",
+    "colors": [
+      "White"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "S": 15,
+      "M": 35,
+      "L": 32,
+      "XL": 22,
+      "XXL": 12
+    },
+    "rating": 4.8,
+    "reviewCount": 94,
+    "material": "100% American Supima Cotton (220 GSM)",
+    "fit": "Classic Regular",
+    "occasion": "Everyday, College, Layering",
+    "style": "Essential Minimalist",
+    "seller": "OmniFit Basics Chennai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-polo-1",
+    "name": "Piqué Cotton Athletic Fit Polo T-Shirt",
+    "brand": "OmniFit Classic",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "polo_tshirts",
+    "price": 1499,
+    "originalPrice": 1999,
+    "discount": 25,
+    "image": "/catalog/m-pique-polo.jpg",
+    "images": [
+      "/catalog/m-pique-polo.jpg"
+    ],
+    "description": "Classic textured piqué polo shirt in deep navy with shape-retention ribbed collar, 3-button placket, and ribbed sleeve bands.",
+    "colors": [
+      "Navy",
+      "Midnight Blue"
     ],
     "sizes": [
       "M",
@@ -741,379 +1022,350 @@ export const MOCK_PRODUCTS: Product[] = [
       "XXL"
     ],
     "stock": {
-      "M": 7,
-      "L": 10,
-      "XL": 8,
-      "XXL": 3
-    },
-    "rating": 4.8,
-    "reviewCount": 510,
-    "material": "Tussar Silk Blend",
-    "fit": "Comfort Straight",
-    "occasion": "Festivals, Diwali, Wedding Receptions",
-    "style": "Regal Festive",
-    "seller": "Sanskriti Luxe",
-    "returnEligibility": "15-Day Free Returns",
-    "hasTryOn": true,
-    "description": "Straight-cut knee-length festive kurta with embroidered mandarin collar, concealed button placket, and side slits."
-  },
-  {
-    "id": "m-formal-1",
-    "name": "Hand-Burnished Leather Oxford Dress Shoes",
-    "brand": "Gentleman's Choice",
-    "gender": "men",
-    "category": "footwear",
-    "subcategory": "formal_shoes",
-    "price": 149,
-    "originalPrice": 190,
-    "discount": 22,
-    "image": "/catalog/f-leather-oxfords.jpg",
-    "images": [
-      "/catalog/f-leather-oxfords.jpg"
-    ],
-    "colors": [
-      "Chestnut Brown",
-      "Onyx Black"
-    ],
-    "sizes": [
-      "US 8",
-      "US 9",
-      "US 10",
-      "US 11",
-      "US 12"
-    ],
-    "stock": {
-      "US 8": 5,
-      "US 9": 11,
-      "US 10": 13,
-      "US 11": 7,
-      "US 12": 2
-    },
-    "rating": 4.9,
-    "reviewCount": 890,
-    "material": "Goodyear Welted Calfskin Leather",
-    "fit": "Classic Dress Last",
-    "occasion": "Black Tie, Weddings, Boardroom",
-    "style": "Sartorial Elegance",
-    "seller": "Gentleman's Choice",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Classic cap-toe closed-lacing dress Oxfords with Goodyear welted construction, hand-painted leather sole, and breathable leather lining."
-  },
-  {
-    "id": "m-boot-1",
-    "name": "Waterproof Suede Chelsea Boots",
-    "brand": "SoleCraft",
-    "gender": "men",
-    "category": "footwear",
-    "subcategory": "boots",
-    "price": 135,
-    "originalPrice": 170,
-    "discount": 21,
-    "image": "/catalog/f-chelsea-boots.svg",
-    "images": [
-      "/catalog/f-chelsea-boots.svg"
-    ],
-    "colors": [
-      "Tan Suede",
-      "Dark Chocolate",
-      "Black Suede"
-    ],
-    "sizes": [
-      "US 8",
-      "US 9",
-      "US 10",
-      "US 11"
-    ],
-    "stock": {
-      "US 8": 6,
-      "US 9": 10,
-      "US 10": 8,
-      "US 11": 4
+      "M": 20,
+      "L": 28,
+      "XL": 22,
+      "XXL": 14
     },
     "rating": 4.7,
-    "reviewCount": 1120,
-    "material": "Hydrophobic Treated Suede Leather",
-    "fit": "Ankle Slip-On",
-    "occasion": "Autumn/Winter Casual, Commute",
-    "style": "Urban Rugged",
-    "seller": "SoleCraft Studio",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Pull-on Chelsea boots with elasticated side gussets, pull tabs, water-repellent suede upper, and grippy lugged rubber soles."
+    "reviewCount": 57,
+    "material": "100% Combed Piqué Cotton",
+    "fit": "Athletic Smart Fit",
+    "occasion": "Office Casual, Golf, Weekend Outings",
+    "style": "Smart Casual",
+    "seller": "OmniFit Classic Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "m-belt-1",
-    "name": "Reversible Full-Grain Leather Dress Belt",
-    "brand": "Gentleman's Choice",
+    "id": "m-jean-1",
+    "name": "Slim Tapered Stretch Indigo Denim Jeans",
+    "brand": "OmniFit Denim",
     "gender": "men",
-    "category": "accessories",
-    "subcategory": "belts",
-    "price": 38,
-    "originalPrice": 48,
-    "discount": 21,
-    "image": "/catalog/a-leather-belt.svg",
+    "category": "clothing",
+    "subcategory": "jeans",
+    "price": 2699,
+    "originalPrice": 3399,
+    "discount": 20,
+    "image": "/catalog/m-stretch-jeans.jpg",
     "images": [
-      "/catalog/a-leather-belt.svg"
+      "/catalog/m-stretch-jeans.jpg"
     ],
+    "description": "13 oz deep indigo authentic ring-spun denim with 2% elastane for unrestricted movement. Finished with classic copper rivets.",
     "colors": [
-      "Black / Brown Reversible"
+      "Indigo",
+      "Blue"
     ],
     "sizes": [
+      "30",
       "32",
       "34",
       "36",
       "38"
     ],
     "stock": {
-      "32": 8,
-      "34": 14,
-      "36": 12,
-      "38": 7
-    },
-    "rating": 4.6,
-    "reviewCount": 610,
-    "material": "100% Italian Full-Grain Cowhide Leather",
-    "fit": "Reversible 34mm Width",
-    "occasion": "Business Formal, Smart Casual",
-    "style": "Functional Classic",
-    "seller": "Gentleman's Choice",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Two belts in one. Twistable brushed gunmetal buckle easily flips between smooth formal black leather and rich textured cognac brown."
-  },
-  {
-    "id": "k-boy-1",
-    "name": "Boys 2-Piece Striped Polo & Chino Shorts Set",
-    "brand": "MiniOmni",
-    "gender": "kids",
-    "category": "clothing",
-    "subcategory": "boys",
-    "price": 34.99,
-    "originalPrice": 45,
-    "discount": 22,
-    "image": "/catalog/k-boys-polo-shorts.jpg",
-    "images": [
-      "/catalog/k-boys-polo-shorts.jpg"
-    ],
-    "colors": [
-      "Navy/Beige",
-      "White/Olive"
-    ],
-    "sizes": [
-      "3-4Y",
-      "5-6Y",
-      "7-8Y",
-      "9-10Y"
-    ],
-    "stock": {
-      "3-4Y": 8,
-      "5-6Y": 12,
-      "7-8Y": 10,
-      "9-10Y": 6
-    },
-    "rating": 4.7,
-    "reviewCount": 380,
-    "material": "100% Breathable Combed Cotton",
-    "fit": "Kids Regular Active Fit",
-    "occasion": "Parties, Family Outings",
-    "style": "Cute Smart Casual",
-    "seller": "MiniOmni Kids",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Charming two-piece coordinated set with striped pique polo shirt and adjustable-waist stretch cotton chino shorts."
-  },
-  {
-    "id": "k-girl-1",
-    "name": "Girls Floral Embroidered Tulle Party Dress",
-    "brand": "MiniOmni",
-    "gender": "kids",
-    "category": "clothing",
-    "subcategory": "girls",
-    "price": 38.5,
-    "originalPrice": 49.99,
-    "discount": 23,
-    "image": "/catalog/k-girls-floral-dress.jpg",
-    "images": [
-      "/catalog/k-girls-floral-dress.jpg"
-    ],
-    "colors": [
-      "Blush Pink",
-      "Buttercup Yellow"
-    ],
-    "sizes": [
-      "3-4Y",
-      "5-6Y",
-      "7-8Y",
-      "9-10Y"
-    ],
-    "stock": {
-      "3-4Y": 6,
-      "5-6Y": 11,
-      "7-8Y": 8,
-      "9-10Y": 4
+      "30": 14,
+      "32": 30,
+      "34": 28,
+      "36": 18,
+      "38": 10
     },
     "rating": 4.8,
-    "reviewCount": 420,
-    "material": "Soft Tulle with 100% Cotton Lining",
-    "fit": "A-Line Flared",
-    "occasion": "Birthday Parties, Weddings",
-    "style": "Princess Celebration",
-    "seller": "MiniOmni Kids",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Delicate pastel party dress with flutter cap sleeves, flower embroidery, back sash tie, and skin-friendly cotton inner lining."
+    "reviewCount": 112,
+    "material": "98% Ring-Spun Cotton, 2% Elastane",
+    "fit": "Slim Tapered",
+    "occasion": "Everyday, College, Casual Outings",
+    "style": "Classic Denim",
+    "seller": "OmniFit Denim Hub Surat",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "k-baby-1",
-    "name": "Infant Organic Cotton Romper Set",
-    "brand": "MiniOmni",
-    "gender": "kids",
+    "id": "m-trouser-1",
+    "name": "Italian Wool-Blend Formal Trousers",
+    "brand": "OmniFit Classic",
+    "gender": "men",
     "category": "clothing",
-    "subcategory": "baby",
-    "price": 27.99,
-    "originalPrice": 35,
+    "subcategory": "trousers",
+    "price": 2899,
+    "originalPrice": 3699,
+    "discount": 21,
+    "image": "/catalog/m-pleated-trouser.jpg",
+    "images": [
+      "/catalog/m-pleated-trouser.jpg"
+    ],
+    "description": "Single-pleat tailored formal trousers with French extension waistband tab, slanted front pockets, and unfinished hems for custom tailoring.",
+    "colors": [
+      "Charcoal",
+      "Grey"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock": {
+      "30": 10,
+      "32": 20,
+      "34": 18,
+      "36": 12
+    },
+    "rating": 4.8,
+    "reviewCount": 43,
+    "material": "60% Wool, 38% Polyester, 2% Spandex",
+    "fit": "Tailored Straight Fit",
+    "occasion": "Office, Board Meetings, Formal Events",
+    "style": "Corporate Formal",
+    "seller": "OmniFit Classic Mumbai",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-chino-1",
+    "name": "Everyday Stretch Cotton Casual Chinos",
+    "brand": "OmniFit Classic",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "chinos",
+    "price": 2199,
+    "originalPrice": 2799,
+    "discount": 21,
+    "image": "/catalog/m-slim-chinos.jpg",
+    "images": [
+      "/catalog/m-slim-chinos.jpg"
+    ],
+    "description": "Versatile khaki chinos crafted with a peached cotton finish for an ultra-soft hand feel. Clean flat-front design.",
+    "colors": [
+      "Khaki",
+      "Tan",
+      "Brown"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock": {
+      "30": 16,
+      "32": 26,
+      "34": 22,
+      "36": 14
+    },
+    "rating": 4.7,
+    "reviewCount": 65,
+    "material": "98% Combed Twill Cotton, 2% Elastane",
+    "fit": "Modern Slim Chino Fit",
+    "occasion": "College, Office Casual, Weekend Trips",
+    "style": "Smart Casual",
+    "seller": "OmniFit Classic Bengaluru",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-hoodie-1",
+    "name": "Brushed Fleece Pullover Streetwear Hoodie",
+    "brand": "OmniFit Urban",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "hoodies",
+    "price": 2499,
+    "originalPrice": 3199,
+    "discount": 22,
+    "image": "/catalog/m-fleece-hoodie.jpg",
+    "images": [
+      "/catalog/m-fleece-hoodie.jpg"
+    ],
+    "description": "Ultra-heavy 450 GSM diagonal-loop fleece pullover hoodie with double-layer hood, matching flat drawcords, and kangaroo pouch.",
+    "colors": [
+      "Heather Grey",
+      "Grey"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "M": 18,
+      "L": 28,
+      "XL": 24,
+      "XXL": 12
+    },
+    "rating": 4.9,
+    "reviewCount": 81,
+    "material": "80% Cotton, 20% Polyester Heavy Fleece (450 GSM)",
+    "fit": "Relaxed Boxy Streetwear",
+    "occasion": "College, Travel, Winter Casual",
+    "style": "Urban Streetwear",
+    "seller": "OmniFit Urban Delhi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-sweatshirt-1",
+    "name": "French Terry Raglan Crewneck Sweatshirt",
+    "brand": "OmniFit Urban",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "sweatshirts",
+    "price": 2199,
+    "originalPrice": 2699,
+    "discount": 18,
+    "image": "/catalog/m-crew-sweatshirt.jpg",
+    "images": [
+      "/catalog/m-crew-sweatshirt.jpg"
+    ],
+    "description": "Pre-washed 100% cotton French terry crewneck with classic V-stitch detail at neckline, raglan sleeves, and ribbed trims.",
+    "colors": [
+      "Forest Green",
+      "Green"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": {
+      "S": 12,
+      "M": 22,
+      "L": 20,
+      "XL": 14
+    },
+    "rating": 4.8,
+    "reviewCount": 49,
+    "material": "100% Unbrushed French Terry Cotton (360 GSM)",
+    "fit": "Regular Fit",
+    "occasion": "Casual, Gym Commutes, College",
+    "style": "Sporty Casual",
+    "seller": "OmniFit Urban Chandigarh",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-jacket-1",
+    "name": "Men's Brown Suede Field Jacket",
+    "brand": "OmniFit Heritage",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "jackets",
+    "price": 4999,
+    "originalPrice": 6299,
     "discount": 20,
-    "image": "/catalog/k-organic-romper.svg",
+    "image": "/catalog/m-suede-jacket.jpg",
     "images": [
-      "/catalog/k-organic-romper.svg"
+      "/catalog/m-suede-jacket.jpg"
     ],
+    "description": "Rugged yet refined chestnut suede field jacket featuring turn-down collar, buttoned flap utility pockets, and warm quilted satin lining.",
     "colors": [
-      "Sky Blue",
-      "Neutral Earth"
+      "Brown",
+      "Tan"
     ],
     "sizes": [
-      "0-3M",
-      "3-6M",
-      "6-12M"
+      "M",
+      "L",
+      "XL"
     ],
     "stock": {
-      "0-3M": 14,
-      "3-6M": 18,
-      "6-12M": 15
+      "M": 10,
+      "L": 16,
+      "XL": 12
     },
     "rating": 4.9,
-    "reviewCount": 670,
-    "material": "100% GOTS Certified Organic Cotton",
-    "fit": "Comfort Snap Fit",
-    "occasion": "Daily Sleep & Play",
-    "style": "Gentle Essentials",
-    "seller": "MiniOmni Kids",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Ultra-soft hypoallergenic rompers featuring expandable lap shoulder necklines and nickel-free bottom snaps for easy diaper changes."
+    "reviewCount": 39,
+    "material": "Faux Micro-Suede with Quilted Poly-Satin Lining",
+    "fit": "Regular Structured",
+    "occasion": "Outdoors, Travel, Evening Gatherings",
+    "style": "Heritage Outerwear",
+    "seller": "OmniFit Flagship Jaipur",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   },
   {
-    "id": "u-sneaker-1",
-    "name": "Court Classic Heritage White Leather Sneakers",
-    "brand": "SoleCraft",
-    "gender": "unisex",
-    "category": "footwear",
-    "subcategory": "sneakers",
-    "price": 89.99,
-    "originalPrice": 115,
-    "discount": 22,
-    "image": "/catalog/f-white-sneakers.jpg",
+    "id": "m-kurta-1",
+    "name": "Pure Silk Mandarin Collar Festive Kurta",
+    "brand": "OmniFit Ethnic",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "kurtas",
+    "price": 2799,
+    "originalPrice": 3499,
+    "discount": 20,
+    "image": "/catalog/m-silk-kurta.jpg",
     "images": [
-      "/catalog/f-white-sneakers.jpg"
+      "/catalog/m-silk-kurta.jpg"
     ],
+    "description": "Lustrous raw silk festive kurta in deep imperial maroon. Features neat mandarin collar, concealed front placket, and deep functional side pockets.",
     "colors": [
-      "Triple White",
-      "White / Navy"
+      "Maroon",
+      "Burgundy"
     ],
     "sizes": [
-      "US 7",
-      "US 8",
-      "US 9",
-      "US 10",
-      "US 11"
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
     ],
     "stock": {
-      "US 7": 6,
-      "US 8": 14,
-      "US 9": 20,
-      "US 10": 16,
-      "US 11": 8
+      "S": 12,
+      "M": 24,
+      "L": 26,
+      "XL": 18,
+      "XXL": 10
+    },
+    "rating": 4.9,
+    "reviewCount": 71,
+    "material": "100% Raw Dupion Silk Blend",
+    "fit": "Comfort Traditional Fit",
+    "occasion": "Diwali, Weddings, Sangeet, Festive Ceremonies",
+    "style": "Royal Ethnic",
+    "seller": "OmniFit Heritage Varanasi",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
+  },
+  {
+    "id": "m-kurta-2",
+    "name": "Lucknowi Chikankari Handcrafted Kurta",
+    "brand": "OmniFit Ethnic",
+    "gender": "men",
+    "category": "clothing",
+    "subcategory": "kurtas",
+    "price": 2499,
+    "originalPrice": 3199,
+    "discount": 22,
+    "image": "/catalog/m-chikankari-kurta.jpg",
+    "images": [
+      "/catalog/m-chikankari-kurta.jpg"
+    ],
+    "description": "Artisanal hand-embroidered white Lucknowi Chikankari kurta in airy Chanderi cotton with intricate floral jaal needlework.",
+    "colors": [
+      "White",
+      "Ivory"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": {
+      "M": 16,
+      "L": 22,
+      "XL": 20,
+      "XXL": 12
     },
     "rating": 4.8,
-    "reviewCount": 2450,
-    "material": "Full-Grain Leather with OrthoLite Insole",
-    "fit": "True to Size",
-    "occasion": "Everyday Casual, Commute",
-    "style": "Timeless Minimalist",
-    "seller": "SoleCraft Studio",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Clean silhouette retro tennis sneakers with calfskin leather upper, cushioned moisture-wicking footbed, and durable stitched rubber cupsole."
-  },
-  {
-    "id": "u-watch-1",
-    "name": "Chronograph Stainless Steel Watch",
-    "brand": "Velocity",
-    "gender": "unisex",
-    "category": "accessories",
-    "subcategory": "watches",
-    "price": 195,
-    "originalPrice": 250,
-    "discount": 22,
-    "image": "/catalog/a-chronograph-watch.svg",
-    "images": [
-      "/catalog/a-chronograph-watch.svg"
-    ],
-    "colors": [
-      "Silver / Blue Dial",
-      "All Black Matte"
-    ],
-    "sizes": [
-      "42mm"
-    ],
-    "stock": {
-      "42mm": 15
-    },
-    "rating": 4.9,
-    "reviewCount": 1830,
-    "material": "316L Surgical Stainless Steel, Sapphire Crystal",
-    "fit": "Adjustable Link Bracelet",
-    "occasion": "Formal, Daily",
-    "style": "Precision Luxury",
-    "seller": "Velocity Studio",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Japanese quartz movement chronograph watch featuring 5 ATM water resistance, scratch-proof sapphire crystal glass, date window, and 2-year warranty."
-  },
-  {
-    "id": "u-sunglass-1",
-    "name": "Polarized Acetate Aviator Sunglasses",
-    "brand": "Riviera Wear",
-    "gender": "unisex",
-    "category": "accessories",
-    "subcategory": "sunglasses",
-    "price": 75,
-    "originalPrice": 98,
-    "discount": 23,
-    "image": "/catalog/a-aviator-sunglasses.svg",
-    "images": [
-      "/catalog/a-aviator-sunglasses.svg"
-    ],
-    "colors": [
-      "Tortoise Shell / Gold",
-      "Gloss Black / Grey"
-    ],
-    "sizes": [
-      "Standard"
-    ],
-    "stock": {
-      "Standard": 25
-    },
-    "rating": 4.7,
-    "reviewCount": 940,
-    "material": "Handcrafted Italian Acetate, UV400 Polarized Lenses",
-    "fit": "Universal Fit",
-    "occasion": "Driving, Summer Vacation",
-    "style": "Riviera Glamour",
-    "seller": "Riviera Wear",
-    "returnEligibility": "30-Day Free Returns",
-    "hasTryOn": false,
-    "description": "Premium handcrafted acetate frames with 100% UV400 polarized glare-reducing lenses and reinforced 5-barrel hinges."
+    "reviewCount": 53,
+    "material": "Chanderi Cotton with Cotton Mulmul Lining",
+    "fit": "Traditional Straight Cut",
+    "occasion": "Eid, Summer Weddings, Puja Ceremonies",
+    "style": "Heritage Ethnic",
+    "seller": "OmniFit Heritage Lucknow",
+    "returnEligibility": "14-Day Free Returns & Exchanges",
+    "hasTryOn": true
   }
 ];

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, MapPin, Check, Building, Compass } from 'lucide-react';
+import { X, MapPin, Check, Building, Compass, AlertCircle } from 'lucide-react';
 import { User, Address } from '../types';
+import { POPULAR_INDIAN_LOCATIONS, validateIndianPIN } from '../utils/indianLocation';
 
 interface DeliveryAddressModalProps {
   isOpen: boolean;
@@ -9,17 +10,6 @@ interface DeliveryAddressModalProps {
   currentLocation: { city: string; zipCode: string };
   onSelectLocation: (loc: { city: string; zipCode: string }) => void;
 }
-
-const POPULAR_LOCATIONS = [
-  { city: 'New York', zipCode: '10001', state: 'NY' },
-  { city: 'Los Angeles', zipCode: '90001', state: 'CA' },
-  { city: 'Chicago', zipCode: '60601', state: 'IL' },
-  { city: 'Seattle', zipCode: '98101', state: 'WA' },
-  { city: 'Miami', zipCode: '33101', state: 'FL' },
-  { city: 'Austin', zipCode: '78701', state: 'TX' },
-  { city: 'San Francisco', zipCode: '94102', state: 'CA' },
-  { city: 'London', zipCode: 'SW1A 1AA', state: 'UK' }
-];
 
 export const DeliveryAddressModal: React.FC<DeliveryAddressModalProps> = ({
   isOpen,
@@ -36,18 +26,30 @@ export const DeliveryAddressModal: React.FC<DeliveryAddressModalProps> = ({
 
   const handleApplyCustom = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!zipInput.trim() && !cityInput.trim()) {
-      setError('Please enter a valid City or ZIP code');
+    setError('');
+
+    const pin = zipInput.trim();
+    const city = cityInput.trim();
+
+    if (!pin && !city) {
+      setError('Please enter a City or 6-digit Indian PIN code');
       return;
     }
-    const city = cityInput.trim() || 'Custom Location';
-    const zipCode = zipInput.trim() || '00000';
-    onSelectLocation({ city, zipCode });
+
+    if (pin && !validateIndianPIN(pin)) {
+      setError('Please enter a valid 6-digit Indian PIN code (e.g. 560001, 400001)');
+      return;
+    }
+
+    const resolvedCity = city || (pin.startsWith('56') ? 'Bengaluru' : pin.startsWith('40') ? 'Mumbai' : pin.startsWith('11') ? 'New Delhi' : 'India');
+    const resolvedPin = pin || '560001';
+
+    onSelectLocation({ city: resolvedCity, zipCode: resolvedPin });
     onClose();
   };
 
   const handleSelectPreset = (preset: { city: string; zipCode: string }) => {
-    onSelectLocation(preset);
+    onSelectLocation({ city: preset.city, zipCode: preset.zipCode });
     onClose();
   };
 
@@ -69,8 +71,8 @@ export const DeliveryAddressModal: React.FC<DeliveryAddressModalProps> = ({
               <MapPin size={18} />
             </div>
             <div>
-              <h3 className="font-bold text-sm">Choose your delivery location</h3>
-              <p className="text-[11px] text-gray-300">Delivery options & speeds for your area</p>
+              <h3 className="font-bold text-sm">Choose delivery location in India</h3>
+              <p className="text-[11px] text-gray-300">Fast delivery options & speeds across Indian PIN codes</p>
             </div>
           </div>
           <button 
@@ -98,112 +100,100 @@ export const DeliveryAddressModal: React.FC<DeliveryAddressModalProps> = ({
             </span>
           </div>
 
-          {/* User's Saved Addresses if logged in */}
+          {/* User Saved Addresses */}
           {currentUser && currentUser.addresses && currentUser.addresses.length > 0 && (
             <div className="space-y-2">
-              <h4 className="font-bold text-gray-700 flex items-center gap-1.5">
-                <Building size={14} className="text-[#007185]" /> Your Saved Addresses:
-              </h4>
-              <div className="space-y-2">
+              <span className="font-bold text-gray-700 block text-[11px] uppercase tracking-wider">
+                Your Saved Indian Addresses
+              </span>
+              <div className="space-y-1.5">
                 {currentUser.addresses.map((addr, idx) => {
-                  const isCurrent = currentLocation.zipCode === addr.zipCode;
+                  const isSelected = currentLocation.zipCode === addr.zipCode;
                   return (
-                    <div
-                      key={idx}
+                    <button
+                      key={addr.id || idx}
                       onClick={() => handleSelectAddress(addr)}
-                      className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start justify-between ${
-                        isCurrent 
-                          ? 'border-[#e77600] bg-orange-50/50 ring-1 ring-[#e77600]' 
+                      className={`w-full text-left p-3 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
+                        isSelected 
+                          ? 'border-[#e77600] bg-orange-50/50 shadow-xs' 
                           : 'border-gray-200 hover:border-gray-300 bg-white'
                       }`}
                     >
-                      <div>
-                        <p className="font-bold text-gray-900">{addr.name}</p>
-                        <p className="text-gray-600 mt-0.5">{addr.street}</p>
-                        <p className="text-gray-500 font-medium">
-                          {addr.city}, {addr.state} {addr.zipCode}
-                        </p>
+                      <div className="flex-1 pr-2 truncate">
+                        <p className="font-bold text-gray-900 truncate">{addr.name || currentUser.name}</p>
+                        <p className="text-gray-600 truncate text-[11px]">{addr.street}, {addr.city}, {addr.state} - {addr.zipCode}</p>
                       </div>
-                      {isCurrent ? (
-                        <Check size={16} className="text-[#e77600] shrink-0 mt-0.5" />
+                      {isSelected ? (
+                        <Check size={16} className="text-[#e77600] shrink-0" />
                       ) : (
-                        <span className="text-[10px] text-[#007185] font-bold hover:underline">Select</span>
+                        <span className="text-[10px] text-[#007185] font-semibold hover:underline shrink-0">Deliver here</span>
                       )}
-                    </div>
+                    </button>
                   );
                 })}
               </div>
             </div>
           )}
 
-          {/* Custom Zip Code Input */}
-          <div className="space-y-2">
-            <h4 className="font-bold text-gray-700">Enter a US City or ZIP Code:</h4>
-            <form onSubmit={handleApplyCustom} className="space-y-2">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="City (e.g. Dallas)"
-                  value={cityInput}
-                  onChange={(e) => { setCityInput(e.target.value); setError(''); }}
-                  className="flex-1 p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e77600] text-xs"
-                />
-                <input
-                  type="text"
-                  placeholder="ZIP (e.g. 75201)"
-                  value={zipInput}
-                  onChange={(e) => { setZipInput(e.target.value); setError(''); }}
-                  className="w-28 p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e77600] text-xs"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] text-gray-950 font-bold rounded-lg transition-colors shadow-xs"
-                >
-                  Apply
-                </button>
-              </div>
-              {error && <p className="text-red-600 text-[11px] font-semibold">{error}</p>}
-            </form>
-          </div>
+          {/* Enter Indian PIN Code / City */}
+          <form onSubmit={handleApplyCustom} className="space-y-2">
+            <span className="font-bold text-gray-700 block text-[11px] uppercase tracking-wider">
+              Enter Indian PIN code or City
+            </span>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="6-digit PIN (e.g. 560001)"
+                maxLength={6}
+                value={zipInput}
+                onChange={(e) => {
+                  setZipInput(e.target.value);
+                  setError('');
+                }}
+                className="flex-1 p-2.5 border border-gray-300 rounded-lg text-xs focus:outline-none focus:border-[#e77600] focus:ring-1 focus:ring-[#e77600]"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] text-gray-950 font-bold rounded-lg text-xs cursor-pointer transition-colors shadow-xs"
+              >
+                Apply
+              </button>
+            </div>
+            {error && (
+              <p className="text-red-600 text-[11px] flex items-center gap-1 mt-1 font-medium">
+                <AlertCircle size={12} /> {error}
+              </p>
+            )}
+          </form>
 
-          {/* Popular Cities Preset Pills */}
+          {/* Popular Major Cities in India */}
           <div className="space-y-2 pt-2 border-t border-gray-100">
-            <h4 className="font-bold text-gray-700 flex items-center gap-1.5">
-              <Compass size={14} className="text-[#007185]" /> Or pick a major metropolitan destination:
-            </h4>
+            <span className="font-bold text-gray-700 block text-[11px] uppercase tracking-wider">
+              Popular Cities in India
+            </span>
             <div className="grid grid-cols-2 gap-2">
-              {POPULAR_LOCATIONS.map((preset) => {
-                const isCurrent = currentLocation.zipCode === preset.zipCode;
+              {POPULAR_INDIAN_LOCATIONS.map((preset) => {
+                const isSelected = currentLocation.zipCode === preset.zipCode;
                 return (
                   <button
                     key={preset.zipCode}
-                    type="button"
                     onClick={() => handleSelectPreset(preset)}
-                    className={`p-2.5 rounded-lg border text-left transition-all flex items-center justify-between ${
-                      isCurrent 
-                        ? 'border-[#e77600] bg-orange-50 font-bold text-[#b12704]' 
-                        : 'border-gray-200 hover:border-gray-400 bg-neutral-50 text-gray-700'
+                    className={`p-2.5 rounded-lg border text-left flex items-center justify-between transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'border-[#e77600] bg-orange-50 font-bold text-gray-900'
+                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700'
                     }`}
                   >
                     <div>
-                      <p className="font-semibold text-gray-900">{preset.city}, {preset.state}</p>
-                      <p className="text-[10px] text-gray-400">{preset.zipCode}</p>
+                      <p className="font-bold text-xs">{preset.city}</p>
+                      <p className="text-[10px] text-gray-500">{preset.state} • {preset.zipCode}</p>
                     </div>
-                    {isCurrent && <Check size={14} className="text-[#e77600]" />}
+                    {isSelected && <Check size={14} className="text-[#e77600] shrink-0" />}
                   </button>
                 );
               })}
             </div>
           </div>
-        </div>
-
-        <div className="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-end">
-          <button
-            onClick={onClose}
-            className="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg text-xs transition-colors"
-          >
-            Done
-          </button>
         </div>
       </div>
     </div>

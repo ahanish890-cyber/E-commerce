@@ -72,10 +72,7 @@ export const AllNavDrawer: React.FC<AllNavDrawerProps> = ({
 
   const departments = [
     { id: 'women', label: "Women's Fashion", icon: '👗' },
-    { id: 'men', label: "Men's Fashion", icon: '👔' },
-    { id: 'kids', label: 'Kids & Baby', icon: '🧒' },
-    { id: 'footwear', label: 'Footwear & Shoes', icon: '👟' },
-    { id: 'accessories', label: 'Bags & Accessories', icon: '👜' }
+    { id: 'men', label: "Men's Fashion", icon: '👔' }
   ];
 
   return (

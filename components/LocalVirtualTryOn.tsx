@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { X, Sparkles, Download, RefreshCw, Check, AlertCircle, Upload } from 'lucide-react';
 import { Product } from '../types';
+import { formatINR } from '../utils/currency';
 
 interface LocalVirtualTryOnProps {
   product: Product;
@@ -357,7 +358,7 @@ export const LocalVirtualTryOn: React.FC<LocalVirtualTryOnProps> = ({ product, o
                     <h3 className="text-white font-bold text-lg">{product.name}</h3>
                     <p className="text-gray-400 text-sm">{product.brand}</p>
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold text-white">${product.price}</span>
+                      <span className="text-2xl font-bold text-white">{formatINR(product.price)}</span>
                       <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-full font-bold">In Stock</span>
                     </div>
                   </div>

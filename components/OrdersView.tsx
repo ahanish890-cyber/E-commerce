@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Order } from '../types';
-import { Package, Clock, CheckCircle2, RotateCcw, AlertTriangle, ChevronRight, Truck } from 'lucide-react';
+import { Package, Clock, CheckCircle2, RotateCcw, AlertTriangle, ChevronRight, Truck, MapPin } from 'lucide-react';
+import { formatINR } from '../utils/currency';
+import { formatDateTimeIST } from '../utils/indianLocation';
 
 interface OrdersViewProps {
   onContinueShopping: () => void;
@@ -21,11 +23,14 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
       const res = await fetch('/api/orders', { headers });
+      if (!res.ok) {
+        setOrders([]);
+        return;
+      }
       const data = await res.json().catch(() => ({}));
       if (data.success) {
         setOrders(data.orders || []);
       } else {
-        // Fallback demo order if unauthenticated
         setOrders([]);
       }
     } catch (err: any) {
@@ -98,11 +103,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
       <div className="flex items-center justify-between pb-4 border-b border-gray-200">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Your Orders & Returns</h1>
-          <p className="text-xs text-gray-500 mt-1">Track shipments, manage delivery, and initiate returns</p>
+          <p className="text-xs text-gray-500 mt-1">Track shipments across Indian PIN codes, manage delivery, and initiate returns</p>
         </div>
         <button
           onClick={onContinueShopping}
-          className="bg-[#ffd814] hover:bg-[#f7ca00] text-black font-bold px-5 py-2.5 rounded-full text-xs transition-all shadow-sm"
+          className="bg-[#ffd814] hover:bg-[#f7ca00] text-black font-bold px-5 py-2.5 rounded-full text-xs transition-all shadow-sm cursor-pointer"
         >
           Continue Shopping
         </button>
@@ -111,7 +116,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
       {actionSuccess && (
         <div className="p-4 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg flex items-center justify-between">
           <span>{actionSuccess}</span>
-          <button onClick={() => setActionSuccess('')} className="text-xs font-bold hover:underline">Dismiss</button>
+          <button onClick={() => setActionSuccess('')} className="text-xs font-bold hover:underline cursor-pointer">Dismiss</button>
         </div>
       )}
 
@@ -129,7 +134,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
           </p>
           <button
             onClick={onContinueShopping}
-            className="bg-[#ffd814] hover:bg-[#f7ca00] text-black font-bold px-8 py-3 rounded-full text-xs shadow-md"
+            className="bg-[#ffd814] hover:bg-[#f7ca00] text-black font-bold px-8 py-3 rounded-full text-xs shadow-md cursor-pointer"
           >
             Start Browsing
           </button>
@@ -142,21 +147,24 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
               <div className="bg-neutral-100 p-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4 text-xs">
                 <div className="flex flex-wrap gap-6 text-gray-600">
                   <div>
-                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Order Placed</span>
-                    <span className="font-bold text-gray-800">{new Date(order.createdAt).toLocaleDateString()}</span>
+                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Order Date (IST)</span>
+                    <span className="font-bold text-gray-800">{formatDateTimeIST(order.createdAt)}</span>
                   </div>
                   <div>
-                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Total</span>
-                    <span className="font-bold text-gray-800">${order.total.toFixed(2)}</span>
+                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Total Amount</span>
+                    <span className="font-bold text-gray-900 text-sm">{formatINR(order.total)}</span>
                   </div>
                   <div>
-                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Ship To</span>
-                    <span className="font-bold text-gray-800">{order.shippingAddress?.name || order.customerName}</span>
+                    <span className="block text-gray-400 uppercase font-semibold text-[10px]">Delivery Destination</span>
+                    <span className="font-bold text-gray-800 flex items-center gap-1">
+                      <MapPin size={12} className="text-[#007185]" />
+                      {order.shippingAddress?.city || 'India'} {order.shippingAddress?.zipCode ? `(${order.shippingAddress.zipCode})` : ''}
+                    </span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="text-gray-500 text-[11px]">ORDER # {order.id}</span>
+                  <span className="text-gray-500 font-mono text-[11px]">ORDER #{order.id}</span>
                   <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${getStatusColor(order.status)}`}>
                     {order.status}
                   </span>
@@ -178,7 +186,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
                       <img 
                         src={item.image} 
                         alt={item.name} 
-                        className="w-20 h-24 object-cover rounded-md bg-gray-50 shrink-0 group-hover:scale-105 transition-transform" 
+                        className="w-20 h-24 object-cover rounded-md bg-gray-50 shrink-0 group-hover:scale-105 transition-transform border border-gray-100" 
                       />
                       <div className="flex-1 min-w-0">
                         <h4 className="font-bold text-sm text-gray-900 group-hover:text-[#007185] transition-colors flex items-center justify-between">
@@ -191,7 +199,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
                         <p className="text-xs text-gray-600 mt-1">
                           Size: <strong className="text-gray-900">{item.selectedSize}</strong> | Color: <strong className="text-gray-900">{item.selectedColor}</strong> | Qty: {item.quantity}
                         </p>
-                        <p className="font-bold text-sm text-gray-900 mt-2">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-bold text-sm text-[#b12704] mt-2">{formatINR(item.price * item.quantity)}</p>
                       </div>
                     </div>
                   ))}
@@ -209,7 +217,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
                           <span className="w-2 h-2 rounded-full bg-[#007185] absolute -left-[17px] top-1.5" />
                           <strong className="text-gray-900">{step.status}:</strong> {step.note}
                           <span className="text-[10px] text-gray-400 ml-2">
-                            {new Date(step.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {formatDateTimeIST(step.timestamp)}
                           </span>
                         </div>
                       ))}
@@ -218,16 +226,16 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
                 )}
 
                 {/* Order Action Buttons */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-100">
                   <div className="text-xs text-gray-500">
-                    Payment method: <strong>{order.paymentMethod}</strong> ({order.paymentStatus})
+                    Payment mode: <strong>{order.paymentMethod}</strong> ({order.paymentStatus})
                   </div>
 
                   <div className="flex gap-2">
                     {(order.status === 'Placed' || order.status === 'Confirmed') && (
                       <button
                         onClick={() => handleCancelOrder(order.id)}
-                        className="px-4 py-2 border border-red-300 text-red-600 rounded-md hover:bg-red-50 text-xs font-bold transition-colors"
+                        className="px-4 py-2 border border-red-300 text-red-600 rounded-md hover:bg-red-50 text-xs font-bold transition-colors cursor-pointer"
                       >
                         Cancel Order
                       </button>
@@ -236,7 +244,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSe
                     {order.status === 'Delivered' && (
                       <button
                         onClick={() => handleReturnOrder(order.id)}
-                        className="px-4 py-2 border border-gray-300 text-gray-800 rounded-md hover:bg-gray-50 text-xs font-bold transition-colors flex items-center gap-1"
+                        className="px-4 py-2 border border-gray-300 text-gray-800 rounded-md hover:bg-gray-50 text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                       >
                         <RotateCcw size={12} /> Return or Replace Item
                       </button>

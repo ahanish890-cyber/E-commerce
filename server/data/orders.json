@@ -6,29 +6,30 @@
     "customerEmail": "jane@example.com",
     "shippingAddress": {
       "name": "Jane Doe",
-      "street": "742 Evergreen Terrace",
-      "city": "Springfield",
-      "state": "OR",
-      "zipCode": "97477",
-      "country": "United States"
+      "street": "12th Main, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_express",
     "deliveryFee": 0,
     "items": [
       {
         "productId": "w-dress-1",
-        "name": "Classic Urban Trench Coat",
-        "brand": "OmniLux",
-        "image": "/Dress-1.png",
-        "price": 189.99,
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "OmniFit Luxe",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 189.99,
-    "tax": 15.2,
-    "total": 205.19,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Credit Card (ending 4242)",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Delivered",
@@ -70,28 +71,29 @@
     "shippingAddress": {
       "name": "Tester",
       "street": "123 Test Ave",
-      "city": "Seattle",
-      "state": "WA",
-      "zipCode": "98101",
-      "country": "US"
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zipCode": "400050",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
     "items": [
       {
         "productId": "w-dress-1",
-        "name": "Classic Urban Trench Coat",
-        "brand": "OmniLux",
-        "image": "/Dress-1.png",
-        "price": 189.99,
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "OmniFit Luxe",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 189.99,
-    "tax": 15.2,
-    "total": 205.19,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Visa",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -123,28 +125,29 @@
     "shippingAddress": {
       "name": "Tester",
       "street": "123 Test Ave",
-      "city": "Seattle",
-      "state": "WA",
-      "zipCode": "98101",
-      "country": "US"
+      "city": "New Delhi",
+      "state": "Delhi (NCT)",
+      "zipCode": "110016",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
     "items": [
       {
         "productId": "w-dress-1",
-        "name": "Classic Urban Trench Coat",
-        "brand": "OmniLux",
-        "image": "/Dress-1.png",
-        "price": 189.99,
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "OmniFit Luxe",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 189.99,
-    "tax": 15.2,
-    "total": 205.19,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Visa",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -176,28 +179,29 @@
     "shippingAddress": {
       "name": "Tester",
       "street": "123 Test Ave",
-      "city": "Seattle",
-      "state": "WA",
-      "zipCode": "98101",
-      "country": "US"
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "zipCode": "500081",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
     "items": [
       {
         "productId": "w-dress-1",
-        "name": "Classic Urban Trench Coat",
-        "brand": "OmniLux",
-        "image": "/Dress-1.png",
-        "price": 189.99,
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "OmniFit Luxe",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 189.99,
-    "tax": 15.2,
-    "total": 205.19,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Visa",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -229,10 +233,11 @@
     "shippingAddress": {
       "name": "Tester",
       "street": "123 Test Ave",
-      "city": "Seattle",
-      "state": "WA",
-      "zipCode": "98101",
-      "country": "US"
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zipCode": "411006",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -240,17 +245,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Visa",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -282,10 +287,11 @@
     "shippingAddress": {
       "name": "Tester",
       "street": "123 Test Ave",
-      "city": "Seattle",
-      "state": "WA",
-      "zipCode": "98101",
-      "country": "US"
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -293,17 +299,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Visa",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -335,10 +341,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zipCode": "400050",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -346,17 +353,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -388,10 +395,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "New Delhi",
+      "state": "Delhi (NCT)",
+      "zipCode": "110016",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -399,17 +407,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -441,10 +449,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "zipCode": "500081",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -452,17 +461,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -494,10 +503,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zipCode": "411006",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -505,17 +515,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -547,10 +557,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -558,17 +569,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -600,10 +611,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zipCode": "400050",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -611,17 +623,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -653,10 +665,11 @@
     "shippingAddress": {
       "name": "Jane Doe",
       "street": "456 Fashion Blvd",
-      "city": "New York",
-      "state": "NY",
-      "zipCode": "10001",
-      "country": "US"
+      "city": "New Delhi",
+      "state": "Delhi (NCT)",
+      "zipCode": "110016",
+      "country": "India",
+      "phone": "+91 98765 43210"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
@@ -664,17 +677,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "M",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "OmniFit Pay",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Cancelled",
@@ -705,11 +718,11 @@
     "customerEmail": "customer@example.com",
     "shippingAddress": {
       "name": "Jane Doe",
-      "street": "742 Evergreen Terrace",
-      "city": "Springfield",
-      "state": "OR",
-      "zipCode": "97477",
-      "country": "United States",
+      "street": "HITEC City, Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "zipCode": "500081",
+      "country": "India",
       "phone": "+1 (555) 234-5678"
     },
     "deliveryMethod": "prime_standard",
@@ -718,17 +731,17 @@
       {
         "productId": "w-dress-1",
         "name": "Elegant Midnight Evening Dress",
-        "brand": "Elegance Elite",
+        "brand": "OmniFit Luxe",
         "image": "/catalog/w-dress-midnight.jpg",
-        "price": 115,
+        "price": 3999,
         "quantity": 1,
         "selectedSize": "XS",
         "selectedColor": "Midnight Blue"
       }
     ],
-    "subtotal": 115,
-    "tax": 9.2,
-    "total": 124.2,
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
     "paymentMethod": "Demo Credit Card (ending 4242)",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Placed",
@@ -754,11 +767,11 @@
     "customerEmail": "customer@example.com",
     "shippingAddress": {
       "name": "Jane Doe",
-      "street": "742 Evergreen Terrace",
-      "city": "Springfield",
-      "state": "OR",
-      "zipCode": "97477",
-      "country": "United States",
+      "street": "Koregaon Park Road",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zipCode": "411006",
+      "country": "India",
       "phone": "+1 (555) 234-5678"
     },
     "deliveryMethod": "prime_standard",
@@ -767,17 +780,17 @@
       {
         "productId": "w-coat-1",
         "name": "Classic Urban Trench Coat",
-        "brand": "OmniLux",
+        "brand": "OmniFit Studio",
         "image": "/catalog/w-trench-coat.jpg",
-        "price": 189.99,
+        "price": 5499,
         "quantity": 1,
         "selectedSize": "S",
         "selectedColor": "Beige"
       }
     ],
-    "subtotal": 189.99,
-    "tax": 15.2,
-    "total": 205.19,
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
     "paymentMethod": "Demo Credit Card (ending 4242)",
     "paymentStatus": "Paid (Demo Verified)",
     "status": "Placed",
@@ -803,30 +816,30 @@
     "customerEmail": "customer@example.com",
     "shippingAddress": {
       "name": "Jane Doe",
-      "street": "742 Evergreen Terrace",
-      "city": "Springfield",
-      "state": "OR",
-      "zipCode": "97477",
-      "country": "United States",
+      "street": "12th Main, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
       "phone": "+1 (555) 234-5678"
     },
     "deliveryMethod": "prime_standard",
     "deliveryFee": 0,
     "items": [
       {
-        "productId": "w-heel-1",
-        "name": "Pointed-Toe Patent Stiletto Pumps",
-        "brand": "Elegance Elite",
-        "image": "/catalog/f-stiletto-pumps.svg",
-        "price": 95,
+        "productId": "w-ethnic-2",
+        "name": "Chanderi Silk Kurta & Palazzos with Dupatta",
+        "brand": "OmniFit Ethnic",
+        "image": "/catalog/w-silk-ethnic-set.svg",
+        "price": 3699,
         "quantity": 4,
         "selectedSize": "US 6",
         "selectedColor": "Nude Patent"
       }
     ],
-    "subtotal": 380,
-    "tax": 30.4,
-    "total": 410.4,
+    "subtotal": 14796,
+    "tax": 740,
+    "total": 15536,
     "paymentMethod": "Demo Credit Card (ending 4242)",
     "paymentStatus": "Demo Mode (No Charge)",
     "status": "Placed",
@@ -844,5 +857,481 @@
     ],
     "returnEligible": true,
     "createdAt": "2026-10-29T10:52:52.079Z"
+  },
+  {
+    "id": "ORD-2026-2182",
+    "userId": "guest-1793273483349",
+    "customerName": "Jane Doe",
+    "customerEmail": "customer@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "Hill Road, Bandra West",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zipCode": "400050",
+      "country": "India",
+      "phone": "+1 (555) 234-5678"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "m-shirt-1",
+        "name": "Men's Classic Plaid Flannel Casual Shirt",
+        "brand": "OmniFit Classic",
+        "image": "/Dress-1.png",
+        "price": 1899,
+        "quantity": 1,
+        "selectedSize": "XXL",
+        "selectedColor": "Grey Plaid"
+      }
+    ],
+    "subtotal": 1899,
+    "tax": 95,
+    "total": 1994,
+    "paymentMethod": "Demo Credit Card (ending 4242)",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T11:31:23.349Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T11:31:23.349Z",
+        "note": "Order verified in demo sandbox environment"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T11:31:23.349Z"
+  },
+  {
+    "id": "ORD-2026-4695",
+    "userId": "user-1793274430212",
+    "customerName": "test_1793274430205",
+    "customerEmail": "test_1793274430205@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "456 Fashion Blvd",
+      "city": "New Delhi",
+      "state": "Delhi (NCT)",
+      "zipCode": "110016",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-dress-1",
+        "name": "Elegant Midnight Evening Dress",
+        "brand": "OmniFit Luxe",
+        "image": "/catalog/w-dress-midnight.jpg",
+        "price": 3999,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Midnight Blue"
+      }
+    ],
+    "subtotal": 3999,
+    "tax": 200,
+    "total": 4199,
+    "paymentMethod": "OmniFit Pay",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Cancelled",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T11:47:10.220Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T11:47:10.220Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-10-29T11:47:10.237Z",
+        "note": "Catalog test cancellation"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T11:47:10.220Z"
+  },
+  {
+    "id": "ORD-2026-9123",
+    "userId": "user-1793275750507",
+    "customerName": "test_inr_1793275750466",
+    "customerEmail": "test_inr_1793275750466@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T12:09:10.521Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:09:10.522Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:09:10.553Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T12:09:10.522Z"
+  },
+  {
+    "id": "ORD-2026-4781",
+    "userId": "user-1793278218588",
+    "customerName": "test_inr_1793278218583",
+    "customerEmail": "test_inr_1793278218583@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T12:50:18.597Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:50:18.597Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:50:18.632Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T12:50:18.597Z"
+  },
+  {
+    "id": "ORD-2026-4206",
+    "userId": "user-1793278737371",
+    "customerName": "test_inr_1793278737349",
+    "customerEmail": "test_inr_1793278737349@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T12:58:57.379Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:58:57.379Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T12:58:57.410Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T12:58:57.379Z"
+  },
+  {
+    "id": "ORD-2026-9357",
+    "userId": "user-1793279003320",
+    "customerName": "HANISH",
+    "customerEmail": "hanish1506@gmail.com",
+    "shippingAddress": {
+      "name": "HANISH",
+      "street": "Flat 402, Prestige Palms, 12th Main Road, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560038",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "m-jacket-1",
+        "name": "Men's Brown Suede Field Jacket",
+        "brand": "OmniFit Heritage",
+        "image": "/Dress-3.png",
+        "price": 4999,
+        "quantity": 2,
+        "selectedSize": "XL",
+        "selectedColor": "Tan"
+      }
+    ],
+    "subtotal": 9998,
+    "tax": 500,
+    "total": 10498,
+    "paymentMethod": "UPI / NetBanking / Cards (Demo Sandbox)",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T13:07:04.562Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T13:07:04.562Z",
+        "note": "Order verified in demo sandbox environment"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T13:07:04.562Z"
+  },
+  {
+    "id": "ORD-2026-3362",
+    "userId": "user-1793283627991",
+    "customerName": "test_inr_1793283627977",
+    "customerEmail": "test_inr_1793283627977@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T14:20:28.005Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:20:28.005Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:20:28.039Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T14:20:28.005Z"
+  },
+  {
+    "id": "ORD-2026-2445",
+    "userId": "user-1793283804866",
+    "customerName": "test_inr_1793283804849",
+    "customerEmail": "test_inr_1793283804849@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T14:23:24.883Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:23:24.883Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:23:24.930Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T14:23:24.883Z"
+  },
+  {
+    "id": "ORD-2026-1264",
+    "userId": "user-1793285805849",
+    "customerName": "test_inr_1793285805845",
+    "customerEmail": "test_inr_1793285805845@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T14:56:45.854Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:56:45.854Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T14:56:45.896Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T14:56:45.854Z"
   }
 ]

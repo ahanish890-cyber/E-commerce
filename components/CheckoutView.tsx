@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CartItem, User, Address, Order } from '../types';
-import { ShieldCheck, Truck, CreditCard, CheckCircle, AlertCircle, ChevronRight, Lock } from 'lucide-react';
+import { ShieldCheck, Truck, CreditCard, CheckCircle, AlertCircle, ChevronRight, Lock, MapPin } from 'lucide-react';
+import { formatINR } from '../utils/currency';
+import { INDIAN_STATES_AND_UTS, validateIndianPIN, validateIndianPhone } from '../utils/indianLocation';
 
 interface CheckoutViewProps {
   cart: CartItem[];
@@ -20,28 +22,56 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
   const [shippingAddress, setShippingAddress] = useState<Address>(() => {
     const existing = currentUser?.addresses?.find(a => a.isDefault) || currentUser?.addresses?.[0];
     return existing || {
-      name: currentUser?.name || 'Jane Doe',
-      street: '742 Evergreen Terrace',
-      city: 'Springfield',
-      state: 'OR',
-      zipCode: '97477',
-      country: 'United States',
-      phone: '+1 (555) 234-5678'
+      name: currentUser?.name || 'Customer Name',
+      street: 'Flat 402, Prestige Palms, 12th Main Road, Indiranagar',
+      city: 'Bengaluru',
+      state: 'Karnataka',
+      zipCode: '560038',
+      country: 'India',
+      phone: '+91 98765 43210'
     };
   });
 
   const [deliveryMethod, setDeliveryMethod] = useState<'prime_standard' | 'express'>('prime_standard');
-  const [paymentMethod, setPaymentMethod] = useState('Demo Credit Card (ending 4242)');
+  const [paymentMethod, setPaymentMethod] = useState('UPI / NetBanking / Cards (Demo Sandbox)');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Numerical calculations in INR
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const deliveryFee = deliveryMethod === 'express' ? 9.99 : 0.00;
-  const tax = Math.round(subtotal * 0.08 * 100) / 100;
-  const total = Math.round((subtotal + deliveryFee + tax) * 100) / 100;
+  const deliveryFee = deliveryMethod === 'express' ? 149 : 0;
+  const tax = Math.round(subtotal * 0.05); // 5% GST for Indian apparel
+  const total = subtotal + deliveryFee + tax;
 
   const handlePlaceOrder = async () => {
     setError('');
+
+    // Form Validation for Indian Delivery
+    if (!shippingAddress.name.trim()) {
+      setError('Please provide your recipient name.');
+      return;
+    }
+    if (!shippingAddress.street.trim()) {
+      setError('Please provide flat/house number and street address.');
+      return;
+    }
+    if (!shippingAddress.city.trim()) {
+      setError('Please specify the city/town.');
+      return;
+    }
+    if (!shippingAddress.state.trim()) {
+      setError('Please select an Indian state or union territory.');
+      return;
+    }
+    if (!validateIndianPIN(shippingAddress.zipCode)) {
+      setError('Please enter a valid 6-digit Indian PIN code (e.g. 560001, 400001).');
+      return;
+    }
+    if (shippingAddress.phone && !validateIndianPhone(shippingAddress.phone)) {
+      setError('Please enter a valid 10-digit Indian contact phone number.');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -63,15 +93,24 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
             selectedSize: item.selectedSize,
             selectedColor: item.selectedColor
           })),
-          shippingAddress,
+          shippingAddress: {
+            ...shippingAddress,
+            country: 'India'
+          },
           deliveryMethod,
           paymentMethod,
           customerName: shippingAddress.name,
-          customerEmail: currentUser?.email || 'customer@example.com'
+          customerEmail: currentUser?.email || 'customer@example.in'
         })
       });
 
-      const data = await res.json().catch(() => ({}));
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error(`Server returned status ${res.status}`);
+      }
+
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Failed to place order');
       }
@@ -90,38 +129,38 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
       <div className="flex items-center justify-between pb-4 border-b border-gray-200">
         <div className="flex items-center gap-2">
           <Lock size={20} className="text-[#007185]" />
-          <h1 className="text-2xl md:text-3xl font-black text-gray-900">OmniFit Secure Checkout</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-gray-900">OmniFit Secure Indian Checkout</h1>
         </div>
         <button
           onClick={onCancel}
-          className="text-xs text-[#007185] hover:underline font-bold"
+          className="text-xs text-[#007185] hover:underline font-bold cursor-pointer"
         >
           Return to Cart
         </button>
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 p-4 bg-red-50 text-red-700 text-sm rounded-lg border border-red-200">
-          <AlertCircle size={18} className="shrink-0" />
+        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2 font-medium">
+          <AlertCircle size={16} className="shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Left Side: Steps */}
-        <div className="flex-1 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {/* Left Column: Delivery & Payment Details */}
+        <div className="lg:col-span-2 space-y-6">
           {/* Step 1: Shipping Address */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-base text-gray-900 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#131921] text-white text-xs flex items-center justify-center font-bold">1</span>
-                Shipping Address
+                Delivery Address (India)
               </h3>
               {!currentUser && (
                 <button
                   type="button"
                   onClick={onOpenAuth}
-                  className="text-xs text-[#007185] hover:underline font-bold"
+                  className="text-xs text-[#007185] hover:underline font-bold cursor-pointer"
                 >
                   Sign in to use saved addresses
                 </button>
@@ -130,57 +169,89 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
-                <label className="block font-bold text-gray-700 mb-1">Full Name</label>
+                <label className="block font-bold text-gray-700 mb-1">Recipient Full Name *</label>
                 <input
                   type="text"
+                  placeholder="e.g. Rahul Verma"
                   value={shippingAddress.name}
                   onChange={(e) => setShippingAddress({ ...shippingAddress, name: e.target.value })}
-                  className="w-full p-2 border rounded-md focus:border-[#e77600] focus:outline-none"
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none"
                 />
               </div>
+
               <div>
-                <label className="block font-bold text-gray-700 mb-1">Street Address</label>
+                <label className="block font-bold text-gray-700 mb-1">Mobile Contact Number *</label>
                 <input
                   type="text"
+                  placeholder="e.g. +91 98765 43210"
+                  value={shippingAddress.phone || ''}
+                  onChange={(e) => setShippingAddress({ ...shippingAddress, phone: e.target.value })}
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block font-bold text-gray-700 mb-1">Flat, House no., Building, Apartment *</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Flat 301, Tower B, Lotus Greens"
                   value={shippingAddress.street}
                   onChange={(e) => setShippingAddress({ ...shippingAddress, street: e.target.value })}
-                  className="w-full p-2 border rounded-md focus:border-[#e77600] focus:outline-none"
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none"
                 />
               </div>
+
               <div>
-                <label className="block font-bold text-gray-700 mb-1">City</label>
+                <label className="block font-bold text-gray-700 mb-1">City / Town / District *</label>
                 <input
                   type="text"
+                  placeholder="e.g. Bengaluru"
                   value={shippingAddress.city}
                   onChange={(e) => setShippingAddress({ ...shippingAddress, city: e.target.value })}
-                  className="w-full p-2 border rounded-md focus:border-[#e77600] focus:outline-none"
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block font-bold text-gray-700 mb-1">State</label>
-                  <input
-                    type="text"
-                    value={shippingAddress.state}
-                    onChange={(e) => setShippingAddress({ ...shippingAddress, state: e.target.value })}
-                    className="w-full p-2 border rounded-md focus:border-[#e77600] focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block font-bold text-gray-700 mb-1">Zip Code</label>
-                  <input
-                    type="text"
-                    value={shippingAddress.zipCode}
-                    onChange={(e) => setShippingAddress({ ...shippingAddress, zipCode: e.target.value })}
-                    className="w-full p-2 border rounded-md focus:border-[#e77600] focus:outline-none"
-                  />
-                </div>
+
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">State / Union Territory *</label>
+                <select
+                  value={shippingAddress.state}
+                  onChange={(e) => setShippingAddress({ ...shippingAddress, state: e.target.value })}
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none bg-white"
+                >
+                  <option value="">Select State / UT</option>
+                  {INDIAN_STATES_AND_UTS.map(st => (
+                    <option key={st} value={st}>{st}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">PIN Code (6 digits) *</label>
+                <input
+                  type="text"
+                  maxLength={6}
+                  placeholder="e.g. 560038"
+                  value={shippingAddress.zipCode}
+                  onChange={(e) => setShippingAddress({ ...shippingAddress, zipCode: e.target.value })}
+                  className="w-full p-2.5 border rounded-lg focus:border-[#e77600] focus:outline-none font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">Country</label>
+                <input
+                  type="text"
+                  disabled
+                  value="India"
+                  className="w-full p-2.5 border rounded-lg bg-gray-50 text-gray-600 font-medium cursor-not-allowed"
+                />
               </div>
             </div>
           </div>
 
           {/* Step 2: Delivery Options */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs space-y-4">
             <h3 className="font-bold text-base text-gray-900 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#131921] text-white text-xs flex items-center justify-center font-bold">2</span>
               Choose Delivery Option
@@ -201,10 +272,10 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-sm text-green-700">FREE Prime Tomorrow</span>
+                    <span className="font-bold text-sm text-green-700">FREE Prime Delivery</span>
                     <span className="text-xs bg-[#00a8e1] text-white font-bold px-1.5 py-0.5 rounded">prime</span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5">Guaranteed next-business-day delivery via OmniFit Logistics</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Guaranteed 2-3 business days across Indian postal codes</p>
                 </div>
               </label>
 
@@ -222,100 +293,89 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-sm text-gray-900">Same-Day Priority Express (+$9.99)</span>
+                    <span className="font-bold text-sm text-gray-900">Next-Day Express Priority ({formatINR(149)})</span>
+                    <span className="text-xs bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">Fastest</span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5">Delivered within 6 hours by local courier</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Dispatched via air express logistics directly to your doorstep</p>
                 </div>
               </label>
             </div>
           </div>
 
           {/* Step 3: Payment Method */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs space-y-4">
             <h3 className="font-bold text-base text-gray-900 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#131921] text-white text-xs flex items-center justify-center font-bold">3</span>
-              Payment Method
+              Payment Mode (Indian Gateway Simulation)
             </h3>
 
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900">
-              <strong>Demo Environment:</strong> Transactions are simulated for demonstration purposes. No real credit card charge will occur.
-            </div>
-
-            <div className="space-y-2">
-              {[
-                { id: 'Demo Credit Card (ending 4242)', label: 'Visa ending in 4242 (Demo Verified)', icon: CreditCard },
-                { id: 'OmniFit Pay Instant', label: 'OmniFit One-Click Pay', icon: ShieldCheck },
-                { id: 'Cash on Delivery', label: 'Cash on Delivery (Pay upon arrival)', icon: Truck }
-              ].map(opt => (
-                <label
-                  key={opt.id}
-                  className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer text-xs font-semibold ${
-                    paymentMethod === opt.id ? 'border-[#e77600] bg-orange-50 text-gray-900' : 'border-gray-200 text-gray-700'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="payment"
-                    checked={paymentMethod === opt.id}
-                    onChange={() => setPaymentMethod(opt.id)}
-                    className="text-[#e77600] focus:ring-[#e77600]"
-                  />
-                  <opt.icon size={16} className="text-[#007185]" />
-                  <span>{opt.label}</span>
-                </label>
-              ))}
+            <div className="space-y-2 text-xs">
+              <label className="flex items-center gap-3 p-3.5 border rounded-xl cursor-pointer border-[#e77600] bg-orange-50/40">
+                <input
+                  type="radio"
+                  name="payment"
+                  checked={true}
+                  readOnly
+                  className="text-[#e77600]"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 font-bold text-gray-900">
+                    <CreditCard size={16} className="text-[#007185]" />
+                    <span>UPI / NetBanking / Cards / Cash On Delivery (Demo Mode)</span>
+                  </div>
+                  <p className="text-gray-500 text-[11px] mt-0.5">
+                    Safe evaluation mode: order is logged immediately into backend and inventory without debiting actual bank funds.
+                  </p>
+                </div>
+              </label>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Order Summary */}
-        <div className="w-full lg:w-[380px] bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-fit sticky top-[100px] space-y-5">
-          <h3 className="font-bold text-lg text-gray-900 pb-3 border-b border-gray-100">Order Summary</h3>
-
-          <div className="space-y-2 text-xs">
-            <div className="flex justify-between text-gray-600">
-              <span>Items ({cart.reduce((a, b) => a + b.quantity, 0)}):</span>
-              <span className="font-bold text-gray-900">${subtotal.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between text-gray-600">
-              <span>Shipping & Handling:</span>
-              <span className="font-bold text-green-700">
-                {deliveryFee === 0 ? 'FREE' : `$${deliveryFee.toFixed(2)}`}
-              </span>
-            </div>
-            <div className="flex justify-between text-gray-600">
-              <span>Estimated Sales Tax (8%):</span>
-              <span className="font-bold text-gray-900">${tax.toFixed(2)}</span>
-            </div>
-            <div className="pt-3 border-t border-gray-200 flex justify-between text-base font-black text-[#b12704]">
-              <span>Order Total:</span>
-              <span>${total.toFixed(2)}</span>
-            </div>
-          </div>
-
+        {/* Right Column: Order Summary in INR */}
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs space-y-5 sticky top-24">
           <button
             onClick={handlePlaceOrder}
             disabled={loading || cart.length === 0}
-            className="w-full py-3.5 bg-[#ffd814] hover:bg-[#f7ca00] text-gray-950 font-black rounded-full shadow-md transition-all text-sm active:scale-98 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] text-gray-950 rounded-full font-black text-sm shadow-md transition-all cursor-pointer disabled:opacity-50"
           >
-            {loading ? 'Validating & Placing Order...' : 'Place Your Order'}
+            {loading ? 'Confirming Order...' : `Place Your Order in INR • ${formatINR(total)}`}
           </button>
-
-          <p className="text-[11px] text-gray-500 text-center leading-tight">
-            By placing your order, you agree to OmniFit's privacy notice and conditions of use.
+          <p className="text-[11px] text-gray-500 text-center leading-snug">
+            By placing your order, you agree to OmniFit India's conditions of use and privacy notice.
           </p>
 
-          {/* Cart review in summary */}
-          <div className="pt-4 border-t border-gray-100 space-y-3">
-            <h4 className="text-xs font-bold text-gray-800">Review Items in Order:</h4>
-            <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
-              {cart.map((item, idx) => (
-                <div key={idx} className="flex gap-2 text-xs">
-                  <img src={item.image} alt={item.name} className="w-12 h-14 object-cover rounded bg-gray-50 shrink-0" />
-                  <div className="min-w-0 flex-1">
+          <div className="border-t border-gray-200 pt-4 space-y-2 text-xs">
+            <h4 className="font-bold text-sm text-gray-900 mb-3">Order Summary</h4>
+            <div className="flex justify-between text-gray-600">
+              <span>Items Subtotal ({cart.reduce((a, b) => a + b.quantity, 0)}):</span>
+              <span className="font-semibold text-gray-900">{formatINR(subtotal)}</span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+              <span>Delivery Charges:</span>
+              <span className="font-semibold text-gray-900">{deliveryFee === 0 ? 'FREE' : formatINR(deliveryFee)}</span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+              <span>Apparel GST (5%):</span>
+              <span className="font-semibold text-gray-900">{formatINR(tax)}</span>
+            </div>
+            <div className="flex justify-between text-base font-black text-[#b12704] border-t border-gray-200 pt-3">
+              <span>Order Total:</span>
+              <span>{formatINR(total)}</span>
+            </div>
+          </div>
+
+          {/* Cart Item Previews */}
+          <div className="border-t border-gray-200 pt-4 space-y-3">
+            <h5 className="font-bold text-xs text-gray-700">Review Items ({cart.length})</h5>
+            <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+              {cart.map(item => (
+                <div key={`${item.id}-${item.selectedSize}`} className="flex gap-2.5 items-center text-xs">
+                  <img src={item.image} alt={item.name} className="w-10 h-12 object-cover rounded bg-gray-50 border shrink-0" />
+                  <div className="flex-1 min-w-0">
                     <p className="font-bold text-gray-900 truncate">{item.name}</p>
-                    <p className="text-gray-500">Qty: {item.quantity} • Size: {item.selectedSize}</p>
-                    <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="text-gray-500 text-[11px]">Size: {item.selectedSize} • Qty: {item.quantity}</p>
+                    <p className="text-[#b12704] font-semibold">{formatINR(item.price * item.quantity)}</p>
                   </div>
                 </div>
               ))}

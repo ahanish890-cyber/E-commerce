@@ -8,14 +8,15 @@ export default defineConfig(({ mode }) => {
     return {
       server: {
         port: 3000,
+        strictPort: true,
         host: '0.0.0.0',
         proxy: {
           '/api': {
-            target: `http://localhost:${apiPort}`,
+            target: `http://127.0.0.1:${apiPort}`,
             changeOrigin: true
           },
           '/health': {
-            target: `http://localhost:${apiPort}`,
+            target: `http://127.0.0.1:${apiPort}`,
             changeOrigin: true
           }
         }

@@ -190,13 +190,7 @@ app.get('/api/products', (req, res) => {
     // Strict department & gender filtering (CRITICAL REQUIREMENT)
     if (gender && gender !== 'all') {
       const g = gender.toLowerCase();
-      if (g === 'footwear') {
-        products = products.filter(p => (p.category || '').toLowerCase() === 'footwear');
-      } else if (g === 'accessories') {
-        products = products.filter(p => (p.category || '').toLowerCase() === 'accessories');
-      } else if (g === 'kids') {
-        products = products.filter(p => (p.gender || '').toLowerCase() === 'kids');
-      } else if (g === 'women') {
+      if (g === 'women') {
         products = products.filter(p => {
           const prodGender = (p.gender || '').toLowerCase();
           return prodGender === 'women' || prodGender === 'unisex';
@@ -208,6 +202,9 @@ app.get('/api/products', (req, res) => {
         });
       } else if (g === 'unisex') {
         products = products.filter(p => (p.gender || '').toLowerCase() === 'unisex');
+      } else {
+        // Any removed category returns empty array
+        products = [];
       }
     }
 
@@ -228,21 +225,23 @@ const COLOR_FAMILY_MAP = {
   navy: ['navy', 'midnight navy']
 };
 
-    // Subcategory filtering
+    // Subcategory filtering (handles both underscores and hyphens)
     if (subcategory && subcategory !== 'all') {
       const sub = subcategory.toLowerCase();
+      const subUnderscore = sub.replace(/-/g, '_');
+      const subHyphen = sub.replace(/_/g, '-');
       products = products.filter(p => {
         const pSub = (p.subcategory || '').toLowerCase();
-        if (sub === 'dresses') return pSub === 'dresses';
-        if (sub === 'shirts') {
-          return pSub === 'shirts' || ((!gender || gender === 'all') && pSub === 'tops');
-        }
-        if (sub === 'tops') return pSub === 'tops';
+        if (pSub === sub || pSub === subUnderscore || pSub === subHyphen) return true;
+        if (subUnderscore === 'casual_shirts') return pSub === 'casual_shirts';
+        if (subUnderscore === 'formal_shirts') return pSub === 'formal_shirts';
+        if (subUnderscore === 'polo_tshirts') return pSub === 'polo_tshirts';
+        if (subUnderscore === 'ethnic_sets') return pSub === 'ethnic_sets';
+        if (subUnderscore === 'coord_sets') return pSub === 'coord_sets';
+        if (sub === 'shirts') return pSub === 'shirts' || pSub === 'casual_shirts' || pSub === 'formal_shirts';
         if (sub === 'jackets') return pSub === 'jackets' || pSub === 'coats';
-        if (sub === 'jeans') return pSub === 'jeans' || pSub === 'denim';
-        if (sub === 'sneakers') return pSub === 'sneakers';
-        if (sub === 'bags') return pSub === 'bags' || pSub === 'totes';
-        return pSub === sub;
+        if (sub === 'kurtas') return pSub === 'kurtas' || pSub === 'kurtis';
+        return false;
       });
     }
 
@@ -617,9 +616,9 @@ app.post('/api/orders', (req, res) => {
       });
     }
 
-    const deliveryFee = deliveryMethod === 'express' ? 9.99 : 0.00; // Standard & Prime are Free
-    const tax = Math.round(subtotal * 0.08 * 100) / 100; // 8% sales tax
-    const total = Math.round((subtotal + deliveryFee + tax) * 100) / 100;
+    const deliveryFee = deliveryMethod === 'express' ? 149 : 0; // Standard & Prime are Free in India
+    const tax = Math.round(subtotal * 0.05); // 5% GST for Indian apparel
+    const total = subtotal + deliveryFee + tax;
 
     const orderId = `ORD-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     const newOrder = {
@@ -716,6 +715,40 @@ app.post('/api/orders/:id/return', (req, res) => {
     writeData('orders.json', orders);
 
     res.json({ success: true, message: 'Return initiated successfully', order });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Admin user management endpoint
+app.get('/api/admin/users', (req, res) => {
+  try {
+    const session = verifyToken(req);
+    if (!session || session.role !== 'admin') {
+      return res.status(403).json({ success: false, error: 'Admin authorization required' });
+    }
+
+    const users = readData('users.json');
+    const orders = readData('orders.json');
+
+    const orderCountByUser = {};
+    orders.forEach(o => {
+      if (o.userId) {
+        orderCountByUser[o.userId] = (orderCountByUser[o.userId] || 0) + 1;
+      }
+    });
+
+    const safeUsers = users.map(u => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      role: u.role || 'customer',
+      createdAt: u.createdAt,
+      addresses: u.addresses || [],
+      orderCount: orderCountByUser[u.id] || 0
+    }));
+
+    res.json({ success: true, count: safeUsers.length, users: safeUsers });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -880,51 +913,156 @@ app.post('/api/ai/visual-search', (req, res) => {
 
 app.post('/api/ai/assistant', (req, res) => {
   try {
-    const { message, activeGender, budget } = req.body;
+    const { message, activeGender, budget: explicitBudget, occasion: explicitOccasion } = req.body;
     const products = readData('products.json');
     const msg = (message || '').toLowerCase();
 
-    // Find real in-stock products matching user's query
+    // 1. Gender filtering
+    let targetGender = activeGender && activeGender !== 'all' ? activeGender : null;
+    if (!targetGender) {
+      if (/\b(men|man|guy|gentleman|boy)\b/i.test(msg) && !/\b(women|woman|lady|girl)\b/i.test(msg)) {
+        targetGender = 'men';
+      } else if (/\b(women|woman|lady|girl)\b/i.test(msg)) {
+        targetGender = 'women';
+      }
+    }
+
     let filtered = products;
-    if (activeGender && activeGender !== 'all') {
-      filtered = filtered.filter(p => p.gender === activeGender || p.gender === 'unisex');
+    if (targetGender && targetGender !== 'all') {
+      filtered = filtered.filter(p => p.gender === targetGender || p.gender === 'unisex');
     }
 
-    // Keyword matching
-    let recommended = [];
-    if (msg.includes('dress') || msg.includes('evening') || msg.includes('party')) {
-      recommended = filtered.filter(p => p.subcategory === 'dresses' || p.category === 'clothing');
-    } else if (msg.includes('shirt') || msg.includes('formal') || msg.includes('office')) {
-      recommended = filtered.filter(p => p.subcategory === 'shirts' || p.subcategory === 'blazers' || p.subcategory === 'trousers');
-    } else if (msg.includes('casual') || msg.includes('tee') || msg.includes('t-shirt') || msg.includes('jeans')) {
-      recommended = filtered.filter(p => p.subcategory === 't-shirts' || p.subcategory === 'jeans' || p.subcategory === 'tops');
-    } else if (msg.includes('shoe') || msg.includes('sneaker') || msg.includes('heel') || msg.includes('boot')) {
-      recommended = filtered.filter(p => p.category === 'footwear');
-    } else if (msg.includes('bag') || msg.includes('watch') || msg.includes('accessory')) {
-      recommended = filtered.filter(p => p.category === 'accessories');
+    // 2. Budget parsing
+    let budget = explicitBudget ? Number(explicitBudget) : null;
+    if (!budget) {
+      const budgetMatch = msg.match(/(?:under|below|less\s+than|within|budget\s*(?:of)?|upto|up\s+to|max|around)\s*(?:₹|rs\.?|inr)?\s*([0-9]+(?:,[0-9]+)?)/i)
+        || msg.match(/(?:₹|rs\.?)\s*([0-9]+(?:,[0-9]+)?)/i);
+      if (budgetMatch && budgetMatch[1]) {
+        budget = parseInt(budgetMatch[1].replace(/,/g, ''), 10);
+      }
+    }
+
+    // 3. Occasion & Style intent detection
+    const isOffice = explicitOccasion === 'office' || /\b(office|work|formal|presentation|interview|meeting|corporate|business|conference)\b/i.test(msg);
+    const isParty = explicitOccasion === 'party' || /\b(party|evening|cocktail|night\s*out|dinner|glamour|club)\b/i.test(msg);
+    const isWeddingOrFestive = explicitOccasion === 'wedding' || explicitOccasion === 'festival' || /\b(wedding|marriage|sangeet|reception|festival|festive|diwali|eid|puja|ethnic|traditional|kurta|kurti|anarkali)\b/i.test(msg);
+    const isCollege = explicitOccasion === 'college' || /\b(college|campus|class|lecture|study)\b/i.test(msg);
+    const isCasual = explicitOccasion === 'casual' || /\b(casual|outing|weekend|chill|daily|summer|brunch|streetwear)\b/i.test(msg);
+
+    let matchedItems = [];
+
+    if (isWeddingOrFestive) {
+      matchedItems = filtered.filter(p => 
+        p.subcategory === 'kurtas' || 
+        p.subcategory === 'kurtis' || 
+        p.subcategory === 'ethnic_sets' || 
+        (p.occasion || '').toLowerCase().includes('wedding') ||
+        (p.occasion || '').toLowerCase().includes('festival')
+      );
+    } else if (isOffice) {
+      matchedItems = filtered.filter(p => 
+        p.subcategory === 'formal_shirts' || 
+        p.subcategory === 'trousers' || 
+        p.subcategory === 'coord_sets' || 
+        (p.subcategory === 'jackets' && (p.name.includes('Blazer') || p.name.includes('Trench'))) ||
+        p.subcategory === 'shirts' ||
+        (p.occasion || '').toLowerCase().includes('office') ||
+        (p.occasion || '').toLowerCase().includes('presentation')
+      );
+    } else if (isParty) {
+      matchedItems = filtered.filter(p => 
+        p.subcategory === 'dresses' || 
+        p.subcategory === 'skirts' || 
+        (p.subcategory === 'jackets' && p.name.includes('Suede')) ||
+        (p.occasion || '').toLowerCase().includes('party') ||
+        (p.style || '').toLowerCase().includes('glamour')
+      );
+    } else if (isCollege) {
+      matchedItems = filtered.filter(p => 
+        p.subcategory === 't-shirts' || 
+        p.subcategory === 'jeans' || 
+        p.subcategory === 'chinos' || 
+        p.subcategory === 'hoodies' || 
+        p.subcategory === 'sweatshirts' || 
+        p.subcategory === 'casual_shirts' ||
+        p.subcategory === 'tops' ||
+        (p.occasion || '').toLowerCase().includes('college')
+      );
+    } else if (isCasual) {
+      matchedItems = filtered.filter(p => 
+        p.subcategory === 'casual_shirts' || 
+        p.subcategory === 'polo_tshirts' || 
+        p.subcategory === 't-shirts' || 
+        p.subcategory === 'jeans' || 
+        p.subcategory === 'chinos' || 
+        p.subcategory === 'tops' || 
+        p.subcategory === 'dresses'
+      );
     } else {
-      recommended = filtered.slice(0, 3);
+      const subterms = ['shirt', 't-shirt', 'polo', 'jean', 'trouser', 'chino', 'hoodie', 'sweatshirt', 'dress', 'skirt', 'kurta', 'kurti', 'jacket', 'blazer'];
+      const foundSub = subterms.find(t => msg.includes(t));
+      if (foundSub) {
+        matchedItems = filtered.filter(p => 
+          p.subcategory.includes(foundSub) || 
+          p.name.toLowerCase().includes(foundSub)
+        );
+      } else {
+        matchedItems = filtered;
+      }
     }
 
-    if (budget) {
-      recommended = recommended.filter(p => p.price <= Number(budget));
+    if (!matchedItems.length) {
+      matchedItems = filtered;
     }
 
-    const topItems = recommended.slice(0, 3);
+    let withinBudget = matchedItems;
+    let budgetConstrained = false;
+    if (budget && budget > 0) {
+      const filteredByBudget = matchedItems.filter(p => p.price <= budget);
+      if (filteredByBudget.length > 0) {
+        withinBudget = filteredByBudget;
+      } else {
+        budgetConstrained = true;
+        withinBudget = [...matchedItems].sort((a, b) => a.price - b.price);
+      }
+    }
 
-    let reply = `Here are my top curated recommendations from our OmniFit collection based on your style criteria:`;
-    if (topItems.length > 0) {
-      reply += ` ${topItems.map(p => `${p.name} ($${p.price.toFixed(2)})`).join(', ')}. All feature verified materials and are ready for immediate dispatch!`;
+    const recommendedProducts = withinBudget.slice(0, 3);
+    const formatPrice = (amt) => `₹${Math.round(amt).toLocaleString('en-IN')}`;
+    let reply = '';
+
+    if (budgetConstrained && budget) {
+      reply = `I searched our verified catalog, but couldn't find items strictly under ${formatPrice(budget)}. Here are our closest, highest-value styles that match your occasion perfectly:\n\n`;
+    } else if (isWeddingOrFestive) {
+      reply = `For your festive/wedding celebration, here are regal, handcrafted ethnic pieces from our verified collection:\n\n`;
+    } else if (isOffice) {
+      reply = `For office and presentations, structured tailoring and breathable cottons project confidence and comfort. Here are top recommended pieces:\n\n`;
+    } else if (isCollege) {
+      reply = `For college and campus wear, durability, breathable fabrics, and effortless casual layering are key. Here are ideal pieces:\n\n`;
+    } else if (isParty) {
+      reply = `For evening parties and cocktails, here are sophisticated statement pieces featuring luxe textures and sculpted silhouettes:\n\n`;
     } else {
-      reply = `I couldn't find an exact match under those exact filter parameters, but here are our top-rated trending styles for you.`;
+      reply = `Here are curated fashion recommendations matching your style criteria from our authentic OmniFit collection:\n\n`;
+    }
+
+    recommendedProducts.forEach((p, i) => {
+      reply += `${i + 1}. **${p.name}** (${formatPrice(p.price)}) – ${p.material || 'Premium Fabric'} in ${p.fit || 'Regular Fit'}. ${p.description.substring(0, 95)}...\n`;
+    });
+
+    const topItem = recommendedProducts.find(p => ['casual_shirts', 'formal_shirts', 'shirts', 'tops', 't-shirts', 'polo_tshirts', 'hoodies', 'sweatshirts', 'kurtas', 'kurtis'].includes(p.subcategory));
+    const bottomItem = filtered.find(p => ['jeans', 'trousers', 'chinos', 'skirts'].includes(p.subcategory) && p.id !== topItem?.id);
+    
+    if (topItem && bottomItem) {
+      reply += `\n💡 **Suggested Outfit Pairing:** Pair the **${topItem.name}** (${formatPrice(topItem.price)}) with the **${bottomItem.name}** (${formatPrice(bottomItem.price)}) for a balanced, complete look!`;
     }
 
     res.json({
       success: true,
       reply,
-      recommendedProducts: topItems
+      recommendedProducts
     });
   } catch (error) {
+    console.error('AI Stylist error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -1107,7 +1245,7 @@ loadSessions();
 // Set up periodic cleanup of expired sessions (every 24 hours)
 setInterval(cleanupExpiredSessions, 24 * 60 * 60 * 1000);
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log('='.repeat(60));
   console.log(`🚀 OmniFit Enterprise Full-Stack API Server`);
   console.log(`📍 Port: ${PORT}`);

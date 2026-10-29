@@ -31,5 +31,16 @@
     "comment": "Heavy duty cotton that doesn't crease easily. Collar roll is perfect under a blazer.",
     "verifiedPurchase": true,
     "createdAt": "2026-09-15T16:45:00.000Z"
+  },
+  {
+    "id": "rev-1793279182800",
+    "productId": "m-jacket-1",
+    "userId": "guest",
+    "userName": "HANISH",
+    "rating": 5,
+    "title": "good",
+    "comment": "worst",
+    "verifiedPurchase": true,
+    "createdAt": "2026-10-29T13:06:22.800Z"
   }
 ]
