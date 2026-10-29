@@ -12,16 +12,25 @@ import {
   Save, 
   X, 
   CheckCircle,
-  Truck
+  Truck,
+  Eye
 } from 'lucide-react';
 
 interface AdminDashboardProps {
   currentUser: User | null;
   onClose: () => void;
   onRefreshCatalog: () => void;
+  onOpenAuth?: () => void;
+  onSelectProduct?: (product: Product) => void;
 }
 
-export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onClose, onRefreshCatalog }) => {
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ 
+  currentUser, 
+  onClose, 
+  onRefreshCatalog,
+  onOpenAuth,
+  onSelectProduct
+}) => {
   const [activeTab, setActiveTab] = useState<'products' | 'orders'>('products');
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -47,6 +56,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
   });
 
   const fetchData = async () => {
+    if (!currentUser || currentUser.role !== 'admin') {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       const token = localStorage.getItem('omnifit_token');
@@ -58,8 +71,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
         fetch('/api/orders', { headers })
       ]);
 
-      const prodData = await prodRes.json();
-      const orderData = await orderRes.json();
+      const prodData = await prodRes.json().catch(() => ({}));
+      const orderData = await orderRes.json().catch(() => ({}));
 
       if (prodData.success) setProducts(prodData.products || []);
       if (orderData.success) setOrders(orderData.orders || []);
@@ -72,7 +85,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentUser]);
 
   const totalRevenue = orders.reduce((sum, o) => sum + (o.status !== 'Cancelled' ? o.total : 0), 0);
   const lowStockCount = products.filter(p => {
@@ -93,7 +106,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
         },
         body: JSON.stringify(newProd)
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setMessage('Product added to catalog successfully!');
         setIsAddModalOpen(false);
@@ -120,7 +133,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
         },
         body: JSON.stringify(editingProduct)
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setMessage('Product updated successfully!');
         setEditingProduct(null);
@@ -142,7 +155,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setMessage('Product deleted.');
         fetchData();
@@ -167,7 +180,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
           note: `Status updated by Admin to ${newStatus}` 
         })
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setMessage(`Order ${orderId} marked as ${newStatus}.`);
         fetchData();
@@ -178,6 +191,47 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
       alert(err.message);
     }
   };
+
+  if (!currentUser || currentUser.role !== 'admin') {
+    return (
+      <div className="max-w-2xl mx-auto my-12 p-8 bg-white rounded-2xl border border-gray-200 shadow-xl text-center space-y-6">
+        <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto">
+          <Shield size={36} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-black text-gray-900 mb-2">Administrator Access Required</h2>
+          <p className="text-sm text-gray-600 max-w-md mx-auto">
+            {!currentUser 
+              ? 'You must be signed in with an administrative account to view store metrics, manage inventory, and update order fulfillment.' 
+              : `Current account (${currentUser.email}) has role "${currentUser.role}". Administrator privileges are required to access this console.`}
+          </p>
+        </div>
+
+        <div className="p-4 bg-purple-50 border border-purple-100 rounded-xl text-xs text-purple-900 text-left max-w-md mx-auto space-y-1">
+          <p className="font-bold">Demo Administrator Credentials:</p>
+          <p>• Email: <code className="bg-purple-100 px-1 py-0.5 rounded font-mono">admin@omnifit.com</code></p>
+          <p>• Password: <code className="bg-purple-100 px-1 py-0.5 rounded font-mono">admin123</code></p>
+        </div>
+
+        <div className="flex flex-wrap gap-3 justify-center">
+          {onOpenAuth && (
+            <button
+              onClick={onOpenAuth}
+              className="px-6 py-2.5 bg-[#ffd814] hover:bg-[#f7ca00] text-gray-950 rounded-full font-bold text-xs shadow-md transition-all cursor-pointer"
+            >
+              Sign In as Admin
+            </button>
+          )}
+          <button
+            onClick={onClose}
+            className="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full font-bold text-xs transition-colors cursor-pointer"
+          >
+            Return to Store
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-[1400px] mx-auto p-4 md:p-8 space-y-6">
@@ -327,16 +381,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onC
                           )}
                         </td>
                         <td className="p-3 text-right space-x-2">
+                          {onSelectProduct && (
+                            <button
+                              onClick={() => {
+                                onSelectProduct(p);
+                                onClose();
+                              }}
+                              className="p-1.5 text-gray-600 hover:text-[#007185] hover:bg-gray-100 rounded cursor-pointer"
+                              title="View in Customer Storefront"
+                            >
+                              <Eye size={14} />
+                            </button>
+                          )}
                           <button
                             onClick={() => setEditingProduct(p)}
-                            className="p-1.5 text-blue-600 hover:bg-blue-50 rounded"
+                            className="p-1.5 text-blue-600 hover:bg-blue-50 rounded cursor-pointer"
                             title="Edit Product"
                           >
                             <Edit size={14} />
                           </button>
                           <button
                             onClick={() => handleDeleteProduct(p.id)}
-                            className="p-1.5 text-red-600 hover:bg-red-50 rounded"
+                            className="p-1.5 text-red-600 hover:bg-red-50 rounded cursor-pointer"
                             title="Delete Product"
                           >
                             <Trash2 size={14} />

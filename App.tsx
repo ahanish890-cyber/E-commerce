@@ -20,6 +20,7 @@ import {
 import { 
   Star, 
   ChevronRight, 
+  ChevronLeft,
   ShieldCheck, 
   Truck, 
   RotateCcw, 
@@ -105,6 +106,22 @@ const App: React.FC = () => {
   // User & Authentication State
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Delivery Location State
+  const [deliveryLocation, setDeliveryLocation] = useState<{ city: string; zipCode: string }>(() => {
+    try {
+      const saved = localStorage.getItem('omnifit_delivery_location');
+      return saved ? JSON.parse(saved) : { city: 'New York', zipCode: '10001' };
+    } catch {
+      return { city: 'New York', zipCode: '10001' };
+    }
+  });
+
+  const handleUpdateDeliveryLocation = (loc: { city: string; zipCode: string }) => {
+    setDeliveryLocation(loc);
+    localStorage.setItem('omnifit_delivery_location', JSON.stringify(loc));
+    showToast(`Delivery location set to ${loc.city} ${loc.zipCode}`);
+  };
 
   // Cart & Wishlist State
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -203,9 +220,9 @@ const App: React.FC = () => {
       fetch('/api/auth/me', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
-      .then(res => res.json())
+      .then(res => res.ok ? res.json() : null)
       .then(data => {
-        if (data.success && data.user) {
+        if (data && data.success && data.user) {
           setCurrentUser(data.user);
           if (data.user.wishlist && data.user.wishlist.length) {
             setWishlist(data.user.wishlist);
@@ -244,6 +261,9 @@ const App: React.FC = () => {
       if (filters.sortBy) params.append('sortBy', filters.sortBy);
 
       const res = await fetch(`/api/products?${params.toString()}`);
+      if (!res.ok) {
+        throw new Error(`Catalog API responded with HTTP ${res.status}`);
+      }
       const data = await res.json();
       if (data.success && Array.isArray(data.products)) {
         setCatalog(data.products);
@@ -286,9 +306,9 @@ const App: React.FC = () => {
   useEffect(() => {
     if (selectedProduct) {
       fetch(`/api/reviews/${selectedProduct.id}`)
-        .then(res => res.json())
+        .then(res => res.ok ? res.json() : null)
         .then(data => {
-          if (data.success) setProductReviews(data.reviews || []);
+          if (data && data.success) setProductReviews(data.reviews || []);
         })
         .catch(console.error);
     }
@@ -328,12 +348,24 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSubcategorySelect = (subId: string) => {
-    setFilters(prev => ({
-      ...prev,
-      subcategory: subId
-    }));
-    window.scrollTo({ top: 300, behavior: 'smooth' });
+  const handleSubcategorySelect = (subId: string, targetGender?: string) => {
+    setFilters(prev => {
+      const newGender = targetGender || prev.gender;
+      const allowedSizes = DEPARTMENT_SIZES[newGender] || DEPARTMENT_SIZES['all'] || [];
+      const currentSizes = prev.sizes || (prev.size ? prev.size.split(',').map(s => s.trim()) : []);
+      const compatibleSizes = currentSizes.filter(s => allowedSizes.includes(s));
+
+      return {
+        ...prev,
+        gender: newGender as any,
+        category: 'all',
+        subcategory: prev.subcategory === subId && subId !== 'all' ? 'all' : subId,
+        sizes: compatibleSizes,
+        size: compatibleSizes.length > 0 ? compatibleSizes.join(',') : undefined
+      };
+    });
+    setCurrentView(ViewMode.Home);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSearch = (query: string, department: string) => {
@@ -445,13 +477,15 @@ const App: React.FC = () => {
 
     return (
       <div className="max-w-[1500px] mx-auto p-4 space-y-8">
-        {/* Prime Banner (Preserved original styling & colors) */}
-        <div className="relative h-[280px] md:h-[450px] bg-[#131921] rounded-lg overflow-hidden group">
+        {/* Prime Banner (Luxury editorial styling & resilient local asset) */}
+        <div className="relative h-[280px] md:h-[450px] bg-gradient-to-r from-[#131921] via-[#1f2833] to-[#0f141d] rounded-2xl overflow-hidden group shadow-2xl border border-white/5">
           <ProductImage 
-            src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=1600" 
-            alt="Luxury Fashion Banner" 
-            className="absolute inset-0 w-full h-full object-cover opacity-50 transition-transform duration-1000 group-hover:scale-105"
+            src="/hero-banner.jpg" 
+            alt="OmniFit Luxury Fashion Showcase" 
+            className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000 group-hover:scale-105"
+            fallback="/hero-banner.jpg"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#131921]/90 via-[#131921]/60 to-transparent pointer-events-none" />
           <div className="relative h-full flex flex-col justify-center px-10 md:px-20 text-white max-w-3xl z-10">
             <div className="inline-block bg-[#febd69] text-black text-[10px] font-black px-2 py-1 rounded uppercase mb-4 tracking-tighter w-fit">
               OmniFit Exclusive
@@ -775,10 +809,20 @@ const App: React.FC = () => {
 
     return (
       <div className="bg-white min-h-screen">
-        {/* Breadcrumb */}
+        {/* Breadcrumb & Back Navigation */}
         <nav className="max-w-[1500px] mx-auto px-4 py-3 text-xs text-gray-500 flex items-center gap-2 overflow-x-auto whitespace-nowrap">
+          <button
+            onClick={() => {
+              setCurrentView(ViewMode.Home);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold rounded-lg transition-colors border border-gray-200 mr-2 cursor-pointer shrink-0"
+            title="Return to products catalog"
+          >
+            <ChevronLeft size={14} /> Back to Catalog
+          </button>
           <span 
-            onClick={() => handleGenderSelect('all')} 
+            onClick={() => { resetFilters(); setCurrentView(ViewMode.Home); }} 
             className="hover:underline cursor-pointer"
           >
             Fashion
@@ -792,7 +836,7 @@ const App: React.FC = () => {
           </span>
           <ChevronRight size={12} />
           <span 
-            onClick={() => handleSubcategorySelect(selectedProduct.subcategory)} 
+            onClick={() => handleSubcategorySelect(selectedProduct.subcategory, selectedProduct.gender)} 
             className="hover:underline cursor-pointer capitalize"
           >
             {selectedProduct.subcategory}
@@ -833,7 +877,21 @@ const App: React.FC = () => {
           {/* Center Column: Info Section */}
           <div className="flex-[1.2] space-y-6">
             <div>
-              <p className="text-[#007185] font-bold text-sm hover:underline cursor-pointer tracking-tight">
+              <p 
+                onClick={() => {
+                  setFilters(prev => ({
+                    ...prev,
+                    search: selectedProduct.brand,
+                    gender: 'all',
+                    category: 'all',
+                    subcategory: 'all'
+                  }));
+                  setCurrentView(ViewMode.Home);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="text-[#007185] font-bold text-sm hover:underline cursor-pointer tracking-tight"
+                title={`View all products from ${selectedProduct.brand}`}
+              >
                 Visit the {selectedProduct.brand} Store
               </p>
               <h1 className="text-2xl md:text-3xl font-bold mt-1 text-gray-900 leading-tight">
@@ -850,7 +908,14 @@ const App: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                <span className="text-[#007185] text-xs hover:underline cursor-pointer font-bold">
+                <span 
+                  onClick={() => {
+                    const el = document.getElementById('product-reviews-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-[#007185] text-xs hover:underline cursor-pointer font-bold"
+                  title="Scroll to customer reviews"
+                >
                   {selectedProduct.reviewCount} customer ratings
                 </span>
                 <span className="text-gray-300">|</span>
@@ -994,7 +1059,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Customer Reviews Section */}
-            <div className="pt-6 border-t border-gray-100 space-y-4">
+            <div id="product-reviews-section" className="pt-6 border-t border-gray-100 space-y-4 scroll-mt-24">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-base text-gray-900">Customer Reviews</h4>
@@ -1143,6 +1208,43 @@ const App: React.FC = () => {
                 <Truck size={16} /> Global OmniFit Logistics
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Related Products Carousel / Grid */}
+        <div className="max-w-[1500px] mx-auto p-4 md:p-8 pt-6 border-t border-gray-200 mt-8 space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900">
+                Customers Also Shopped in {selectedProduct.subcategory ? selectedProduct.subcategory.toUpperCase() : 'Fashion'}
+              </h3>
+              <p className="text-xs text-gray-500">Related garments from our verified fashion collection</p>
+            </div>
+            <button
+              onClick={() => handleSubcategorySelect(selectedProduct.subcategory, selectedProduct.gender)}
+              className="text-xs text-[#007185] hover:underline font-bold"
+            >
+              See all matching items →
+            </button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {(catalog.length > 0 ? catalog : MOCK_PRODUCTS)
+              .filter(p => p.id !== selectedProduct.id && (p.subcategory === selectedProduct.subcategory || p.gender === selectedProduct.gender))
+              .slice(0, 6)
+              .map(relProduct => (
+                <div
+                  key={relProduct.id}
+                  onClick={() => handleProductClick(relProduct)}
+                  className="bg-white p-3 rounded-xl border border-gray-200 hover:border-[#e77600] hover:shadow-md transition-all cursor-pointer flex flex-col group"
+                >
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden bg-gray-100 mb-2">
+                    <ProductImage src={relProduct.image} alt={relProduct.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  </div>
+                  <h4 className="text-xs font-semibold text-gray-900 line-clamp-1 group-hover:text-[#007185] transition-colors">{relProduct.name}</h4>
+                  <p className="text-[11px] text-gray-400 uppercase font-bold">{relProduct.brand}</p>
+                  <p className="text-xs font-bold text-gray-900 mt-1">${relProduct.price.toFixed(2)}</p>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -1319,14 +1421,26 @@ const App: React.FC = () => {
                   <h3 className="font-bold text-base text-gray-900">Saved for later ({savedForLater.length} items)</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {savedForLater.map((savedItem, sIdx) => (
-                      <div key={sIdx} className="p-3 border rounded-lg flex gap-3 text-xs">
-                        <img src={savedItem.image} alt={savedItem.name} className="w-16 h-20 object-cover rounded bg-gray-50" />
+                      <div key={sIdx} className="p-3 border rounded-lg flex gap-3 text-xs group hover:border-gray-300 transition-colors">
+                        <img 
+                          src={savedItem.image} 
+                          alt={savedItem.name} 
+                          className="w-16 h-20 object-cover rounded bg-gray-50 cursor-pointer group-hover:scale-105 transition-transform" 
+                          onClick={() => handleProductClick(savedItem)}
+                          title="View product details"
+                        />
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-gray-900 truncate">{savedItem.name}</p>
+                          <p 
+                            className="font-bold text-gray-900 truncate cursor-pointer hover:text-[#007185] transition-colors"
+                            onClick={() => handleProductClick(savedItem)}
+                            title="View product details"
+                          >
+                            {savedItem.name}
+                          </p>
                           <p className="font-bold text-gray-900 mt-1">${savedItem.price.toFixed(2)}</p>
                           <button
                             onClick={() => handleMoveToCart(savedItem, sIdx)}
-                            className="mt-2 text-xs text-[#007185] font-bold hover:underline"
+                            className="mt-2 text-xs text-[#007185] font-bold hover:underline cursor-pointer"
                           >
                             Move to cart
                           </button>
@@ -1441,12 +1555,31 @@ const App: React.FC = () => {
       cartCount={cartCount} 
       currentUser={currentUser}
       activeGender={filters.gender}
+      deliveryLocation={deliveryLocation}
+      onUpdateDeliveryLocation={handleUpdateDeliveryLocation}
       onSelectGender={handleGenderSelect}
-      onViewCart={() => setCurrentView(ViewMode.Cart)}
-      onGoHome={() => setCurrentView(ViewMode.Home)}
-      onViewOrders={() => setCurrentView(ViewMode.Orders)}
-      onViewWishlist={() => setCurrentView(ViewMode.Wishlist)}
-      onViewAdmin={() => setCurrentView(ViewMode.Admin)}
+      onSelectSubcategory={handleSubcategorySelect}
+      onViewCart={() => {
+        setCurrentView(ViewMode.Cart);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+      onGoHome={() => {
+        resetFilters();
+        setCurrentView(ViewMode.Home);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+      onViewOrders={() => {
+        setCurrentView(ViewMode.Orders);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+      onViewWishlist={() => {
+        setCurrentView(ViewMode.Wishlist);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
+      onViewAdmin={() => {
+        setCurrentView(ViewMode.Admin);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}
       onOpenAuth={() => setIsAuthModalOpen(true)}
       onSignOut={() => {
         localStorage.removeItem('omnifit_token');
@@ -1487,10 +1620,24 @@ const App: React.FC = () => {
 
       {currentView === ViewMode.Orders && (
         <OrdersView
-          onContinueShopping={() => setCurrentView(ViewMode.Home)}
-          onSelectProductById={(id) => {
-            const p = catalog.find(item => item.id === id);
-            if (p) handleProductClick(p);
+          onContinueShopping={() => {
+            setCurrentView(ViewMode.Home);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onSelectProductById={async (id) => {
+            let p = catalog.find(item => item.id === id) || MOCK_PRODUCTS.find(item => item.id === id);
+            if (!p) {
+              try {
+                const res = await fetch(`/api/products/${id}`);
+                const data = await res.json();
+                if (data.success && data.product) p = data.product;
+              } catch {}
+            }
+            if (p) {
+              handleProductClick(p);
+            } else {
+              showToast('Product details could not be found');
+            }
           }}
         />
       )}
@@ -1500,6 +1647,8 @@ const App: React.FC = () => {
           currentUser={currentUser}
           onClose={() => setCurrentView(ViewMode.Home)}
           onRefreshCatalog={fetchProducts}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
+          onSelectProduct={(p) => handleProductClick(p)}
         />
       )}
 

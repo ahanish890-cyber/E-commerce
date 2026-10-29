@@ -7,7 +7,7 @@ interface OrdersViewProps {
   onSelectProductById?: (productId: string) => void;
 }
 
-export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping }) => {
+export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping, onSelectProductById }) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,7 +21,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping }) =>
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
       const res = await fetch('/api/orders', { headers });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setOrders(data.orders || []);
       } else {
@@ -47,7 +47,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping }) =>
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason: 'Customer requested cancellation via portal' })
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setActionSuccess(`Order ${orderId} has been successfully cancelled.`);
         fetchOrders();
@@ -68,7 +68,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping }) =>
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason })
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setActionSuccess(`Return request for ${orderId} submitted. Prepaid shipping label generated!`);
         fetchOrders();
@@ -167,10 +167,26 @@ export const OrdersView: React.FC<OrdersViewProps> = ({ onContinueShopping }) =>
               <div className="p-6 space-y-6">
                 <div className="space-y-4">
                   {order.items.map((item, idx) => (
-                    <div key={idx} className="flex gap-4 items-start pb-4 border-b border-gray-100 last:border-b-0 last:pb-0">
-                      <img src={item.image} alt={item.name} className="w-20 h-24 object-cover rounded-md bg-gray-50 shrink-0" />
+                    <div 
+                      key={idx} 
+                      onClick={() => onSelectProductById && onSelectProductById(item.productId)}
+                      className={`flex gap-4 items-start pb-4 border-b border-gray-100 last:border-b-0 last:pb-0 transition-colors ${
+                        onSelectProductById ? 'cursor-pointer hover:bg-neutral-50/80 p-2 rounded-lg group' : ''
+                      }`}
+                      title={onSelectProductById ? "Click to view product details" : undefined}
+                    >
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-20 h-24 object-cover rounded-md bg-gray-50 shrink-0 group-hover:scale-105 transition-transform" 
+                      />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-sm text-gray-900">{item.name}</h4>
+                        <h4 className="font-bold text-sm text-gray-900 group-hover:text-[#007185] transition-colors flex items-center justify-between">
+                          <span>{item.name}</span>
+                          <span className="text-xs text-[#007185] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                            View product →
+                          </span>
+                        </h4>
                         <p className="text-xs text-gray-500 mt-0.5">Brand: {item.brand}</p>
                         <p className="text-xs text-gray-600 mt-1">
                           Size: <strong className="text-gray-900">{item.selectedSize}</strong> | Color: <strong className="text-gray-900">{item.selectedColor}</strong> | Qty: {item.quantity}

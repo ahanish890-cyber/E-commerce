@@ -49,7 +49,7 @@ export const VisualSearchModal: React.FC<VisualSearchModalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ colorTag, styleTag })
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         setResults(data.matches || []);
       }

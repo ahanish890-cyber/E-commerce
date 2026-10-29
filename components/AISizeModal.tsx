@@ -39,7 +39,7 @@ export const AISizeModal: React.FC<AISizeModalProps> = ({ product, isOpen, onClo
         })
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.success) {
         // Ensure size exists in product.sizes or map to closest
         let size = data.recommendedSize;

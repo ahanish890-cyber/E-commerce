@@ -71,7 +71,7 @@ export const CheckoutView: React.FC<CheckoutViewProps> = ({
         })
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Failed to place order');
       }

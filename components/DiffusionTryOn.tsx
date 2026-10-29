@@ -27,14 +27,14 @@ export const DiffusionTryOn: React.FC<DiffusionTryOnProps> = ({ product, onClose
   const [apiHealthy, setApiHealthy] = useState<boolean | null>(null);
 
   // Get API URL from environment variable
-  const API_URL = ((import.meta as any).env?.VITE_API_URL) || 'http://localhost:3003';
+  const API_URL = ((import.meta as any).env?.VITE_API_URL) || 'http://localhost:3001';
 
   // Check API health on mount
   useEffect(() => {
     const checkHealth = async () => {
       try {
         const response = await fetch(`${API_URL}/health`);
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
         setApiHealthy(data.status === 'ok');
       } catch (err) {
         setApiHealthy(false);

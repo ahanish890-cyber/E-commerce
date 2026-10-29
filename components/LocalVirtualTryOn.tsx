@@ -148,7 +148,7 @@ export const LocalVirtualTryOn: React.FC<LocalVirtualTryOnProps> = ({ product, o
       setProgressPercent(80);
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({}));
         
         if (response.status === 503) {
           setApiConfigured(false);
@@ -169,7 +169,7 @@ export const LocalVirtualTryOn: React.FC<LocalVirtualTryOnProps> = ({ product, o
         return;
       }
 
-      const result = await response.json();
+      const result = await response.json().catch(() => ({}));
 
       if (!result.success) {
         setError(result.error || 'Failed to generate try-on');

@@ -16,5 +16,11 @@
     "email": "jane@example.com",
     "role": "customer",
     "expiresAt": 1793249285058
+  },
+  "84d87813a7ed768cfa403be16518b5a5d5bfbb36794c60e03700d6e2dad34581": {
+    "userId": "user-1",
+    "email": "jane@example.com",
+    "role": "customer",
+    "expiresAt": 1793250206375
   }
 }

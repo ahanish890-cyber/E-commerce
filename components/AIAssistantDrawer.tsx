@@ -59,7 +59,7 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
         })
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
         sender: 'assistant',

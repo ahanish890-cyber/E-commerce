@@ -795,5 +795,54 @@
     ],
     "returnEligible": true,
     "createdAt": "2026-10-22T04:24:51.967Z"
+  },
+  {
+    "id": "ORD-2026-8153",
+    "userId": "guest-1793271172079",
+    "customerName": "Jane Doe",
+    "customerEmail": "customer@example.com",
+    "shippingAddress": {
+      "name": "Jane Doe",
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "OR",
+      "zipCode": "97477",
+      "country": "United States",
+      "phone": "+1 (555) 234-5678"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-heel-1",
+        "name": "Pointed-Toe Patent Stiletto Pumps",
+        "brand": "Elegance Elite",
+        "image": "/catalog/f-stiletto-pumps.svg",
+        "price": 95,
+        "quantity": 4,
+        "selectedSize": "US 6",
+        "selectedColor": "Nude Patent"
+      }
+    ],
+    "subtotal": 380,
+    "tax": 30.4,
+    "total": 410.4,
+    "paymentMethod": "Demo Credit Card (ending 4242)",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Placed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-29T10:52:52.079Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-29T10:52:52.079Z",
+        "note": "Order verified in demo sandbox environment"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-29T10:52:52.079Z"
   }
 ]

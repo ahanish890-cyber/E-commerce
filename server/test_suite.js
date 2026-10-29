@@ -2,12 +2,16 @@ import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.resolve(__dirname, '../public');
 
-const BASE_URL = 'http://localhost:3003';
+const PORT = process.env.PORT || 3001;
+const BASE_URL = `http://localhost:${PORT}`;
 
 async function runTests() {
   console.log('='.repeat(65));
