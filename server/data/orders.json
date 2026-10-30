@@ -1500,5 +1500,113 @@
     ],
     "returnEligible": true,
     "createdAt": "2026-10-29T18:35:55.285Z"
+  },
+  {
+    "id": "ORD-2026-5252",
+    "userId": "user-1793331715600",
+    "customerName": "test_inr_1793331715148",
+    "customerEmail": "test_inr_1793331715148@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-30T03:41:55.614Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-30T03:41:55.614Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-30T03:41:55.643Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-30T03:41:55.614Z"
+  },
+  {
+    "id": "ORD-2026-4431",
+    "userId": "user-1793331788326",
+    "customerName": "test_inr_1793331788317",
+    "customerEmail": "test_inr_1793331788317@omnifit.in",
+    "shippingAddress": {
+      "name": "Arjun Sharma",
+      "street": "42, Lavelle Road",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "phone": "+91 98765 43210"
+    },
+    "deliveryMethod": "prime_standard",
+    "deliveryFee": 0,
+    "items": [
+      {
+        "productId": "w-coat-1",
+        "name": "Classic Urban Trench Coat",
+        "brand": "OmniFit Studio",
+        "image": "/catalog/w-trench-coat.jpg",
+        "price": 5499,
+        "quantity": 1,
+        "selectedSize": "M",
+        "selectedColor": "Standard"
+      }
+    ],
+    "subtotal": 5499,
+    "tax": 275,
+    "total": 5774,
+    "paymentMethod": "Demo Sandbox Card",
+    "paymentStatus": "Demo Mode (No Charge)",
+    "status": "Confirmed",
+    "timeline": [
+      {
+        "status": "Placed",
+        "timestamp": "2026-10-30T03:43:08.336Z",
+        "note": "Order placed in demo simulation (no real payment processed)"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-30T03:43:08.336Z",
+        "note": "Order verified in demo sandbox environment"
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-10-30T03:43:08.363Z",
+        "note": "Order confirmed by fulfillment team"
+      }
+    ],
+    "returnEligible": true,
+    "createdAt": "2026-10-30T03:43:08.336Z"
   }
 ]

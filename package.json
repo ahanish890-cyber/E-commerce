@@ -10,7 +10,8 @@
     "dev:all": "npm run dev",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node server/test_suite.js"
+    "test": "node server/test_suite.js && node scripts/test-tryon.js",
+    "test:tryon": "node scripts/test-tryon.js"
   },
   "dependencies": {
     "@google/genai": "^1.40.0",

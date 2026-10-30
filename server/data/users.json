@@ -269,5 +269,25 @@
     "addresses": [],
     "wishlist": [],
     "createdAt": "2026-10-29T18:35:55.265Z"
+  },
+  {
+    "id": "user-1793331715600",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793331715148@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-30T03:41:55.600Z"
+  },
+  {
+    "id": "user-1793331788326",
+    "name": "Arjun Sharma",
+    "email": "test_inr_1793331788317@omnifit.in",
+    "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "customer",
+    "addresses": [],
+    "wishlist": [],
+    "createdAt": "2026-10-30T03:43:08.326Z"
   }
 ]
