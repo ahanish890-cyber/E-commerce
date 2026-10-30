@@ -41,7 +41,7 @@ import {
   X
 } from 'lucide-react';
 
-import { LocalVirtualTryOn } from './components/LocalVirtualTryOn';
+import { VirtualTryOnModal } from './components/VirtualTryOnModal';
 import { FilterSidebar } from './components/FilterSidebar';
 import { AuthModal } from './components/AuthModal';
 import { AISizeModal } from './components/AISizeModal';
@@ -1054,10 +1054,10 @@ const App: React.FC = () => {
                     setTryOnProduct(selectedProduct);
                     setIsTryOnActive(true);
                   }}
-                  className="w-full py-3.5 bg-indigo-600 text-white rounded-full font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-indigo-700 transition-all shadow-md active:scale-95 group"
+                  className="w-full py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 group shadow-purple-500/20"
                 >
                   <Camera size={16} className="group-hover:rotate-12 transition-transform" /> 
-                  Try Virtually
+                  AI Virtual Try-On
                 </button>
               )}
 
@@ -1572,10 +1572,11 @@ const App: React.FC = () => {
       )}
 
       {isTryOnActive && tryOnProduct && (
-        <LocalVirtualTryOn 
+        <VirtualTryOnModal 
           product={tryOnProduct} 
           onClose={() => setIsTryOnActive(false)}
           onAddToCart={(p) => addToCart(p, p.sizes[0], p.colors[0], 1)}
+          onProductChange={(p) => setTryOnProduct(p)}
         />
       )}
 
